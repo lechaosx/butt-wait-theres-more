@@ -3,7 +3,7 @@ extends Node2D
 var cannon_ball = preload("res://src/projectiles/cannon_ball/cannon_ball.tscn")
 
 var loc_diff : Vector2
-const ball_speed = 10000
+const ball_speed = 50000
 
 func _input(event):
 	pass
