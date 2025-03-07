@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=4 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
 [ext_resource type="PackedScene" uid="uid://klduhmvs4eva" path="res://obstacle.tscn" id="2_cd1ay"]
+[ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="2_mehw6"]
 
 [node name="Sea" type="Node2D"]
 
@@ -9,6 +10,8 @@
 position = Vector2(384, 356)
 
 [node name="Camera2D" type="Camera2D" parent="Ship"]
+
+[node name="Cannon" parent="Ship" instance=ExtResource("2_mehw6")]
 
 [node name="Obstacle" parent="." instance=ExtResource("2_cd1ay")]
 position = Vector2(321, 202)
