@@ -13,4 +13,10 @@ func _physics_process(delta):
 	else:
 		velocity = velocity * (1 - drag)
 
-	move_and_slide()
+	if move_and_slide():
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			var collider = collision.get_collider()
+			if collider is RigidBody2D:
+				collider.apply_central_impulse(-collision.get_normal()*0.1)
+				
