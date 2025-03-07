@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://p6yfac4vlqls"]
+
+[ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
+[ext_resource type="PackedScene" uid="uid://klduhmvs4eva" path="res://obstacle.tscn" id="2_cd1ay"]
+
+[node name="Sea" type="Node2D"]
+
+[node name="Ship" parent="." instance=ExtResource("1_xwcm7")]
+position = Vector2(384, 356)
+
+[node name="Camera2D" type="Camera2D" parent="Ship"]
+
+[node name="Obstacle" parent="." instance=ExtResource("2_cd1ay")]
+position = Vector2(321, 202)
+
+[node name="Obstacle2" parent="." instance=ExtResource("2_cd1ay")]
+position = Vector2(717, 340)
+
+[node name="Obstacle3" parent="." instance=ExtResource("2_cd1ay")]
+position = Vector2(284, 487)
