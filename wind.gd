@@ -28,14 +28,10 @@ func _physics_process(delta: float) -> void:
 		if affected_object is RigidBody2D:
 			if affected_object.linear_velocity.length() < _speed:
 				affected_object.apply_central_force(_direction * _speed)
-			print_debug(affected_object.linear_velocity)
-			
-			pass
 		
 		if affected_object is CharacterBody2D:
 			var save_velocity = affected_object.velocity
 			affected_object.velocity = _direction * _speed * delta * 60
 			affected_object.move_and_slide()
 			affected_object.velocity = save_velocity
-			pass
 	
