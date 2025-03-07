@@ -8,7 +8,7 @@ class_name PlayerShip extends CharacterBody2D
 @export var brakes = 100
 @export var ship_length = 50
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta):
 	var direction = transform.x
 
 	var acceleration = direction * power * Input.get_action_strength("ui_up")
@@ -29,7 +29,13 @@ func _physics_process(delta: float) -> void:
 
 	rotation = new_heading.angle()
 
-	move_and_slide()
+	if move_and_slide():
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			var collider = collision.get_collider()
+			if collider is RigidBody2D:
+				collider.apply_central_impulse(-collision.get_normal()*0.1)
+				
 
 func _on_barrel_explode_to_ship(barrel: Barrel) -> void:
 	print_debug(barrel)
