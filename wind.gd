@@ -26,7 +26,7 @@ func set_wind(speed: float, direction: Vector2) -> void:
 	_speed = speed
 	_direction = direction.normalized()
 	wind_changed.emit(_speed, _direction)
-
+	
 func _physics_process(delta: float) -> void:
 	var affected_objects = get_tree().get_nodes_in_group("wind_affected")
 	for affected_object in affected_objects:

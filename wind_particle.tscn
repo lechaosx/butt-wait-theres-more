@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqnya2diu0phu"]
+
+[ext_resource type="Texture2D" uid="uid://bwly7irw20tya" path="res://assets/Effects/wind.png" id="1_byqs1"]
+[ext_resource type="Script" uid="uid://x138ufrcxh0o" path="res://wind_particle.gd" id="2_byqs1"]
+
+[node name="WindParticle" type="Sprite2D"]
+texture = ExtResource("1_byqs1")
+script = ExtResource("2_byqs1")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.999992, 0)
+scale = Vector2(15.3, 1)

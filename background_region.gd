@@ -22,7 +22,7 @@ func _ready() -> void:
 			waves.append(wave)
 			wave.position = Vector2(x, y) + 0.5 * Vector2(w * randf_range(-1, 1), h * randf_range(-1, 1))
 			wave_origins.append(wave.position)
-			wave.modulate = Color(randf_range(0.6, 0.8), randf_range(0.6, 0.8), 1, randf_range(0.1, 0.3))
+			wave.modulate = Color(randf_range(0, 0.1), randf_range(0.1, 0.2), 0.25, randf_range(0.2, 0.4))
 			wave = wave_scn.instantiate()
 
 func _process(_delta: float) -> void:
