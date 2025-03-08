@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ch53hlq65v6ij"]
 
-[ext_resource type="Script" uid="uid://ceacxuiy4847h" path="res://barrel.gd" id="1_a12vh"]
+[ext_resource type="Script" uid="uid://ceacxuiy4847h" path="res://src/barrel/barrel.gd" id="1_a12vh"]
 [ext_resource type="Texture2D" uid="uid://c21smonqjnvvy" path="res://assets/barrel.png" id="1_n8un1"]
 [ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/hitpoint_bar.tscn" id="3_rdxsi"]
 

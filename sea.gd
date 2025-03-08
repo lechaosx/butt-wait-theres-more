@@ -1,6 +1,6 @@
 extends Node
 
-@onready var barrel = preload("res://barrel.tscn")
+@onready var barrel = preload("res://src/barrel/barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 
@@ -22,9 +22,9 @@ func _ready() -> void:
 	ships.image = load("res://assets/Ships/ship (4).png")
 	ships.name = "Friendly Ship"
 	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
-	
+
 	abilities.append(ships)
-	
+
 
 func create_barrel(pos: Vector2) -> void:
 	var parent = $"."
