@@ -38,7 +38,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	
 	ship.texture = load("res://assets/Ships/ship (2).png")
 	ship.on_death.connect(self._on_enemy_death)
-	ship.max_hitpoints = 50
+	ship.set_max_hitpoints(5)
 	add_child(ship)
 
 
