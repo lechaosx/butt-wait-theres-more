@@ -16,11 +16,7 @@ class_name Ship extends CharacterBody2D
 		if $Sprite2D:
 			$Sprite2D.texture = value
 
-@export var max_hitpoints: int:
-	set(value):
-		max_hitpoints = value
-		if $HitpointBar/ProgressBar:
-			$HitpointBar/ProgressBar.max_value = value
+@export var max_hitpoints: int
 	
 var hitpoints: int:
 	set(value):
@@ -32,7 +28,7 @@ signal on_death(CharacterBody2D)
 
 func receive_damage(damage: int) -> void:
 	hitpoints -= damage
-	if hitpoints < 0:
+	if hitpoints <= 0:
 		on_death.emit(self)
 
 func receive_heal(heal:int):
@@ -42,7 +38,14 @@ func fully_heal():
 	hitpoints = max_hitpoints
 	
 func _ready() -> void:
+	if $HitpointBar/ProgressBar:
+			$HitpointBar/ProgressBar.max_value = max_hitpoints
 	fully_heal()
+	
+func set_max_hitpoints(value:int):
+	max_hitpoints = value
+	if $HitpointBar/ProgressBar:
+			$HitpointBar/ProgressBar.max_value = max_hitpoints
 
 func _physics_process(delta: float) -> void:
 	var acceleration_intent = controller.get_acceleration_strength() if controller else 0
