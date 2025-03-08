@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://1p3ot4ug2gag" path="res://user_controller.gd" id="2_mehw6"]
 [ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="3_ari0p"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
-[ext_resource type="Script" path="res://player_camera.gd" id="4_a0flf"]
+[ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
 [ext_resource type="PackedScene" uid="uid://00gajb1hqwq6" path="res://src/weapons/cannon_automatic/cannon_automatic.tscn" id="6_a0flf"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
-[ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background_tiles.gd" id="10_7uhs0"]
+[ext_resource type="Script" path="res://background_tiles.gd" id="10_7uhs0"]
 
 [node name="Sea" type="Node2D"]
 script = ExtResource("1_lotjo")

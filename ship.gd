@@ -50,15 +50,10 @@ func _physics_process(delta: float) -> void:
 			if collider is Ship:
 				collider.velocity += -collision.get_normal()*0.1
 				
-<<<<<<< Updated upstream
-				# this is just temporary placeholder.
-				receive_damage(1)
-=======
 				# add some dmg calculation based on velocity
 				if collider.find_child("HitpointBar"):
 					collider.find_child("HitpointBar").receive_damage(1)
 				$HitpointBar.receive_damage(1)
->>>>>>> Stashed changes
 				
 
 func _on_barrel_explode_to_ship(barrel: Barrel) -> void:
