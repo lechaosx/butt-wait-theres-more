@@ -9,6 +9,8 @@ class_name Ship extends CharacterBody2D
 @export var brakes = 100
 @export var ship_length = 100
 
+@export var is_frendly = true
+
 @export var controller: Node
 @export var texture: Texture2D:
 	set(value):
@@ -47,7 +49,7 @@ func _physics_process(delta: float) -> void:
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
 			var collider = collision.get_collider()
-			if collider is Ship:
+			if collider is Ship && (!collider.is_frendly || !is_frendly):
 				collider.velocity += -collision.get_normal()*0.1
 				
 				# add some dmg calculation based on velocity

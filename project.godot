@@ -75,6 +75,8 @@ Click={
 2d_physics/layer_2="obstacle"
 2d_physics/layer_3="barrel"
 2d_physics/layer_4="projectile"
+2d_physics/layer_5="enemy_ship"
+2d_physics/layer_6="frendly_ship"
 
 [physics]
 

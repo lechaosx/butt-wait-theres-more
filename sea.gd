@@ -16,6 +16,20 @@ func _ready() -> void:
 	
 	abilities.append(canons)
 	
+	var ship = ship_scene.instantiate();
+	ship.controller = AIShipFollowerController.new()
+	ship.controller.owner_ship = %PlayerShip
+	ship.power = 250
+	ship.traction = 50
+	ship.set_collision_layer_value(1, false)
+	ship.set_collision_layer_value(6, true)
+	ship.set_collision_mask_value(5, true)
+	ship.add_child(ship.controller)
+	ship.texture = load("res://assets/Ships/ship (4).png")
+	ship.scale = Vector2(0.5, 0.5)
+	ship.position = Vector2(-50,-50)
+	add_child(ship)
+	
 
 func create_barrel(pos: Vector2) -> void:
 	var parent = $"."
@@ -45,8 +59,13 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	ship.controller.target = %PlayerShip
 	ship.add_child(ship.controller)
 	
-	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
+	ship.set_collision_layer_value(1, false)
+	ship.set_collision_layer_value(5, true)
+	ship.set_collision_mask_value(4, true)
+	ship.is_frendly = false;
+	ship.add_to_group("enemies")
 	
+	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 	ship.texture = load("res://assets/Ships/ship (2).png")
 	var hitpoint_bar = ship.find_child("HitpointBar")
 	hitpoint_bar.on_death.connect(self._on_enemy_death)
