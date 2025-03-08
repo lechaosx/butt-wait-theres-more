@@ -4,9 +4,6 @@ extends Node2D
 @onready var ship_scene := preload("res://ship.tscn")
 
 func _ready() -> void:
-	create_barrel(Vector2(551, 469))
-	create_barrel(Vector2(190, 369))
-	create_barrel(Vector2(583, 144))
 	SignalBus.BarrelExplodeToShip.connect(self._on_barrel_explode_to_ship)
 
 func create_barrel(pos: Vector2) -> void:
@@ -41,7 +38,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	ship.position = %PlayerShip.position + get_random_point_on_circle(get_viewport_rect().size.length() / 2)
 	
 	ship.texture = load("res://assets/Ships/ship (2).png")
-	#add_child(ship)
+	add_child(ship)
 
 
 func _on_barrel_spawn_timer_timeout() -> void:
