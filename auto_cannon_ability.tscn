@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg8atx4i17dxq"]
+
+[ext_resource type="Script" uid="uid://bxaap6op8xe3g" path="res://auto_cannon_ability.gd" id="1_5phjl"]
+
+[node name="AutoCannonAbility" type="Node2D"]
+script = ExtResource("1_5phjl")
