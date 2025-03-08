@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
 [ext_resource type="PackedScene" path="res://auto_cannon_ability.tscn" id="4_pfxiy"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
-[ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
+[ext_resource type="PackedScene" path="res://ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" path="res://background_tiles.gd" id="10_7uhs0"]
 
 [node name="Sea" type="Node"]

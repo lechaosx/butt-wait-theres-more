@@ -1,6 +1,5 @@
 class_name Ship extends CharacterBody2D
 
-
 @export var steering_angle = 25
 @export var power = 100
 @export var friction = 30
@@ -60,3 +59,7 @@ func _on_ram_area_body_entered(body: Node2D) -> void:
 					child.receive_damage(ramming_damage)
 			else:
 				child.receive_damage(ramming_damage)
+				
+	if controller.has_method("on_ramming"):
+		controller.on_ramming()
+	

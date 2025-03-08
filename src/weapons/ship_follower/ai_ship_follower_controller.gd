@@ -6,29 +6,42 @@ class_name AIShipFollowerController extends Node
 @export var offset_range = 100
 @export var offset_rotation = 0;
 @export var break_dist = 15;
+@export var ramming_wait = 0.5;
 
 var enemy_target : Node2D
-
-var target
+var target : Vector2
+var wait_time: float
 
 func _ready() -> void:
 	offset_rotation = randf_range(-PI, PI)
 
-
+func on_ramming():
+	wait_time = ramming_wait
+	
+func _process(delta: float) -> void:
+	if wait_time > 0:
+		wait_time -= delta
+	
+func get_stop():
+	var to_target : Vector2 = get_parent().position - target
+	
+	if enemy_target && wait_time > 0:
+		return true
+	
+	return to_target.length() <= break_dist && !enemy_target
+	
 func get_acceleration_strength():
 	# we are assuming that get_acceleration_strength gets called fist lol
 	target = get_target()
-	var to_target : Vector2 = get_parent().position - target
 	
-	if to_target.length() <= break_dist && !enemy_target:
+	if get_stop():
 		return 0
 	else:
 		return 1
 	
 func get_brake_strength():
-	var to_target : Vector2 = get_parent().position - target
-	
-	if to_target.length() <= break_dist && !enemy_target:
+
+	if get_stop():
 		return 1
 	else:
 		return 0
