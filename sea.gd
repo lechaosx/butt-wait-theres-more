@@ -1,10 +1,21 @@
-extends Node2D
+extends Node
 
 @onready var barrel = preload("res://barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
 
+@export var abilities: Array[Ability] = []
+
 func _ready() -> void:
 	SignalBus.BarrelExplodeToShip.connect(self._on_barrel_explode_to_ship)
+	
+	var canons = Ability.new()
+	canons.current_level = 0
+	canons.max_level = 5
+	canons.image = load("res://assets/Ship parts/cannon.png")
+	canons.name = "Automatic Cannon"
+	
+	abilities.append(canons)
+	
 
 func create_barrel(pos: Vector2) -> void:
 	var parent = $"."
@@ -56,4 +67,13 @@ func _on_barrel_spawn_timer_timeout() -> void:
 	
 func _on_enemy_death(enemy:CharacterBody2D) -> void:
 	enemy.queue_free()
+	upgrade_abilities()
 	
+func upgrade_abilities():
+	$%AbilityCards.abilities = abilities
+	%AbilityCards.visible = true
+	Engine.time_scale = 0.1
+	
+func _on_ability_cards_ability_selected(ability: Ability) -> void:
+	ability.current_level += 1
+	Engine.time_scale = 1
