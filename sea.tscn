@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="3_ari0p"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
 [ext_resource type="PackedScene" uid="uid://00gajb1hqwq6" path="res://src/weapons/cannon_automatic/cannon_automatic.tscn" id="6_a0flf"]
+[ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 
 [node name="Sea" type="Node2D"]
@@ -20,8 +21,10 @@ friction = 20
 ship_length = 50
 controller = NodePath("UserController")
 texture = ExtResource("3_pfxiy")
+max_hitpoints = 200
 
-[node name="Camera2D" type="Camera2D" parent="PlayerShip"]
+[node name="PlayerCamera" type="Camera2D" parent="PlayerShip"]
+script = ExtResource("4_a0flf")
 
 [node name="Cannon" parent="PlayerShip" instance=ExtResource("3_ari0p")]
 
@@ -44,5 +47,6 @@ autostart = true
 [node name="BarrelSpawnTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="on_death" from="EnemyShip" to="." method="_on_enemy_death"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]

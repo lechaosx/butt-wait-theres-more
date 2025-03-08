@@ -16,6 +16,34 @@ class_name Ship extends CharacterBody2D
 		if $Sprite2D:
 			$Sprite2D.texture = value
 
+@export var max_hitpoints: int:
+	set(value):
+		max_hitpoints = value
+		if $HitpointBar/ProgressBar:
+			$HitpointBar/ProgressBar.max_value = value
+	
+var hitpoints: int:
+	set(value):
+		hitpoints = value
+		if $HitpointBar/ProgressBar:
+			$HitpointBar/ProgressBar.value = value
+
+signal on_death(CharacterBody2D)
+
+func receive_damage(damage: int) -> void:
+	hitpoints -= damage
+	if hitpoints < 0:
+		on_death.emit(self)
+
+func receive_heal(heal:int):
+	hitpoints = clamp(hitpoints+heal, 0, max_hitpoints)
+
+func fully_heal():
+	hitpoints = max_hitpoints
+	
+func _ready() -> void:
+	fully_heal()
+
 func _physics_process(delta: float) -> void:
 	var acceleration_intent = controller.get_acceleration_strength() if controller else 0
 	var brake_intent        = controller.get_brake_strength() if controller else 0
@@ -40,6 +68,7 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, new_heading * velocity.length(), traction * delta) + acceleration * delta
 
 	rotation = new_heading.angle()
+	$HitpointBar.rotation = -rotation
 
 	if move_and_slide():
 		for i in get_slide_collision_count():
@@ -47,6 +76,9 @@ func _physics_process(delta: float) -> void:
 			var collider = collision.get_collider()
 			if collider is RigidBody2D:
 				collider.apply_central_impulse(-collision.get_normal()*0.1)
+				
+				# this is just temporary placeholder.
+				receive_damage(1)
 				
 
 func _on_barrel_explode_to_ship(barrel: Barrel) -> void:
