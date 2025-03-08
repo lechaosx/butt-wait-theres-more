@@ -37,8 +37,10 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 	
 	ship.texture = load("res://assets/Ships/ship (2).png")
-	ship.on_death.connect(self._on_enemy_death)
-	ship.set_max_hitpoints(5)
+	var hitpoint_bar = ship.find_child("HitpointBar")
+	hitpoint_bar.on_death.connect(self._on_enemy_death)
+	hitpoint_bar.set_max_hitpoints(5)
+	
 	add_child(ship)
 
 

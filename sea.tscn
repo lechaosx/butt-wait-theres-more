@@ -21,7 +21,6 @@ friction = 20
 ship_length = 50
 controller = NodePath("UserController")
 texture = ExtResource("3_pfxiy")
-max_hitpoints = 200
 
 [node name="PlayerCamera" type="Camera2D" parent="PlayerShip"]
 script = ExtResource("4_a0flf")

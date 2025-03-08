@@ -23,6 +23,7 @@ func _physics_process(delta: float) -> void:
 		instance.transform = transform
 		get_tree().root.add_child(instance);
 		queue_free()
+<<<<<<< Updated upstream
 		
 	var coll = get_colliding_bodies()
 	for c in coll:
@@ -30,3 +31,12 @@ func _physics_process(delta: float) -> void:
 			c.receive_damage(damage)
 			queue_free()
 			break
+=======
+	
+
+func _on_body_entered(body: Node) -> void:
+	if body is Ship:
+		if body.find_child("HitpointBar"):
+			body.find_child("HitpointBar").receive_damage(1)
+		queue_free()
+>>>>>>> Stashed changes
