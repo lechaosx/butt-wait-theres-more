@@ -23,6 +23,7 @@ friction = 20
 ship_length = 50
 controller = NodePath("UserController")
 texture = ExtResource("3_pfxiy")
+max_hitpoints = 200
 
 [node name="Camera2D" type="Camera2D" parent="PlayerShip"]
 
@@ -59,4 +60,5 @@ target = NodePath("../../PlayerShip")
 wait_time = 5.0
 autostart = true
 
+[connection signal="on_death" from="EnemyShip" to="." method="_on_enemy_death"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
