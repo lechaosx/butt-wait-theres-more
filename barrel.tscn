@@ -76,7 +76,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Barrel" type="RigidBody2D"]
+[node name="Barrel" type="RigidBody2D" groups=["floaters"]]
 collision_layer = 4
 script = ExtResource("1_a12vh")
 
