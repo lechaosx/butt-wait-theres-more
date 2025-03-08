@@ -1,79 +1,53 @@
 class_name Barrel
 extends RigidBody2D
 
-# TODO: po impactu se nehybe
-# TODO: ma damage
-# TODO: rozmistit plaminky podle damage
-# TODO: dodelat explosion
 var random = RandomNumberGenerator.new()
-@export var damage: int = random.randi_range(5, 11)
-var collide_counter: int = 0
-var onfire_counter: int = 0
+var damage: int = random.randi_range(6, 18)
+var damage_on_fire: int = 1
+var damage_on_explosion: int = 3
 var velocity: Vector2 = Vector2(0, 0)
 var fire = preload("res://src/effects/fire/fire.tscn")
+var explode_others = preload("res://src/projectiles/explode_ball/explode_ball.tscn")
 
 func _ready() -> void:
 	var hp: HitpointBar = $HitpointBar
-	hp.set_max_hitpoints(5) #damage)
+	hp.set_max_hitpoints(damage)
 	hp.fully_heal()
 	hp.on_death.connect(self._on_barrel_is_dead)
-	pass
 
 func _physics_process(delta: float) -> void:
-	##var collisionInfo = move_and_collide(velocity * delta)
 	var collisionInfo = move_and_collide(Vector2.ZERO)
 	if collisionInfo:
-		##velocity = velocity.bounce(collisionInfo.get_normal())
-		##freeze = true
 		collide_with(collisionInfo)
-
-	#var motion = velocity * delta
-	#if test_motion(Transform2D(), motion):
-		#print("Collision detected!")
-
-	#var motion = velocity * delta
-	#var motion_result = PhysicsTestMotionResult2D.new()
-	## Test if the body would collide without actually moving it
-	#if PhysicsServer2D.body_test_motion(get_rid(), motion, motion_result):
-		#print("Collision detected with:", motion_result.collider)
-
-	#if hitpoints <= 0:
-		#final_explosion()
-
-	pass
 
 func _on_barrel_is_dead(parent:Node) -> void:
 	if parent is Barrel:
 		var boom: Fire = fire.instantiate()
 		var badaboom = func():
-			#SignalBus.BarrelExplode.emit(self)
+			var badaboom = explode_others.instantiate()
+			badaboom.position = parent.position
+			get_tree().root.add_child(badaboom)
 			parent.queue_free()
+
 		$".".add_child(boom)
+		boom.scale = Vector2(2, 2)
 		boom.start("boom1", 0.5, 0, badaboom)
 		$HitpointBar.visible = false
 
 func collide_with(info: KinematicCollision2D) -> void:
 	var col = info.get_collider()
+	#print_debug(col.name)
 	match col.name:
 		"PlayerShip":
-			add_fire()
-			add_fire()
-			add_fire()
+			add_explosion()
+			var hp: HitpointBar = $HitpointBar
+			#var ship: Ship = col #TODO: getShipMass
+			hp.receive_damage(damage_on_explosion)
 		"CannonBall":
 			add_fire()
 			var hp: HitpointBar = $HitpointBar
 			var ball: CannonBall = col
 			hp.receive_damage(ball.damage)
-		#_:
-			#var a = get_colliding_bodies()
-		#var b = get_contact_count()
-		#var x = collisionInfo.get_collider() #.name == "Borders":
-		##hit_sound.play()
-		#print_debug(a, b, x, x.name)
-
-
-	#collide_cod
-	pass
 
 func get_fire_range() -> Vector2:
 	return Vector2(
@@ -81,48 +55,30 @@ func get_fire_range() -> Vector2:
 		$Sprite2D.texture.get_height()
 	)
 
+func add_explosion() -> void:
+	var boom_new: Fire = fire.instantiate()
+	var boom_finished = func():
+		$HitpointBar.receive_damage(damage_on_explosion)
+		add_explosion()
+
+	$".".add_child(boom_new)
+	boom_new.start("boom1", 0.5, 0, boom_finished)
+
 func add_fire(delta_pos: Vector2 = Vector2.ZERO) -> void:
-	var parent = $"."
-	var fire1: Fire = fire.instantiate()
-	fire1.translate(delta_pos)
-	#fire1.position = position + delta_pos
-	parent.add_child(fire1)
-	onfire_counter += 1
+	var fire_new: Fire = fire.instantiate()
+	fire_new.translate(delta_pos)
+	$".".add_child(fire_new)
 
 	var fire_range = get_fire_range() / 2
 	var fire_finished = func():
+		$HitpointBar.receive_damage(damage_on_fire)
 		add_fire(Vector2(
 			random.randi_range(-1 * fire_range.x, fire_range.x),
 			random.randi_range(-1 * fire_range.y, fire_range.y)
 		))
-		#SignalBus.BarrelExplodeToShip.emit(self)
-#
-	#fire1.start("fire1", 3)
-	#fire2.start("fire1", 1, 0.5)
-	#fire3.start("fire1", 1.5, 0.75)
-	fire1.start("fire1", 1, 0, fire_finished)
+		add_fire(Vector2(
+			random.randi_range(-1 * fire_range.x, fire_range.x),
+			random.randi_range(-1 * fire_range.y, fire_range.y)
+		))
 
-
-func explode() -> void:
-	var parent = $"."
-	var fire1: Fire = fire.instantiate()
-	var fire2: Fire = fire.instantiate()
-	var fire3: Fire = fire.instantiate()
-	var boom1: Fire = fire.instantiate()
-	#TODO: random fire position
-	fire1.position = position + Vector2(55, 55)
-	fire2.position = position + Vector2(77, 55)
-	fire3.position = position + Vector2(99, 55)
-	boom1.position = position + Vector2(111, 55)
-	parent.add_child(fire1)
-	parent.add_child(fire2)
-	parent.add_child(fire3)
-	parent.add_child(boom1)
-
-	var badaboom = func():
-		SignalBus.BarrelExplodeToShip.emit(self)
-
-	fire1.start("fire1", 3)
-	fire2.start("fire1", 1, 0.5)
-	fire3.start("fire1", 1.5, 0.75)
-	boom1.start("boom1", 0.5, 3.5, badaboom)
+	fire_new.start("fire1", 1, 0, fire_finished)
