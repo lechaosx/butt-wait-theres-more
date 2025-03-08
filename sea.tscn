@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=10 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
 [ext_resource type="Script" uid="uid://1p3ot4ug2gag" path="res://user_controller.gd" id="2_mehw6"]
 [ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="3_ari0p"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
-[ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
+[ext_resource type="Script" path="res://player_camera.gd" id="4_a0flf"]
 [ext_resource type="PackedScene" uid="uid://00gajb1hqwq6" path="res://src/weapons/cannon_automatic/cannon_automatic.tscn" id="6_a0flf"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
+[ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background_tiles.gd" id="10_7uhs0"]
 
 [node name="Sea" type="Node2D"]
 script = ExtResource("1_lotjo")
@@ -46,6 +47,9 @@ autostart = true
 
 [node name="BarrelSpawnTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="BackgroundTiles" type="Node2D" parent="."]
+script = ExtResource("10_7uhs0")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
