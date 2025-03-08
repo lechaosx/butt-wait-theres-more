@@ -1,7 +1,9 @@
 class_name CannonBall
 extends RigidBody2D
 
-@export var damage : int = 1
+@export var damage : int
+@export var piercing : int
+
 
 const delay_die_time = 0.3
 var delay_die : float
@@ -31,6 +33,12 @@ func _on_body_entered(body: Node) -> void:
 		if child is HitpointBar:
 			child.receive_damage(1)
 	
+	add_collision_exception_with(body)
+	
+	piercing-=1
+	if piercing:
+		return
+		
 	var instance = impact.instantiate()
 	instance.transform = transform
 	get_tree().root.add_child(instance);

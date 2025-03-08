@@ -39,7 +39,7 @@ func create_barrel(pos: Vector2) -> void:
 	bar.position = pos
 	
 	var HP = hitpoint_scene.instantiate()
-	HP.on_death.connect(self._on_enemy_death)
+	#HP.on_death.connect(self._on_enemy_death)
 	HP.set_max_hitpoints(5)
 	
 	bar.add_child(HP)
@@ -95,7 +95,7 @@ func _on_barrel_spawn_timer_timeout() -> void:
 		var radius = randf_range(screen_radius * 1.5, max_radius)
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 	
-func _on_enemy_death(enemy:CharacterBody2D) -> void:
+func _on_enemy_death(enemy:Node) -> void:
 	enemy.queue_free()
 	upgrade_abilities()
 	
