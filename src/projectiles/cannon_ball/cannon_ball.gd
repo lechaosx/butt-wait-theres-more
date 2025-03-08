@@ -26,8 +26,8 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body: Node) -> void:
-	if body is Ship:
-		if body.find_child("HitpointBar"):
-			body.find_child("HitpointBar").receive_damage(1)
-		set_collision_layer_value(4, false)
-		queue_free()
+	for child in body.get_children():
+		if child is HitpointBar:
+			child.receive_damage(1)
+	
+	queue_free()

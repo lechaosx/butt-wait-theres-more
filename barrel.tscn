@@ -11,7 +11,7 @@ height = 72.0
 [node name="Barrel" type="RigidBody2D" groups=["floaters"]]
 disable_mode = 1
 collision_layer = 4
-collision_mask = 9
+collision_mask = 15
 mass = 1000.0
 contact_monitor = true
 max_contacts_reported = 50
@@ -25,4 +25,4 @@ position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_a12vh")
 
 [node name="HitpointBar" parent="." instance=ExtResource("3_rdxsi")]
-max_hitpoints = 0
+max_hitpoints = 10
