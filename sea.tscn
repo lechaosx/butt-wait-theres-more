@@ -18,7 +18,7 @@
 [node name="Sea" type="Node"]
 script = ExtResource("1_lotjo")
 
-[node name="PlayerShip" parent="." node_paths=PackedStringArray("controller") groups=["wind_affected"] instance=ExtResource("1_xwcm7")]
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("controller") groups=["frendly", "wind_affected"] instance=ExtResource("1_xwcm7")]
 unique_name_in_owner = true
 z_index = 1
 rotation = -1.5708

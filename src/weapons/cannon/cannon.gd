@@ -15,10 +15,8 @@ func _input(event):
 	pass
 	if event.is_action_pressed("Click") && cannon_heat <= cannon_heat_max:
 		cannon_heat += 1
-		var instance = cannon_ball.instantiate()
-		instance.apply_force(loc_diff.normalized() * ball_speed + get_parent().velocity)
-		instance.transform = get_parent().transform.translated(loc_diff.normalized() * $Sprite2D.position.x)
-		get_tree().root.add_child(instance);
+		var instance = CannonSpawn.spawn_cannon_ball(get_parent(), ball_speed, get_parent().transform.get_origin(), loc_diff.normalized(), get_parent().velocity, $Sprite2D.position.x)
+		get_tree().root.add_child(instance)
 		
 
 func _process(delta: float) -> void:

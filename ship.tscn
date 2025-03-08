@@ -14,6 +14,7 @@ size = Vector2(15, 15)
 b = Vector2(1, 0)
 
 [node name="Ship" type="CharacterBody2D"]
+collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_4cq66")
 

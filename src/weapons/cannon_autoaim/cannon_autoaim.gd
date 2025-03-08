@@ -46,8 +46,5 @@ func _on_timer_timeout() -> void:
 
 	if target:
 		var forward_dir = global_transform.x
-		var instance = cannon_ball.instantiate()
-		instance.position = global_position + forward_dir * 20
-		instance.scale = Vector2(0.5, 0.5)
+		var instance = CannonSpawn.spawn_cannon_ball(get_parent(), ball_speed, global_position, forward_dir, velocity, 20)
 		get_tree().root.add_child(instance)
-		instance.apply_force(ball_speed * forward_dir + velocity)

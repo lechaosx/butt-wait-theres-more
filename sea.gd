@@ -52,7 +52,6 @@ func _on_enemy_spawn_timer_timeout() -> void:
 
 	ship.set_collision_layer_value(1, false)
 	ship.set_collision_layer_value(5, true)
-	ship.set_collision_mask_value(4, true)
 	ship.is_frendly = false;
 	ship.add_to_group("enemies")
 
