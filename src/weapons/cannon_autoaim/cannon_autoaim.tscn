@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdpk5s7xltok8"]
+
+[ext_resource type="Script" uid="uid://cc3n83mm1yvh8" path="res://src/weapons/cannon_autoaim/cannon_autoaim.gd" id="1_2hktb"]
+[ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_o2lhc"]
+
+[node name="Cannon" type="Node2D"]
+script = ExtResource("1_2hktb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_o2lhc")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

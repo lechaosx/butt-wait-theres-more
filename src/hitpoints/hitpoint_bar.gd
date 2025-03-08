@@ -4,16 +4,28 @@ extends Node2D
 @export var max_hitpoints: int = 10
 var damage_popup_node: PackedScene = preload("res://src/hitpoints/damage_popup/damage_popup.tscn")
 
+enum DamageType {
+	PROJECTILE,
+	RAMMING,
+	FIRE,
+	EXPLOSION,
+}
+
 var hitpoints: int:
 	set(value):
 		hitpoints = value
 		if $ProgressBar:
 			$ProgressBar.value = value
 		hitpoint_update.emit(value)
+		if hitpoints <= 0:
+			on_death.emit(get_parent())
+
 
 signal on_death(parent:Node)
 signal hitpoint_update(new_value:int)
 signal max_hitpoints_update(new_value:int)
+signal damage_received(value: int, type: DamageType)
+signal heal_received(value:int)
 
 func popup(value:int):
 	var popup_instance = damage_popup_node.instantiate()
@@ -22,13 +34,13 @@ func popup(value:int):
 	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1,1))*20, 0.8)
 	add_child(popup_instance)
 
-func receive_damage(damage: int) -> void:
+func receive_damage(damage: int, type : DamageType) -> void:
 	hitpoints -= damage
+	damage_received.emit(damage, type)
 	popup(damage)
-	if hitpoints <= 0:
-		on_death.emit(get_parent())
-
+	
 func receive_heal(heal:int):
+	heal_received.emit(heal)
 	hitpoints = clamp(hitpoints+heal, 0, max_hitpoints)
 
 func fully_heal():
