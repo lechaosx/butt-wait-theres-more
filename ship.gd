@@ -47,9 +47,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func _on_barrel_explode_to_ship(barrel: Barrel) -> void:
-	print_debug(barrel)
-
 
 func _on_ram_area_body_entered(body: Node2D) -> void:
 	for child in body.get_children():
@@ -59,7 +56,6 @@ func _on_ram_area_body_entered(body: Node2D) -> void:
 					child.receive_damage(ramming_damage)
 			else:
 				child.receive_damage(ramming_damage)
-				
+
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()
-	
