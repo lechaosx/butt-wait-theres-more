@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b66eer0eet1j7"]
+
+[ext_resource type="Script" uid="uid://bh26q54udpf1n" path="res://src/hud/hud.gd" id="1_t0re6"]
+[ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://src/hitpoints/hitpoints.tres" id="2_3phq6"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_t0re6")
+
+[node name="PlayerHitpoints" type="ProgressBar" parent="."]
+offset_left = 288.0
+offset_top = 504.0
+offset_right = 672.0
+offset_bottom = 544.0
+theme = ExtResource("2_3phq6")

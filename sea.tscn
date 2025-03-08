@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=12 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
@@ -8,8 +8,9 @@
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
 [ext_resource type="PackedScene" uid="uid://bg8atx4i17dxq" path="res://auto_cannon_ability.tscn" id="4_pfxiy"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
-[ext_resource type="PackedScene" path="res://ability_cards.tscn" id="9_ari0p"]
+[ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background_tiles.gd" id="10_7uhs0"]
+[ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://src/hud/hud.tscn" id="11_24krr"]
 
 [node name="Sea" type="Node"]
 script = ExtResource("1_lotjo")
@@ -62,6 +63,8 @@ script = ExtResource("10_7uhs0")
 [node name="AbilityCards" parent="CanvasLayer" instance=ExtResource("9_ari0p")]
 unique_name_in_owner = true
 visible = true
+
+[node name="Hud" parent="." instance=ExtResource("11_24krr")]
 
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]

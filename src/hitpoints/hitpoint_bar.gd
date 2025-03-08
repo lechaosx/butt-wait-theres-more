@@ -9,8 +9,11 @@ var hitpoints: int:
 		hitpoints = value
 		if $ProgressBar:
 			$ProgressBar.value = value
+		hitpoint_update.emit(value)
 
 signal on_death(parent:Node)
+signal hitpoint_update(new_value:int)
+signal max_hitpoints_update(new_value:int)
 
 func popup(value:int):
 	var popup_instance = damage_popup_node.instantiate()

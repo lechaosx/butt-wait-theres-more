@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bhwc0xck2c1r0" path="res://ship.gd" id="1_4cq66"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="2_4cq66"]
-[ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://hitpoint_bar.tscn" id="3_v4325"]
+[ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/hitpoint_bar.tscn" id="3_v4325"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3vuw"]
 radius = 16.0
