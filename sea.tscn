@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=8 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
 [ext_resource type="Script" uid="uid://1p3ot4ug2gag" path="res://user_controller.gd" id="2_mehw6"]
 [ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="3_ari0p"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
+[ext_resource type="PackedScene" uid="uid://00gajb1hqwq6" path="res://src/weapons/cannon_automatic/cannon_automatic.tscn" id="6_a0flf"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 
 [node name="Sea" type="Node2D"]
@@ -26,6 +27,12 @@ texture = ExtResource("3_pfxiy")
 
 [node name="UserController" type="Node" parent="PlayerShip"]
 script = ExtResource("2_mehw6")
+
+[node name="Cannon2" parent="PlayerShip" instance=ExtResource("6_a0flf")]
+rotation = 0.785398
+
+[node name="Cannon3" parent="PlayerShip" instance=ExtResource("6_a0flf")]
+rotation = -0.785398
 
 [node name="Wind" type="Node" parent="."]
 script = ExtResource("8_pfxiy")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://00gajb1hqwq6"]
+
+[ext_resource type="Script" uid="uid://dgxki4ml47fw4" path="res://src/weapons/cannon_automatic/cannon_automatic.gd" id="1_rxq4u"]
+[ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_nghbm"]
+
+[node name="Cannon" type="Node2D"]
+z_index = 3
+script = ExtResource("1_rxq4u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(31, 0)
+texture = ExtResource("2_nghbm")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
