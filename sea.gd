@@ -22,7 +22,7 @@ func get_random_point_outside_view() -> Vector2:
 	var min_distance = sqrt(pow(viewport_size.x / 2, 2) + pow(viewport_size.y / 2, 2)) * 1.5 
 	var angle = randf() * TAU
 	
-	return get_viewport_rect().get_center() + Vector2(cos(angle), sin(angle)) * min_distance
+	return %PlayerShip.position + Vector2(cos(angle), sin(angle)) * min_distance
 
 func _on_barrel_explode_to_ship(barrel: Barrel) -> void:
 	print_debug(barrel)
