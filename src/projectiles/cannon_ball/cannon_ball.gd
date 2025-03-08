@@ -5,7 +5,7 @@ extends RigidBody2D
 const delay_die_time = 0.3
 var delay_die : float
 
-const speed_limit = 20
+const speed_limit = 300
 const size_vec_scalor = 0.002
 const size_time_scalor = 3
 const time_speed_scalor = 2
@@ -23,20 +23,10 @@ func _physics_process(delta: float) -> void:
 		instance.transform = transform
 		get_tree().root.add_child(instance);
 		queue_free()
-<<<<<<< Updated upstream
-		
-	var coll = get_colliding_bodies()
-	for c in coll:
-		if c is Ship:
-			c.receive_damage(damage)
-			queue_free()
-			break
-=======
-	
 
 func _on_body_entered(body: Node) -> void:
 	if body is Ship:
 		if body.find_child("HitpointBar"):
 			body.find_child("HitpointBar").receive_damage(1)
+		set_collision_layer_value(4, false)
 		queue_free()
->>>>>>> Stashed changes

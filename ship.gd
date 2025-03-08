@@ -47,8 +47,8 @@ func _physics_process(delta: float) -> void:
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
 			var collider = collision.get_collider()
-			if collider is RigidBody2D:
-				collider.apply_central_impulse(-collision.get_normal()*0.1)
+			if collider is Ship:
+				collider.velocity += -collision.get_normal()*0.1
 				
 <<<<<<< Updated upstream
 				# this is just temporary placeholder.
