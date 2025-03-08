@@ -19,7 +19,7 @@ func level_up():
 	left_cannon.rotation = deg_to_rad(90)
 	right_cannon.rotation = deg_to_rad(-90)
 	
-	add_child(left_cannon)
-	add_child(right_cannon)
+	get_parent().add_child(left_cannon)
+	get_parent().add_child(right_cannon)
 
 	level += 1

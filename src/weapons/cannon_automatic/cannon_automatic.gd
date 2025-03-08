@@ -1,7 +1,5 @@
 class_name CannonAutomatic extends Node2D
 
-var cannon_ball = preload("res://src/projectiles/cannon_ball/cannon_ball.tscn")
-
 # in seconds
 @export var cooldown = 3
 
@@ -24,5 +22,4 @@ func _on_timer_timeout() -> void:
 
 	var forward_dir = global_transform.x
 	
-	var instance = CannonSpawn.spawn_cannon_ball(get_parent(), ball_speed, global_position, forward_dir, velocity, 20)
-	get_tree().root.add_child(instance)
+	CannonSpawn.spawn_cannon_ball(get_parent(), ball_speed, global_position, forward_dir, get_parent().velocity, 20)

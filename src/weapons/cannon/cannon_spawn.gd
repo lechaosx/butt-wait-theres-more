@@ -6,6 +6,7 @@ static func spawn_cannon_ball(proj_owner, ball_speed, global_position, forward_d
 		var instance = cannon_ball.instantiate()
 		instance.position = global_position + forward_dir * offset
 		instance.scale = Vector2(0.5, 0.5)
-		instance.apply_force(ball_speed * forward_dir + velocity)
 		instance.add_collision_exception_with(proj_owner)
+		proj_owner.get_tree().root.add_child(instance)
+		instance.apply_force(ball_speed * forward_dir + velocity)
 		return instance
