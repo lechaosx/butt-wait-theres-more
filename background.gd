@@ -36,9 +36,9 @@ func _process(_delta: float) -> void:
 	var y_region = find_region_by_position(y_region_pos, 2)
 	swap_regions(3, y_region)
 	
-	regions[1].change_position(diag_region_pos)
-	regions[2].change_position(x_region_pos)
-	regions[3].change_position(y_region_pos)
+	regions[1].position = diag_region_pos
+	regions[2].position = x_region_pos
+	regions[3].position = y_region_pos
 	
 	
 func swap_regions(i: int, j: int) -> void:
