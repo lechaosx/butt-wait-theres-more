@@ -1,14 +1,20 @@
 class_name Ship extends CharacterBody2D
 
+
 @export var steering_angle = 25
-@export var power = 150
-@export var friction = 20
+@export var power = 100
+@export var friction = 30
 @export var drag = 0.1
 @export var traction = 100
 @export var brakes = 100
-@export var ship_length = 50
+@export var ship_length = 100
 
 @export var controller: Node
+@export var texture: Texture2D:
+	set(value):
+		texture = value
+		if $Sprite2D:
+			$Sprite2D.texture = value
 
 func _physics_process(delta: float) -> void:
 	var acceleration_intent = controller.get_acceleration_strength() if controller else 0

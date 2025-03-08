@@ -1,4 +1,4 @@
-extends Node
+class_name AIShipController extends Node
 
 @export var target: Node2D
 
