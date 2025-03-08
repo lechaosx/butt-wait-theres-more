@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://p6yfac4vlqls"]
 
-[ext_resource type="Script" path="res://sea.gd" id="1_lotjo"]
+[ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
 [ext_resource type="PackedScene" uid="uid://klduhmvs4eva" path="res://obstacle.tscn" id="2_cd1ay"]
 [ext_resource type="Script" uid="uid://1p3ot4ug2gag" path="res://user_controller.gd" id="2_mehw6"]

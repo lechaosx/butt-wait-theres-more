@@ -4,8 +4,9 @@ const delay_die_time = 0.3
 var delay_die : float
 
 const speed_limit = 20
-const size_vec_scalor = 0.001
+const size_vec_scalor = 0.002
 const size_time_scalor = 3
+const time_speed_scalor = 2
 
 var splash = preload("res://src/effects/splash/splash.tscn")
 
@@ -16,7 +17,7 @@ func _physics_process(delta: float) -> void:
 #	transform.scaled(Vector2(new_scale, new_scale))
 	
 	if delay_die < delay_die_time:
-		delay_die += delta
+		delay_die += delta * time_speed_scalor
 	elif linear_velocity.length() < speed_limit:
 		var instance = splash.instantiate()
 		instance.transform = transform
