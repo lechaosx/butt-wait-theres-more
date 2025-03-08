@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=17 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
@@ -12,8 +12,10 @@
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
+[ext_resource type="Script" uid="uid://dwn28qn3r10gh" path="res://cargo_hold.gd" id="10_jolub"]
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://src/hud/hud.tscn" id="11_24krr"]
 [ext_resource type="PackedScene" uid="uid://88md3i7p5702" path="res://kill_screen.tscn" id="12_7uhs0"]
+[ext_resource type="PackedScene" uid="uid://cuk2drxe2dov2" path="res://cargo_counter.tscn" id="15_f616m"]
 
 [node name="Sea" type="Node"]
 script = ExtResource("1_lotjo")
@@ -45,6 +47,10 @@ script = ExtResource("2_mehw6")
 
 [node name="HitpointBar" parent="PlayerShip" instance=ExtResource("8_24krr")]
 
+[node name="CargoHold" type="Node" parent="PlayerShip"]
+script = ExtResource("10_jolub")
+metadata/_custom_type_script = "uid://dwn28qn3r10gh"
+
 [node name="Wind" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("8_pfxiy")
@@ -64,6 +70,10 @@ autostart = true
 [node name="BarrelSpawnTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="ManOverboardSpawnTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [node name="Background" type="Node2D" parent="."]
 z_index = -10
 script = ExtResource("10_7uhs0")
@@ -77,12 +87,17 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 visible = false
 
+[node name="CargoCounter" parent="CanvasLayer" instance=ExtResource("15_f616m")]
+unique_name_in_owner = true
+
 [node name="Hud" parent="." instance=ExtResource("11_24krr")]
 unique_name_in_owner = true
 
 [connection signal="on_death" from="PlayerShip/HitpointBar" to="." method="_on_hitpoint_bar_on_death"]
+[connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
+[connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="ability_selected" from="CanvasLayer/AbilityCards" to="." method="_on_ability_cards_ability_selected"]
