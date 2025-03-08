@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_nghbm"]
 
 [node name="Cannon" type="Node2D"]
+z_as_relative = false
 script = ExtResource("1_rxq4u")
 cooldown = 1
 
