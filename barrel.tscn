@@ -1,80 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://ch53hlq65v6ij"]
+[gd_scene load_steps=4 format=3 uid="uid://ch53hlq65v6ij"]
 
-[ext_resource type="Script" path="res://barrel.gd" id="1_a12vh"]
+[ext_resource type="Script" uid="uid://ceacxuiy4847h" path="res://barrel.gd" id="1_a12vh"]
 [ext_resource type="Texture2D" uid="uid://c21smonqjnvvy" path="res://assets/barrel.png" id="1_n8un1"]
-[ext_resource type="Texture2D" uid="uid://cqn0fntt0dsc6" path="res://assets/Effects/explosion1.png" id="3_6iawg"]
-[ext_resource type="Texture2D" uid="uid://ccj3yfwutp0pr" path="res://assets/Effects/explosion2.png" id="4_43c1c"]
-[ext_resource type="Texture2D" uid="uid://44jyl5eumchr" path="res://assets/Effects/explosion3.png" id="5_otb82"]
-[ext_resource type="Texture2D" uid="uid://opcwj3jbifvm" path="res://assets/Effects/fire1.png" id="6_otb82"]
-[ext_resource type="Texture2D" uid="uid://bktrfr3y4qnls" path="res://assets/Effects/fire2.png" id="7_8e3ql"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a12vh"]
 radius = 36.0
 height = 72.0
-
-[sub_resource type="Animation" id="Animation_8e3ql"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D2:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-
-[sub_resource type="Animation" id="Animation_otb82"]
-resource_name = "fire"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D2:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.766667, 1.63333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [null, null, null]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_llmgx"]
-_data = {
-&"RESET": SubResource("Animation_8e3ql"),
-&"fire": SubResource("Animation_otb82")
-}
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8e3ql"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_6iawg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_43c1c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_otb82")
-}],
-"loop": true,
-"name": &"explosion",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_otb82")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_8e3ql")
-}],
-"loop": false,
-"name": &"fire",
-"speed": 5.0
-}]
 
 [node name="Barrel" type="RigidBody2D" groups=["floaters"]]
 collision_layer = 4
@@ -86,18 +17,3 @@ texture = ExtResource("1_n8un1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_a12vh")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_llmgx")
-}
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(0, -27)
-sprite_frames = SubResource("SpriteFrames_8e3ql")
-animation = &"explosion"
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-visible = false
-hframes = 2
