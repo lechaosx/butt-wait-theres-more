@@ -13,6 +13,7 @@ func _ready() -> void:
 	canons.max_level = 5
 	canons.image = load("res://assets/Ship parts/cannon.png")
 	canons.name = "Automatic Cannon"
+	canons.leveled.connect($PlayerShip/AutoCannonAbility.level_up)
 	
 	abilities.append(canons)
 	
@@ -75,6 +76,5 @@ func upgrade_abilities():
 	Engine.time_scale = 0.1
 	
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
-	ability.current_level += 1
-	%PlayerShip/AutoCannonAbility.level_up()
+	ability.level_up()
 	Engine.time_scale = 1
