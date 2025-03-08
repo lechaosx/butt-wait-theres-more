@@ -16,15 +16,6 @@ func _physics_process(delta: float) -> void:
 	var new_scale = clamp(linear_velocity.length() * size_vec_scalor + clamp(delay_die, 0, delay_die_time) * size_time_scalor, 1.0, 5.0)
 	$Sprite2D.scale = Vector2(new_scale,new_scale)
 	
-	var coll = get_colliding_bodies()
-#	for c in coll:
-#		print("hello")
-#		if c is Ship:
-#			c.receive_damage(damage)
-#			print("hello")
-#			queue_free()
-#			break
-	
 	if delay_die < delay_die_time:
 		delay_die += delta * time_speed_scalor
 	elif linear_velocity.length() < speed_limit:
