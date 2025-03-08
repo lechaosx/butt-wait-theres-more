@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=11 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
 [ext_resource type="Script" uid="uid://dhj5eifextht8" path="res://ai_ship_controller.gd" id="6_l01w4"]
 [ext_resource type="Texture2D" uid="uid://cu6hbqov6kni4" path="res://assets/Ships/ship (3).png" id="8_ari0p"]
+[ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 
 [node name="Sea" type="Node2D"]
 script = ExtResource("1_lotjo")
@@ -33,7 +34,7 @@ script = ExtResource("2_mehw6")
 [node name="Obstacle" parent="." groups=["wind_affected"] instance=ExtResource("2_cd1ay")]
 position = Vector2(321, 202)
 
-[node name="Obstacle2" parent="." instance=ExtResource("2_cd1ay")]
+[node name="Obstacle2" parent="." groups=["wind_affected"] instance=ExtResource("2_cd1ay")]
 position = Vector2(717, 340)
 
 [node name="Obstacle3" parent="." instance=ExtResource("2_cd1ay")]
@@ -43,7 +44,7 @@ position = Vector2(284, 487)
 visible = false
 
 [node name="Wind" type="Node" parent="."]
-script = ExtResource("6_l01w4")
+script = ExtResource("8_pfxiy")
 
 [node name="EnemyShip" parent="." node_paths=PackedStringArray("controller") instance=ExtResource("1_xwcm7")]
 position = Vector2(101, 307)

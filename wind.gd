@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 		
 		if affected_object is CharacterBody2D:
 			var save_velocity = affected_object.velocity
-			affected_object.velocity = save_velocity.normalized() * _direction.rotated(-save_velocity.angle()).x * _speed * delta * 60
+			affected_object.velocity = Vector2(1,0).rotated(affected_object.rotation) * _direction.rotated(-affected_object.rotation).x * _speed * delta * 60
 			affected_object.move_and_slide()
 			affected_object.velocity = save_velocity
 	
