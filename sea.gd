@@ -4,6 +4,7 @@ extends Node
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 @onready var man_overboard_scene := preload("res://src/man_overboard/man_overboard.tscn")
+@onready var cargo_scene := preload("res://cargo.tscn")
 
 @export var abilities: Array[Ability] = []
 
@@ -30,9 +31,15 @@ func _ready() -> void:
 func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
 	bar.position = pos
-
+	
+	var HP = hitpoint_scene.instantiate()
+	#HP.on_death.connect(self._on_enemy_death)
+	HP.set_max_hitpoints(5)
+	
+	bar.add_child(HP)
+	
 	add_child(bar)
-
+	
 func random_point_on_circle(radius: float) -> Vector2:
 	var angle = randf() * TAU
 	return Vector2(cos(angle), sin(angle)) * radius
@@ -78,7 +85,7 @@ func _on_barrel_spawn_timer_timeout() -> void:
 	if num_floaters < 10:
 		var radius = randf_range(screen_radius * 1.5, max_radius)
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
-
+	
 func _on_man_overboard_spawn_timer_timeout() -> void:
 	print_debug("spawn")
 	var man_overboard = man_overboard_scene.instantiate();
@@ -91,9 +98,11 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	add_child(man_overboard)
 
 func _on_enemy_death(enemy:Node) -> void:
+	var cargo = cargo_scene.instantiate()
+	cargo.position = enemy.position
+	add_child(cargo)
 	enemy.queue_free()
-	upgrade_abilities()
-
+	
 func upgrade_abilities():
 	$%AbilityCards.abilities = abilities
 	%AbilityCards.visible = true
@@ -102,7 +111,13 @@ func upgrade_abilities():
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	ability.level_up()
 	Engine.time_scale = 1
-
+	%CargoCounter.count -= 5
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
 	%KillScreen.die()
+
+func _on_cargo_hold_cargo_updated() -> void:
+	%CargoCounter.count = %CargoCounter.count + 1
+	
+	if %CargoCounter.count >= 5:
+		upgrade_abilities()
