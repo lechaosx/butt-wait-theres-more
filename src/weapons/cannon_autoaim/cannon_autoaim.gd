@@ -23,10 +23,17 @@ func _physics_process(delta: float) -> void:
 	
 	var enemies = get_tree().get_nodes_in_group("enemies")
 		
+	var min_dist = range
+	var min_dist_target : Ship
 	for enemy in enemies:
-		if (enemy.transform.get_origin() - global_position).length() <= range:
-			target = enemy
+		var len = (enemy.transform.get_origin() - global_position).length()
+		if len <= range && len <= min_dist:
+			min_dist = len
+			min_dist_target = enemy
 			break
+	
+	if min_dist_target:
+		target = min_dist_target
 	
 	if target:
 		rotation = (target.transform.get_origin() - global_position).angle() - get_parent().rotation

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=15 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
@@ -7,10 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
 [ext_resource type="PackedScene" uid="uid://bg8atx4i17dxq" path="res://auto_cannon_ability.tscn" id="4_pfxiy"]
+[ext_resource type="Script" uid="uid://cssc7sab12i3b" path="res://friendly_ship_ability.gd" id="5_7u2wy"]
 [ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/hitpoint_bar.tscn" id="8_24krr"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
-[ext_resource type="Script" path="res://background.gd" id="10_7uhs0"]
+[ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://src/hud/hud.tscn" id="11_24krr"]
 [ext_resource type="PackedScene" uid="uid://88md3i7p5702" path="res://kill_screen.tscn" id="12_7uhs0"]
 
@@ -31,6 +32,9 @@ texture = ExtResource("3_pfxiy")
 [node name="AutoCannonAbility" parent="PlayerShip" instance=ExtResource("4_pfxiy")]
 z_index = -2
 
+[node name="FriendlyShipAbility" type="Node" parent="PlayerShip"]
+script = ExtResource("5_7u2wy")
+
 [node name="PlayerCamera" type="Camera2D" parent="PlayerShip"]
 script = ExtResource("4_a0flf")
 
@@ -42,6 +46,7 @@ script = ExtResource("2_mehw6")
 [node name="HitpointBar" parent="PlayerShip" instance=ExtResource("8_24krr")]
 
 [node name="Wind" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("8_pfxiy")
 max_speed = 20.0
 min_speed = 5.0
@@ -73,6 +78,7 @@ unique_name_in_owner = true
 visible = false
 
 [node name="Hud" parent="." instance=ExtResource("11_24krr")]
+unique_name_in_owner = true
 
 [connection signal="on_death" from="PlayerShip/HitpointBar" to="." method="_on_hitpoint_bar_on_death"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]

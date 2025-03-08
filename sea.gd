@@ -3,7 +3,6 @@ extends Node
 @onready var barrel = preload("res://barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
-@onready var cannon_autoaim := preload("res://src/weapons/cannon_autoaim/cannon_autoaim.tscn")
 
 @export var abilities: Array[Ability] = []
 
@@ -18,23 +17,15 @@ func _ready() -> void:
 	canons.leveled.connect($PlayerShip/AutoCannonAbility.level_up)
 	
 	abilities.append(canons)
+
+	var ships = Ability.new()
+	ships.current_level = 0
+	ships.max_level = 5
+	ships.image = load("res://assets/Ships/ship (4).png")
+	ships.name = "Friendly Ship"
+	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
 	
-	var ship = ship_scene.instantiate();
-	ship.controller = AIShipFollowerController.new()
-	ship.controller.owner_ship = %PlayerShip
-	ship.power = 250
-	ship.traction = 50
-	ship.set_collision_layer_value(1, false)
-	ship.set_collision_layer_value(6, true)
-	ship.set_collision_mask_value(5, true)
-	ship.add_child(ship.controller)
-	ship.texture = load("res://assets/Ships/ship (4).png")
-	ship.scale = Vector2(0.5, 0.5)
-	ship.position = Vector2(-50,-50)
-	var cannon = cannon_autoaim.instantiate()
-	cannon.scale = Vector2(2, 2)
-	ship.add_child(cannon)
-	add_child(ship)
+	abilities.append(ships)
 	
 
 func create_barrel(pos: Vector2) -> void:
@@ -43,7 +34,7 @@ func create_barrel(pos: Vector2) -> void:
 	bar.position = pos
 	
 	var HP = hitpoint_scene.instantiate()
-	HP.on_death.connect(self._on_enemy_death)
+	#HP.on_death.connect(self._on_enemy_death)
 	HP.set_max_hitpoints(5)
 	
 	bar.add_child(HP)
@@ -99,7 +90,7 @@ func _on_barrel_spawn_timer_timeout() -> void:
 		var radius = randf_range(screen_radius * 1.5, max_radius)
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 	
-func _on_enemy_death(enemy:CharacterBody2D) -> void:
+func _on_enemy_death(enemy:Node) -> void:
 	enemy.queue_free()
 	upgrade_abilities()
 	

@@ -10,10 +10,15 @@ var hitpoints: int:
 		if $ProgressBar:
 			$ProgressBar.value = value
 		hitpoint_update.emit(value)
+		if hitpoints <= 0:
+			on_death.emit(get_parent())
+
 
 signal on_death(parent:Node)
 signal hitpoint_update(new_value:int)
 signal max_hitpoints_update(new_value:int)
+signal damage_received(value:int)
+signal heal_received(value:int)
 
 func popup(value:int):
 	var popup_instance = damage_popup_node.instantiate()
@@ -24,11 +29,11 @@ func popup(value:int):
 
 func receive_damage(damage: int) -> void:
 	hitpoints -= damage
+	damage_received.emit(damage)
 	popup(damage)
-	if hitpoints <= 0:
-		on_death.emit(get_parent())
-
+	
 func receive_heal(heal:int):
+	heal_received.emit(heal)
 	hitpoints = clamp(hitpoints+heal, 0, max_hitpoints)
 
 func fully_heal():
