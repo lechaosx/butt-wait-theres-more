@@ -76,4 +76,5 @@ func upgrade_abilities():
 	
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	ability.current_level += 1
+	%PlayerShip/AutoCannonAbility.level_up()
 	Engine.time_scale = 1

@@ -7,20 +7,25 @@ var cannon_ball = preload("res://src/projectiles/cannon_ball/cannon_ball.tscn")
 
 @export var ball_speed = 40000
 
+var velocity: Vector2
+var previous_position: Vector2
+
 func _ready() -> void:
 	$Timer.start(cooldown)
+	previous_position = global_position
+	
+func _physics_process(delta: float) -> void:
+	velocity = (global_position - previous_position) / delta
+	previous_position = global_position
 
 func _on_timer_timeout() -> void:
 	# refresh cooldown if it changed
 	$Timer.wait_time = cooldown
 
-
-	var rot = get_parent().transform.get_rotation() + transform.get_rotation()
-	var forward : Vector2 = Vector2(1,0)
-	var forward_dir = Vector2(cos(rot) * forward.x  - sin(rot) * forward.y, sin(rot) * forward.x  + cos(rot) * forward.y)
+	var forward_dir = global_transform.x
 	
 	var instance = cannon_ball.instantiate()
-	# adding velocity to the offset due to movment offseting the spawn point
-	instance.transform = get_parent().transform.translated(forward_dir * $Sprite2D.transform.x).translated(get_parent().velocity * 0.08)
+	instance.position = global_position + forward_dir * 20
+	instance.scale = Vector2(0.5, 0.5)
 	get_tree().root.add_child(instance)
-	instance.apply_force(ball_speed * forward_dir + get_parent().velocity )
+	instance.apply_force(ball_speed * forward_dir + velocity)

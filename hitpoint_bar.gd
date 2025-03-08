@@ -10,7 +10,7 @@ var hitpoints: int:
 		if $ProgressBar:
 			$ProgressBar.value = value
 
-signal on_death(CharacterBody2D)
+signal on_death(parent:Node)
 
 func popup(value:int):
 	var popup_instance = damage_popup_node.instantiate()
@@ -18,7 +18,7 @@ func popup(value:int):
 	popup_instance.set_text(value)
 	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1,1))*20, 0.8)
 	add_child(popup_instance)
-	
+
 func receive_damage(damage: int) -> void:
 	hitpoints -= damage
 	popup(damage)
@@ -30,7 +30,7 @@ func receive_heal(heal:int):
 
 func fully_heal():
 	hitpoints = max_hitpoints
-	
+
 func _ready() -> void:
 	if $ProgressBar:
 			$ProgressBar.max_value = max_hitpoints

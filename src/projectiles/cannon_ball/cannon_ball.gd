@@ -1,3 +1,4 @@
+class_name CannonBall
 extends RigidBody2D
 
 @export var damage : int = 1
@@ -15,7 +16,7 @@ var splash = preload("res://src/effects/splash/splash.tscn")
 func _physics_process(delta: float) -> void:
 	var new_scale = clamp(linear_velocity.length() * size_vec_scalor + clamp(delay_die, 0, delay_die_time) * size_time_scalor, 1.0, 5.0)
 	$Sprite2D.scale = Vector2(new_scale,new_scale)
-	
+
 	if delay_die < delay_die_time:
 		delay_die += delta * time_speed_scalor
 	elif linear_velocity.length() < speed_limit:
