@@ -8,6 +8,7 @@ class_name Ship extends CharacterBody2D
 @export var traction = 100
 @export var brakes = 100
 @export var ship_length = 100
+@export var ramming_damage = 1
 
 @export var is_frendly = true
 
@@ -54,4 +55,8 @@ func _on_barrel_explode_to_ship(barrel: Barrel) -> void:
 func _on_ram_area_body_entered(body: Node2D) -> void:
 	for child in body.get_children():
 		if child is HitpointBar:
-			child.receive_damage(1)
+			if body is Ship:
+				if !body.is_frendly || !is_frendly:
+					child.receive_damage(ramming_damage)
+			else:
+				child.receive_damage(ramming_damage)
