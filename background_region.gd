@@ -29,7 +29,3 @@ func _process(_delta: float) -> void:
 	var t = 0.002 * Time.get_ticks_msec()
 	for i in range(len(waves)):
 		waves[i].position = wave_origins[i] + 10 * ((i + 1) % 4) * Vector2(cos(t + i), sin(t + i))
-
-func change_position(pos: Vector2) -> void:
-	self.position = pos
-	# $Background.texture.noise.offset = Vector3(pos.x, pos.y, 0)

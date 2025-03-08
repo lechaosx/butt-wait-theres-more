@@ -12,6 +12,7 @@ frequency = 0.0013
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_473dr"]
 width = 1920
 height = 1080
+seamless = true
 color_ramp = SubResource("Gradient_6wh2w")
 noise = SubResource("FastNoiseLite_6wh2w")
 
