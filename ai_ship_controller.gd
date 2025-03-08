@@ -2,6 +2,9 @@ class_name AIShipController extends Node
 
 @export var target: Node2D
 
+func _ready() -> void:
+	get_parent().set_collision_mask_value(4, true)
+
 func get_acceleration_strength():
 	return 1
 	
