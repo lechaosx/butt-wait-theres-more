@@ -15,24 +15,26 @@ func _ready() -> void:
 	hp.fully_heal()
 	hp.on_death.connect(self._on_barrel_is_dead)
 
-func _physics_process(delta: float) -> void:
-	var collisionInfo = move_and_collide(Vector2.ZERO)
-	if collisionInfo:
-		collide_with(collisionInfo)
+#func _physics_process(delta: float) -> void:
+	#var collisionInfo = move_and_collide(Vector2.ZERO)
+	#if collisionInfo:
+		#collide_with(collisionInfo)
 
 func _on_barrel_is_dead(parent:Node) -> void:
 	if parent is Barrel:
-		var boom: Fire = fire.instantiate()
-		var badaboom = func():
-			var badaboom = explode_others.instantiate()
-			badaboom.position = parent.position
-			get_tree().root.add_child(badaboom)
-			parent.queue_free()
-
-		$".".add_child(boom)
-		boom.scale = Vector2(2, 2)
-		boom.start("boom1", 0.5, 0, badaboom)
-		$HitpointBar.visible = false
+		print_debug("barel is dead")
+		#var boom: Fire = fire.instantiate()
+		#var badaboom = func():
+			#var badaboom = explode_others.instantiate()
+			#badaboom.position = parent.position
+			#get_tree().root.add_child(badaboom)
+			#parent.queue_free()
+#
+		#$".".add_child(boom)
+		#boom.scale = Vector2(2, 2)
+		#boom.start("boom1", 0.5, 0, badaboom)
+		#$HitpointBar.visible = false
+		queue_free()
 
 func collide_with(info: KinematicCollision2D) -> void:
 	var col = info.get_collider()
