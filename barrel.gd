@@ -6,21 +6,25 @@ extends RigidBody2D
 # TODO: rozmistit plaminky podle damage
 # TODO: dodelat explosion
 var random = RandomNumberGenerator.new()
-@export var damage: int = random.randi_range(111, 1111)
+@export var damage: int = random.randi_range(5, 11)
 var collide_counter: int = 0
 var onfire_counter: int = 0
 var velocity: Vector2 = Vector2(0, 0)
 var fire = preload("res://src/effects/fire/fire.tscn")
 
 func _ready() -> void:
+	var hp: HitpointBar = $HitpointBar
+	hp.set_max_hitpoints(5) #damage)
+	hp.fully_heal()
+	hp.on_death.connect(self._on_barrel_is_dead)
 	pass
 
 func _physics_process(delta: float) -> void:
-	#var collisionInfo = move_and_collide(velocity * delta)
+	##var collisionInfo = move_and_collide(velocity * delta)
 	var collisionInfo = move_and_collide(Vector2.ZERO)
 	if collisionInfo:
-		velocity = velocity.bounce(collisionInfo.get_normal())
-		#freeze = true
+		##velocity = velocity.bounce(collisionInfo.get_normal())
+		##freeze = true
 		collide_with(collisionInfo)
 
 	#var motion = velocity * delta
@@ -38,6 +42,16 @@ func _physics_process(delta: float) -> void:
 
 	pass
 
+func _on_barrel_is_dead(parent:Node) -> void:
+	if parent is Barrel:
+		var boom: Fire = fire.instantiate()
+		var badaboom = func():
+			#SignalBus.BarrelExplode.emit(self)
+			parent.queue_free()
+		$".".add_child(boom)
+		boom.start("boom1", 0.5, 0, badaboom)
+		$HitpointBar.visible = false
+
 func collide_with(info: KinematicCollision2D) -> void:
 	var col = info.get_collider()
 	match col.name:
@@ -47,6 +61,9 @@ func collide_with(info: KinematicCollision2D) -> void:
 			add_fire()
 		"CannonBall":
 			add_fire()
+			var hp: HitpointBar = $HitpointBar
+			var ball: CannonBall = col
+			hp.receive_damage(ball.damage)
 		#_:
 			#var a = get_colliding_bodies()
 		#var b = get_contact_count()
