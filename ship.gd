@@ -53,9 +53,9 @@ func _on_ram_area_body_entered(body: Node2D) -> void:
 		if child is HitpointBar:
 			if body is Ship:
 				if !body.is_frendly || !is_frendly:
-					child.receive_damage(ramming_damage)
+					child.receive_damage(ramming_damage, HitpointBar.DamageType.RAMMING)
 			else:
-				child.receive_damage(ramming_damage)
+				child.receive_damage(ramming_damage, HitpointBar.DamageType.RAMMING)
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()

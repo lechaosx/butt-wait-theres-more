@@ -33,12 +33,12 @@ func collide_with(info: KinematicCollision2D) -> void:
 			add_explosion()
 			var hp: HitpointBar = $HitpointBar
 			#var ship: Ship = col #TODO: getShipMass
-			hp.receive_damage(damage_on_explosion)
+			#hp.receive_damage(damage_on_explosion)
 		"CannonBall":
 			add_fire()
 			var hp: HitpointBar = $HitpointBar
 			var ball: CannonBall = col
-			hp.receive_damage(ball.damage)
+			#hp.receive_damage(ball.damage)
 
 func get_fire_range() -> Vector2:
 	return Vector2(
