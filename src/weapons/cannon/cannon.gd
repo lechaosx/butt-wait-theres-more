@@ -3,13 +3,13 @@ extends Node2D
 var cannon_ball = preload("res://src/projectiles/cannon_ball/cannon_ball.tscn")
 
 var loc_diff : Vector2
-const ball_speed = 10000
+const ball_speed = 40000
 
 func _input(event):
 	pass
 	if event.is_action_pressed("Click"):
 		var instance = cannon_ball.instantiate()
-		instance.apply_force(loc_diff.normalized() * ball_speed)
+		instance.apply_force(loc_diff.normalized() * ball_speed + get_parent().velocity)
 		instance.transform = get_parent().transform.translated(loc_diff.normalized() * $Sprite2D.position.x)
 		get_tree().root.add_child(instance);
 		
