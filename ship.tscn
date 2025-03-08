@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbrtvx1fx65q6"]
+[gd_scene load_steps=7 format=3 uid="uid://cbrtvx1fx65q6"]
 
 [ext_resource type="Script" uid="uid://bhwc0xck2c1r0" path="res://ship.gd" id="1_4cq66"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="2_4cq66"]
@@ -10,6 +10,9 @@ height = 96.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v4325"]
 size = Vector2(15, 15)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_v4325"]
+b = Vector2(1, 0)
 
 [node name="Ship" type="CharacterBody2D"]
 motion_mode = 1
@@ -30,3 +33,14 @@ rotation = 0.785398
 shape = SubResource("RectangleShape2D_v4325")
 
 [node name="HitpointBar" parent="." instance=ExtResource("3_v4325")]
+max_hitpoints = 10
+
+[node name="RamArea" type="Area2D" parent="."]
+position = Vector2(52, 0)
+collision_layer = 8
+collision_mask = 5
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
+shape = SubResource("SegmentShape2D_v4325")
+
+[connection signal="body_entered" from="RamArea" to="." method="_on_ram_area_body_entered"]
