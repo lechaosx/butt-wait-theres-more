@@ -14,7 +14,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func update_wind(speed:float, direction:Vector2)->void:
-	$WindDirection.rotation = direction.angle()
+	%WindDirection.rotation = direction.angle()
 	$WindSpeed.text = str(int(speed))
 
 func update_hitpoints(value:int)->void:
