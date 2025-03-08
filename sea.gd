@@ -32,12 +32,6 @@ func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
 	bar.position = pos
 	
-	var HP = hitpoint_scene.instantiate()
-	#HP.on_death.connect(self._on_enemy_death)
-	HP.set_max_hitpoints(5)
-	
-	bar.add_child(HP)
-	
 	add_child(bar)
 	
 func random_point_on_circle(radius: float) -> Vector2:

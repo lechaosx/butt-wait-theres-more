@@ -48,13 +48,13 @@ func fully_heal():
 
 func _ready() -> void:
 	if $ProgressBar:
-			$ProgressBar.max_value = max_hitpoints
+		$ProgressBar.max_value = max_hitpoints
 	fully_heal()
 
 func set_max_hitpoints(value:int):
 	max_hitpoints = value
 	if $ProgressBar:
-			$ProgressBar.max_value = max_hitpoints
+		$ProgressBar.max_value = max_hitpoints
 
 func _process(delta: float) -> void:
 	rotation = - get_parent().rotation
