@@ -24,8 +24,17 @@ func _ready() -> void:
 	ships.image = load("res://assets/Ships/ship (4).png")
 	ships.name = "Friendly Ship"
 	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
-
+	
 	abilities.append(ships)
+	
+	var barrels = Ability.new()
+	barrels.current_level = 0
+	barrels.max_level = 5
+	barrels.image = load("res://assets/barrel.png")
+	barrels.name = "Exploding Barrel"
+	barrels.leveled.connect($PlayerShip/BarrelDroppingAbility.level_up)
+
+	abilities.append(barrels)
 
 
 func create_barrel(pos: Vector2) -> void:
