@@ -33,7 +33,7 @@ rotation = 0.785398
 shape = SubResource("RectangleShape2D_v4325")
 
 [node name="HitpointBar" parent="." instance=ExtResource("3_v4325")]
-max_hitpoints = 0
+max_hitpoints = 10
 
 [node name="RamArea" type="Area2D" parent="."]
 position = Vector2(52, 0)

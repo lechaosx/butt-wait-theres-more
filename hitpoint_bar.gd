@@ -1,7 +1,7 @@
 class_name HitpointBar
 extends Node2D
 
-@export var max_hitpoints: int
+@export var max_hitpoints: int = 10
 var damage_popup_node: PackedScene = preload("res://src/effects/damage_popup/damage_popup.tscn")
 
 var hitpoints: int:
