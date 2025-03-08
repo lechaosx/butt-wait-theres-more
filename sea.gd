@@ -3,6 +3,7 @@ extends Node
 @onready var barrel = preload("res://barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
+@onready var cargo_scene := preload("res://cargo.tscn")
 
 @export var abilities: Array[Ability] = []
 
@@ -91,6 +92,9 @@ func _on_barrel_spawn_timer_timeout() -> void:
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 	
 func _on_enemy_death(enemy:CharacterBody2D) -> void:
+	var cargo = cargo_scene.instantiate()
+	cargo.position = enemy.position
+	add_child(cargo)
 	enemy.queue_free()
 	upgrade_abilities()
 	
