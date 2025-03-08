@@ -29,3 +29,4 @@ func _physics_process(delta: float) -> void:
 		if c is Ship:
 			c.receive_damage(damage)
 			queue_free()
+			break
