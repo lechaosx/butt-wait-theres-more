@@ -3,7 +3,7 @@ extends RigidBody2D
 
 var random = RandomNumberGenerator.new()
 var damage: int = random.randi_range(6, 18)
-var damage_on_fire: int = 1
+var fire = preload("res://src/barrel/barrel_fire.tscn")
 
 func _ready() -> void:
 	var hp: HitpointBar = $HitpointBar
@@ -27,3 +27,26 @@ func _on_barrel_is_dead(parent:Node) -> void:
 func _on_barrel_damage_received(value: int, type: HitpointBar.DamageType) -> void:
 	if type == HitpointBar.DamageType.RAMMING:
 		_on_barrel_is_dead(self)
+	else:
+		update_fire_per_hitpoints()
+
+func update_fire_per_hitpoints() -> void:
+	var hp: HitpointBar = $HitpointBar
+	var hpp: = $HitpointBar/ProgressBar
+	var percent = int((hpp.value / hpp.max_value) * 100)
+	var p_limit = 22
+	var max_fire = (100 / p_limit) - (percent / p_limit)
+	if max_fire == 0 and percent < 100:
+		add_fire(1)
+	else:
+		add_fire(max_fire)
+
+func add_fire(max: int) -> void:
+	var parent = $"."
+	for i in range(0, max):
+		var new_fire = fire.instantiate()
+		new_fire.translate(Vector2(
+			random.randi_range(-13, +13),
+			random.randi_range(-18, +3)
+		))
+		parent.add_child(new_fire)
