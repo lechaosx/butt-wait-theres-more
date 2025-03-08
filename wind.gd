@@ -3,17 +3,21 @@ extends Node
 
 @export var max_speed: float
 @export var min_speed: float
+@export var max_change_duration: float
+@export var min_change_duration: float
 
 var _rng = RandomNumberGenerator.new()
 var _speed: float
 var _direction: Vector2
 
 func _ready() -> void:
-	set_wind(50, Vector2(1,1))
+	schedule_next_time_change()
+	randomize_wind()
 
 func randomize_wind() -> void:
 	_speed = _rng.randf_range(min_speed, max_speed)
 	_direction = Vector2(1,0).rotated(_rng.randf_range(0, PI*2))
+	print_debug("https://www.youtube.com/watch?v=n4RjJKxsamQ")
 
 func set_wind(speed: float, direction: Vector2) -> void:
 	_speed = speed
@@ -31,4 +35,6 @@ func _physics_process(delta: float) -> void:
 			affected_object.velocity = Vector2(1,0).rotated(affected_object.rotation) * _direction.rotated(-affected_object.rotation).x * _speed * delta * 60
 			affected_object.move_and_slide()
 			affected_object.velocity = save_velocity
-	
+
+func schedule_next_time_change() -> void:
+	$WindChangeTimer.start(randf_range(min_change_duration, max_change_duration))
