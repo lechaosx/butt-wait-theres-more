@@ -18,19 +18,14 @@ func _ready() -> void:
 	
 	abilities.append(canons)
 	
-	var ship = ship_scene.instantiate();
-	ship.controller = AIShipFollowerController.new()
-	ship.controller.owner_ship = %PlayerShip
-	ship.power = 250
-	ship.traction = 50
-	ship.set_collision_layer_value(1, false)
-	ship.set_collision_layer_value(6, true)
-	ship.set_collision_mask_value(5, true)
-	ship.add_child(ship.controller)
-	ship.texture = load("res://assets/Ships/ship (4).png")
-	ship.scale = Vector2(0.5, 0.5)
-	ship.position = Vector2(-50,-50)
-	add_child(ship)
+	var ships = Ability.new()
+	ships.current_level = 0
+	ships.max_level = 5
+	ships.image = load("res://assets/Ships/ship (4).png")
+	ships.name = "Friendly Ship"
+	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
+	
+	abilities.append(ships)
 	
 
 func create_barrel(pos: Vector2) -> void:
