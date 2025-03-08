@@ -18,24 +18,24 @@ class_name Ship extends CharacterBody2D
 		if $Sprite2D:
 			$Sprite2D.texture = value
 
-	
+
 
 func _physics_process(delta: float) -> void:
 	var acceleration_intent = controller.get_acceleration_strength() if controller else 0
 	var brake_intent        = controller.get_brake_strength() if controller else 0
 	var steer_intent        = controller.get_steer_axis() if controller else 0
-	
+
 	var direction = transform.x
-	
+
 	var acceleration = direction * power * acceleration_intent
-	
+
 	acceleration -= velocity * brakes * brake_intent * delta
-	
+
 	acceleration -= velocity * friction * delta
 	acceleration -= velocity * velocity.length() * drag * delta
-	
+
 	var steer_direction = steer_intent * deg_to_rad(steering_angle)
-	
+
 	var front = +direction * ship_length / 2.0 + velocity * delta
 	var back  = -direction * ship_length / 2.0 - velocity.rotated(steer_direction) * delta
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbrtvx1fx65q6"]
+[gd_scene load_steps=6 format=3 uid="uid://cbrtvx1fx65q6"]
 
 [ext_resource type="Script" uid="uid://bhwc0xck2c1r0" path="res://ship.gd" id="1_4cq66"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="2_4cq66"]
-[ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/hitpoint_bar.tscn" id="3_v4325"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3vuw"]
 radius = 16.0
@@ -31,8 +30,6 @@ shape = SubResource("CapsuleShape2D_c3vuw")
 position = Vector2(41, -9.53674e-07)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_v4325")
-
-[node name="HitpointBar" parent="." instance=ExtResource("3_v4325")]
 
 [node name="RamArea" type="Area2D" parent="."]
 position = Vector2(52, 0)
