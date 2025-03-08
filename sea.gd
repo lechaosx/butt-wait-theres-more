@@ -2,6 +2,7 @@ extends Node
 
 @onready var barrel = preload("res://barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
+@onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 
 @export var abilities: Array[Ability] = []
 
@@ -36,7 +37,13 @@ func create_barrel(pos: Vector2) -> void:
 	var parent = $"."
 	var bar = barrel.instantiate()
 	bar.position = pos
-	#bar.BarrelExplodeToShip.connect()
+	
+	var HP = hitpoint_scene.instantiate()
+	HP.on_death.connect(self._on_enemy_death)
+	HP.set_max_hitpoints(5)
+	
+	bar.add_child(HP)
+	
 	parent.add_child(bar)
 	
 func random_point_on_circle(radius: float) -> Vector2:
@@ -68,9 +75,12 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	
 	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 	ship.texture = load("res://assets/Ships/ship (2).png")
-	var hitpoint_bar = ship.find_child("HitpointBar")
-	hitpoint_bar.on_death.connect(self._on_enemy_death)
-	hitpoint_bar.set_max_hitpoints(5)
+	
+	var HP = hitpoint_scene.instantiate()
+	HP.on_death.connect(self._on_enemy_death)
+	HP.set_max_hitpoints(5)
+	
+	ship.add_child(HP)
 	
 	add_child(ship)
 
@@ -97,3 +107,7 @@ func upgrade_abilities():
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	ability.level_up()
 	Engine.time_scale = 1
+
+
+func _on_hitpoint_bar_on_death(parent: Node) -> void:
+	%KillScreen.die()
