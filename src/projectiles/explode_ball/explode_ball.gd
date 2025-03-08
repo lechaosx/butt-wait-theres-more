@@ -11,6 +11,8 @@ func _on_animation_finished() -> void:
 	queue_free()
 
 func _on_body_entered(body: Node) -> void:
+	if $AnimatedSprite2D.is_playing():
+		return
 	if body is Ship:
 		if body.find_child("HitpointBar"):
 			body.find_child("HitpointBar").receive_damage(damage)
