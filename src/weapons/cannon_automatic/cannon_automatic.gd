@@ -1,4 +1,4 @@
-extends Node2D
+class_name CannonAutomatic extends Node2D
 
 var cannon_ball = preload("res://src/projectiles/cannon_ball/cannon_ball.tscn")
 

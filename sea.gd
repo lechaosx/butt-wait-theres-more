@@ -3,6 +3,7 @@ extends Node
 @onready var barrel = preload("res://barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
+@onready var cannon_autoaim := preload("res://src/weapons/cannon_autoaim/cannon_autoaim.tscn")
 
 @export var abilities: Array[Ability] = []
 
@@ -30,6 +31,9 @@ func _ready() -> void:
 	ship.texture = load("res://assets/Ships/ship (4).png")
 	ship.scale = Vector2(0.5, 0.5)
 	ship.position = Vector2(-50,-50)
+	var cannon = cannon_autoaim.instantiate()
+	cannon.scale = Vector2(2, 2)
+	ship.add_child(cannon)
 	add_child(ship)
 	
 
