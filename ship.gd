@@ -45,18 +45,13 @@ func _physics_process(delta: float) -> void:
 
 	rotation = new_heading.angle()
 
-	if move_and_slide():
-		for i in get_slide_collision_count():
-			var collision = get_slide_collision(i)
-			var collider = collision.get_collider()
-			if collider is Ship && (!collider.is_frendly || !is_frendly):
-				collider.velocity += -collision.get_normal()*0.1
-				
-				# add some dmg calculation based on velocity
-				if collider.find_child("HitpointBar"):
-					collider.find_child("HitpointBar").receive_damage(1)
-				$HitpointBar.receive_damage(1)
-				
+	move_and_slide()
 
 func _on_barrel_explode_to_ship(barrel: Barrel) -> void:
 	print_debug(barrel)
+
+
+func _on_ram_area_body_entered(body: Node2D) -> void:
+	for child in body.get_children():
+		if child is HitpointBar:
+			child.receive_damage(1)

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="3_ari0p"]
 [ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
-[ext_resource type="PackedScene" uid="uid://00gajb1hqwq6" path="res://src/weapons/cannon_automatic/cannon_automatic.tscn" id="6_a0flf"]
+[ext_resource type="PackedScene" uid="uid://bg8atx4i17dxq" path="res://auto_cannon_ability.tscn" id="4_pfxiy"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 [ext_resource type="PackedScene" path="res://ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" path="res://background_tiles.gd" id="10_7uhs0"]
@@ -24,6 +24,9 @@ ship_length = 50
 controller = NodePath("UserController")
 texture = ExtResource("3_pfxiy")
 
+[node name="AutoCannonAbility" parent="PlayerShip" instance=ExtResource("4_pfxiy")]
+z_index = -2
+
 [node name="PlayerCamera" type="Camera2D" parent="PlayerShip"]
 script = ExtResource("4_a0flf")
 
@@ -32,14 +35,16 @@ script = ExtResource("4_a0flf")
 [node name="UserController" type="Node" parent="PlayerShip"]
 script = ExtResource("2_mehw6")
 
-[node name="Cannon2" parent="PlayerShip" instance=ExtResource("6_a0flf")]
-rotation = 0.785398
-
-[node name="Cannon3" parent="PlayerShip" instance=ExtResource("6_a0flf")]
-rotation = -0.785398
-
 [node name="Wind" type="Node" parent="."]
 script = ExtResource("8_pfxiy")
+max_speed = 20.0
+min_speed = 5.0
+max_change_duration = 20.0
+min_change_duration = 5.0
+
+[node name="WindChangeTimer" type="Timer" parent="Wind"]
+wait_time = 15.0
+one_shot = true
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -49,6 +54,7 @@ autostart = true
 autostart = true
 
 [node name="BackgroundTiles" type="Node2D" parent="."]
+z_index = -10
 script = ExtResource("10_7uhs0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -57,6 +63,8 @@ script = ExtResource("10_7uhs0")
 unique_name_in_owner = true
 visible = true
 
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="ability_selected" from="CanvasLayer/AbilityCards" to="." method="_on_ability_cards_ability_selected"]

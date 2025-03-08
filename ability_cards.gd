@@ -16,6 +16,5 @@ signal ability_selected(ability: Ability)
 			%CardContainer.add_child(card)
 			
 func _on_card_selected(ability: Ability):
-	print("selected")
 	visible = false
 	ability_selected.emit(ability)
