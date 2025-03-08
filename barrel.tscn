@@ -25,3 +25,4 @@ position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_a12vh")
 
 [node name="HitpointBar" parent="." instance=ExtResource("3_rdxsi")]
+max_hitpoints = 0
