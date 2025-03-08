@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ch53hlq65v6ij"]
+[gd_scene load_steps=11 format=3 uid="uid://ch53hlq65v6ij"]
 
 [ext_resource type="Script" uid="uid://ceacxuiy4847h" path="res://src/barrel/barrel.gd" id="1_a12vh"]
 [ext_resource type="Texture2D" uid="uid://c21smonqjnvvy" path="res://assets/barrel.png" id="1_n8un1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cqn0fntt0dsc6" path="res://assets/Effects/explosion1.png" id="4_1m3au"]
 [ext_resource type="Texture2D" uid="uid://ccj3yfwutp0pr" path="res://assets/Effects/explosion2.png" id="5_pwlc7"]
 [ext_resource type="Texture2D" uid="uid://44jyl5eumchr" path="res://assets/Effects/explosion3.png" id="6_3ubix"]
+[ext_resource type="Script" uid="uid://bbjorr5ncie7p" path="res://src/barrel/barrel_explosion.gd" id="7_pwlc7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a12vh"]
 radius = 36.0
@@ -27,6 +28,9 @@ animations = [{
 "name": &"default",
 "speed": 6.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1m3au"]
+radius = 97.0464
 
 [node name="Barrel" type="RigidBody2D" groups=["floaters"]]
 disable_mode = 1
@@ -56,3 +60,11 @@ scale = Vector2(1.42373, 1.42373)
 sprite_frames = SubResource("SpriteFrames_18xnr")
 frame = 2
 frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 17
+script = ExtResource("7_pwlc7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_1m3au")

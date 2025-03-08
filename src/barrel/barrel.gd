@@ -10,6 +10,7 @@ func _ready() -> void:
 	hp.set_max_hitpoints(damage)
 	hp.fully_heal()
 	hp.on_death.connect(self._on_barrel_is_dead)
+	hp.damage_received.connect(self._on_barrel_damage_received)
 
 func _on_barrel_is_dead(parent:Node) -> void:
 	if parent is Barrel:
@@ -20,3 +21,9 @@ func _on_barrel_is_dead(parent:Node) -> void:
 		ee_barel.visible = true
 		ee_barel.animation_finished.connect(remove_barrel)
 		ee_barel.play("default")
+		$HitpointBar.visible = false
+		$Area2D.explosion(damage)
+
+func _on_barrel_damage_received(value: int, type: HitpointBar.DamageType) -> void:
+	if type == HitpointBar.DamageType.RAMMING:
+		_on_barrel_is_dead(self)
