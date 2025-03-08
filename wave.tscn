@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://pj2jrv0gfstp"]
+
+[ext_resource type="Texture2D" uid="uid://bx786u5dl7lyv" path="res://assets/Tiles/wave.png" id="1_8asc4"]
+
+[node name="Wave" type="Sprite2D"]
+position = Vector2(284, 32)
+texture = ExtResource("1_8asc4")

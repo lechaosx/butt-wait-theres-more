@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bk5ogl2f7y0v5"]
 
-[ext_resource type="Script" uid="uid://dmfwpq73qas3w" path="res://src/effects/damage_popup/damage_popup.gd" id="1_sc42t"]
+[ext_resource type="Script" uid="uid://dmfwpq73qas3w" path="res://src/hitpoints/damage_popup/damage_popup.gd" id="1_sc42t"]
 
 [sub_resource type="Animation" id="Animation_g4ij2"]
 resource_name = "popup"
