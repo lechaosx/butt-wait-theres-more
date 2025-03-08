@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://ch53hlq65v6ij"]
 
-[ext_resource type="Script" uid="uid://ceacxuiy4847h" path="res://barrel.gd" id="1_a12vh"]
+[ext_resource type="Script" path="res://barrel.gd" id="1_a12vh"]
 [ext_resource type="Texture2D" uid="uid://c21smonqjnvvy" path="res://assets/barrel.png" id="1_n8un1"]
 [ext_resource type="Texture2D" uid="uid://cqn0fntt0dsc6" path="res://assets/Effects/explosion1.png" id="3_6iawg"]
 [ext_resource type="Texture2D" uid="uid://ccj3yfwutp0pr" path="res://assets/Effects/explosion2.png" id="4_43c1c"]
@@ -76,7 +76,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Barrel" type="RigidBody2D"]
+[node name="Barrel" type="RigidBody2D" groups=["floaters"]]
 collision_layer = 4
 script = ExtResource("1_a12vh")
 

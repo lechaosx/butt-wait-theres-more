@@ -1,26 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=9 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
 [ext_resource type="PackedScene" uid="uid://klduhmvs4eva" path="res://obstacle.tscn" id="2_cd1ay"]
-[ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="2_mehw6"]
+[ext_resource type="Script" uid="uid://1p3ot4ug2gag" path="res://user_controller.gd" id="2_mehw6"]
+[ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://src/weapons/cannon/cannon.tscn" id="3_ari0p"]
 [ext_resource type="PackedScene" uid="uid://ch53hlq65v6ij" path="res://barrel.tscn" id="3_mehw6"]
+[ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="3_pfxiy"]
+[ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 
 [node name="Sea" type="Node2D"]
 script = ExtResource("1_lotjo")
 
-[node name="Ship" parent="." instance=ExtResource("1_xwcm7")]
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("controller") groups=["wind_affected"] instance=ExtResource("1_xwcm7")]
+unique_name_in_owner = true
 position = Vector2(384, 356)
+slide_on_ceiling = false
+power = 150
+friction = 20
+ship_length = 50
+controller = NodePath("UserController")
+texture = ExtResource("3_pfxiy")
 
-[node name="Camera2D" type="Camera2D" parent="Ship"]
+[node name="Camera2D" type="Camera2D" parent="PlayerShip"]
 
-[node name="Cannon" parent="Ship" instance=ExtResource("2_mehw6")]
+[node name="Cannon" parent="PlayerShip" instance=ExtResource("3_ari0p")]
 
-[node name="Obstacle" parent="." instance=ExtResource("2_cd1ay")]
+[node name="UserController" type="Node" parent="PlayerShip"]
+script = ExtResource("2_mehw6")
+
+[node name="Obstacle" parent="." groups=["wind_affected"] instance=ExtResource("2_cd1ay")]
 position = Vector2(321, 202)
 collision_mask = 9
 
-[node name="Obstacle2" parent="." instance=ExtResource("2_cd1ay")]
+[node name="Obstacle2" parent="." groups=["wind_affected"] instance=ExtResource("2_cd1ay")]
 position = Vector2(717, 340)
 collision_mask = 9
 
@@ -30,3 +43,16 @@ collision_mask = 9
 
 [node name="Barrel" parent="." instance=ExtResource("3_mehw6")]
 visible = false
+
+[node name="Wind" type="Node" parent="."]
+script = ExtResource("8_pfxiy")
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="BarrelSpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
