@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bg8atx4i17dxq" path="res://auto_cannon_ability.tscn" id="4_pfxiy"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
-[ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background_tiles.gd" id="10_7uhs0"]
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://src/hud/hud.tscn" id="11_24krr"]
+[ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
 
 [node name="Sea" type="Node"]
 script = ExtResource("1_lotjo")
@@ -55,9 +55,9 @@ autostart = true
 [node name="BarrelSpawnTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="BackgroundTiles" type="Node2D" parent="."]
-z_index = -10
+[node name="Background" type="Node2D" parent="."]
 script = ExtResource("10_7uhs0")
+z_index = -10
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
