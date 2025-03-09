@@ -2,10 +2,14 @@ class_name Barrel
 extends RigidBody2D
 
 var random = RandomNumberGenerator.new()
-var damage: int = random.randi_range(6, 18)
+@export var damage_min: int = 6
+@export var damage_max: int = 18
+@export var damage: int = 0 ## if damage == 0 then: rand(damage_min, damage_max)
 var fire = preload("res://src/barrel/barrel_fire.tscn")
 
 func _ready() -> void:
+	if damage == 0:
+		damage = random.randi_range(damage_min, damage_max)
 	var hp: HitpointBar = $HitpointBar
 	hp.set_max_hitpoints(damage)
 	hp.fully_heal()
