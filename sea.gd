@@ -4,7 +4,6 @@ extends Node
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 @onready var man_overboard_scene := preload("res://src/man_overboard/man_overboard.tscn")
-@onready var cargo_scene := preload("res://cargo.tscn")
 
 @export var abilities: Array[Ability] = []
 
@@ -45,30 +44,6 @@ func count_objects_in_radius(center: Vector2, radius: float, group_name: String)
 			count += 1
 	return count
 
-
-func _on_enemy_spawn_timer_timeout() -> void:
-	var ship = ship_scene.instantiate();
-	ship.controller = AIShipController.new()
-	ship.controller.target = %PlayerShip
-	ship.add_child(ship.controller)
-
-	ship.set_collision_layer_value(1, false)
-	ship.set_collision_layer_value(5, true)
-	ship.is_frendly = false;
-	ship.add_to_group("enemies")
-
-	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-	ship.texture = load("res://assets/Ships/ship (2).png")
-
-	var HP = hitpoint_scene.instantiate()
-	HP.on_death.connect(self._on_enemy_death)
-	HP.set_max_hitpoints(5)
-
-	ship.add_child(HP)
-
-	add_child(ship)
-
-
 func _on_barrel_spawn_timer_timeout() -> void:
 	var screen_radius = get_viewport().get_visible_rect().size.length() / 2
 
@@ -89,12 +64,6 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	man_overboard.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 
 	add_child(man_overboard)
-
-func _on_enemy_death(enemy:Node) -> void:
-	var cargo = cargo_scene.instantiate()
-	cargo.position = enemy.position
-	add_child(cargo)
-	enemy.queue_free()
 	
 func upgrade_abilities():
 	$%AbilityCards.abilities = abilities
