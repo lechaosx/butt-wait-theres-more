@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=20 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
@@ -10,11 +10,12 @@
 [ext_resource type="Script" uid="uid://cssc7sab12i3b" path="res://friendly_ship_ability.gd" id="5_7u2wy"]
 [ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/hitpoint_bar.tscn" id="8_24krr"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
-[ext_resource type="PackedScene" path="res://ability_cards.tscn" id="9_ari0p"]
+[ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" path="res://wind_particles.gd" id="10_7u2wy"]
 [ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
 [ext_resource type="Script" path="res://cargo_hold.gd" id="10_jolub"]
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://src/hud/hud.tscn" id="11_24krr"]
+[ext_resource type="PackedScene" uid="uid://kn70kmto5cby" path="res://barel_dropping_ability.tscn" id="11_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://88md3i7p5702" path="res://kill_screen.tscn" id="12_7uhs0"]
 [ext_resource type="PackedScene" uid="uid://uws8en35sklf" path="res://src/spawners/enemy_spawner/enemy_spawner.tscn" id="13_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://cuk2drxe2dov2" path="res://cargo_counter.tscn" id="15_f616m"]
@@ -51,6 +52,8 @@ script = ExtResource("2_mehw6")
 [node name="CargoHold" type="Node" parent="PlayerShip"]
 script = ExtResource("10_jolub")
 
+[node name="BarrelDroppingAbility" parent="PlayerShip" instance=ExtResource("11_ifsnf")]
+
 [node name="WindParticles" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("10_7u2wy")
@@ -84,6 +87,7 @@ script = ExtResource("10_7uhs0")
 
 [node name="AbilityCards" parent="CanvasLayer" instance=ExtResource("9_ari0p")]
 unique_name_in_owner = true
+visible = false
 
 [node name="KillScreen" parent="CanvasLayer" instance=ExtResource("12_7uhs0")]
 unique_name_in_owner = true

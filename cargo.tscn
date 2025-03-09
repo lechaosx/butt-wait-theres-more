@@ -1,18 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvkj1uxyg72fo"]
 
 [ext_resource type="Script" uid="uid://drvdnjqv6l6w7" path="res://cargo.gd" id="1_bafpx"]
-[ext_resource type="Texture2D" uid="uid://d1jnuauisx8pb" path="res://assets/Tiles/tile_71.png" id="2_nqnfc"]
+[ext_resource type="Texture2D" uid="uid://bbkx4sibu7a46" path="res://assets/box.png" id="2_bafpx"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_k5sgv"]
-radius = 24.7386
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nqnfc"]
+size = Vector2(47, 43)
 
 [node name="Cargo" type="Area2D"]
 script = ExtResource("1_bafpx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_nqnfc")
+position = Vector2(-0.548778, -0.500002)
+scale = Vector2(0.262195, 0.262195)
+texture = ExtResource("2_bafpx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_k5sgv")
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_nqnfc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
