@@ -24,8 +24,6 @@ func level_up():
 	ship.add_child(cannon)
 	var autoaim_controller = cannon_autoaim_controller.instantiate()
 	cannon.add_child(autoaim_controller)
-	ship.add_to_group("frendly")
-	ship.texture = load("res://assets/Ships/ship (4).png")
 	ship.add_to_group("friendly")
 	ship.type = Ship.Type.Friendly
 	ship.scale = Vector2(0.5, 0.5)

@@ -7,6 +7,7 @@ var previous_position: Vector2
 
 @export var ball_speed = 40000
 @export var default_cannon_cooldown_time : float = 2
+@export var cannon_cooldown_variation : float = 0.1
 @export var autofire = false
 
 var can_fire: bool = true
@@ -16,7 +17,7 @@ var piercing = 0
 
 func _ready() -> void:
 	previous_position = global_position
-	$Timer.wait_time = default_cannon_cooldown_time
+	$Timer.wait_time = default_cannon_cooldown_time + cannon_cooldown_variation * randf()
 	
 func _process(delta: float) -> void:
 	if can_fire && autofire:
