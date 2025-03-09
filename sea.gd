@@ -1,6 +1,8 @@
 class_name Sea
 extends Node
 
+var start_time: float
+
 @onready var barrel = preload("res://src/barrel/barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
@@ -11,6 +13,8 @@ extends Node
 signal game_ended(score:int)
 
 func _ready() -> void:
+	start_time = Time.get_ticks_msec() / 1000.0
+	
 	var canons = Ability.new()
 	canons.current_level = 0
 	canons.max_level = 5
@@ -116,6 +120,8 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.cargo_cap += 1
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
+	Engine.time_scale = 1
+	%AbilityCards.visible = false
 	%KillScreen.die()
 	$KillScreenTimer.start()
 
@@ -126,7 +132,7 @@ func _on_cargo_hold_cargo_updated() -> void:
 		upgrade_abilities()
 
 func _on_kill_screen_kill_screen_animation_end() -> void:
-	game_ended.emit(50)
+	game_ended.emit((Time.get_ticks_msec() / 1000.0) - start_time)
 	$KillScreenTimer.stop()
 
 func update_properties(properties : PlayerProperties):
