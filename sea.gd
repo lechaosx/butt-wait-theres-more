@@ -50,7 +50,7 @@ func _ready() -> void:
 	piercing.image = load("res://assets/Ship parts/cannonBall.png")
 	piercing.name = "Cannon Ball Piercing"
 	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
-	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
+	piercing.leveled.connect($PlayerShip/AutoCannonAbility.level_up_piercing)
 
 	abilities.append(piercing)
 
@@ -58,7 +58,6 @@ func _ready() -> void:
 func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
 	bar.position = pos
-	
 	add_child(bar)
 	
 func random_point_on_circle(radius: float) -> Vector2:
@@ -83,7 +82,6 @@ func _on_barrel_spawn_timer_timeout() -> void:
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 	
 func _on_man_overboard_spawn_timer_timeout() -> void:
-	print_debug("spawn")
 	var man_overboard = man_overboard_scene.instantiate();
 	man_overboard.set_collision_layer_value(1, false)
 	man_overboard.set_collision_layer_value(5, true)
