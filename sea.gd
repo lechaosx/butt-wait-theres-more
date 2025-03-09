@@ -35,6 +35,15 @@ func _ready() -> void:
 	barrels.leveled.connect($PlayerShip/BarrelDroppingAbility.level_up)
 
 	abilities.append(barrels)
+	
+	var userCannon = Ability.new()
+	userCannon.current_level = 0
+	userCannon.max_level = 5
+	userCannon.image = load("res://assets/cannon.png")
+	userCannon.name = "Main Cannon Cooling System"
+	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
+
+	abilities.append(userCannon)
 
 
 func create_barrel(pos: Vector2) -> void:

@@ -24,7 +24,6 @@ script = ExtResource("1_lotjo")
 
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("controller") groups=["frendly", "wind_affected"] instance=ExtResource("1_xwcm7")]
 unique_name_in_owner = true
-z_index = 1
 rotation = -1.5708
 slide_on_ceiling = false
 power = 150
@@ -102,8 +101,8 @@ unique_name_in_owner = true
 
 [connection signal="on_death" from="PlayerShip/HitpointBar" to="." method="_on_hitpoint_bar_on_death"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
