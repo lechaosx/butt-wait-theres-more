@@ -10,6 +10,8 @@ var start_time: float
 
 @export var abilities: Array[Ability] = []
 
+var dead: bool = false;
+
 signal game_ended(score:int)
 
 func _ready() -> void:
@@ -120,12 +122,16 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.cargo_cap += 1
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
+	dead = true
+	%AbilityCards.hide()
 	Engine.time_scale = 1
-	%AbilityCards.visible = false
 	%KillScreen.die()
 	$KillScreenTimer.start()
 
 func _on_cargo_hold_cargo_updated() -> void:
+	if dead:
+		return
+		
 	%CargoCounter.count = %CargoCounter.count + 1
 	
 	if %CargoCounter.count >= %CargoCounter.cargo_cap:
