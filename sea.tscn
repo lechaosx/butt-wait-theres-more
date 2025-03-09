@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cssc7sab12i3b" path="res://friendly_ship_ability.gd" id="5_7u2wy"]
 [ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/hitpoint_bar.tscn" id="8_24krr"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
+[ext_resource type="PackedScene" uid="uid://pbdp3pu1ndyl" path="res://auto_aim_cannon_controller.tscn" id="8_vmxnl"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" path="res://wind_particles.gd" id="10_7u2wy"]
 [ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
@@ -43,6 +44,8 @@ script = ExtResource("5_7u2wy")
 script = ExtResource("4_a0flf")
 
 [node name="Cannon" parent="PlayerShip" instance=ExtResource("3_ari0p")]
+
+[node name="AutoAimCannonController" parent="PlayerShip/Cannon" instance=ExtResource("8_vmxnl")]
 
 [node name="UserController" type="Node" parent="PlayerShip"]
 script = ExtResource("2_mehw6")
