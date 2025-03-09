@@ -9,18 +9,13 @@ extends Node2D
 @export var spawn_interval = 0.005
 @export var total_count = 50
 @export var effect_area = Vector2(1280, 720)
-@export var base_speed = 50
 
-var _speedCoef = 1
-var _direction = Vector2(1, 0)
 var _pool: Array[Sprite2D] = []
 var _active: Array[Sprite2D] = []
 var _waited_time = 0
 var _spawn_position = Vector2(0, 0)
 
 func _ready() -> void:
-	%Wind.wind_changed.connect(set_wind)
-	
 	for i in range(total_count):
 		var particle = wind_particle_scn.instantiate()
 		add_child(particle)
@@ -32,12 +27,8 @@ func _ready() -> void:
 		if particle.scale.y == 0:
 			particle.scale.y = 1
 
-func set_wind(speed: float, direction: Vector2) -> void:
-	_speedCoef = speed
-	_direction = direction
-
 func _process(delta: float) -> void:
-	_spawn_position = %PlayerShip.position - 0.4 * sign(_direction) * effect_area
+	_spawn_position = %PlayerShip.position - 0.4 * sign(%Wind._direction) * effect_area
 	
 	for particle in _active:
 		if !particle.is_visible_on_screen():
@@ -55,6 +46,6 @@ func _process(delta: float) -> void:
 		_waited_time = 0
 		var particle = _pool.pop_back()
 		_active.append(particle)
-		var pos = _spawn_position + _direction.orthogonal() * randf_range(-effect_area.x, effect_area.x)
-		particle.reset(pos, _speedCoef * base_speed, _direction)
+		var pos = _spawn_position + %Wind._direction.normalized().orthogonal() * randf_range(-effect_area.x, effect_area.x)
+		particle.reset(pos, %Wind._direction.length() * 50, %Wind._direction.normalized())
 		
