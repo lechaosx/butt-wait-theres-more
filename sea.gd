@@ -12,17 +12,19 @@ var start_time: float
 
 var dead: bool = false;
 
+signal game_started(max_score:int)
 signal game_ended(score:int)
 
 func _ready() -> void:
+	game_started.connect(self._on_game_started)
+
+func _on_game_started(max_score: int) -> void:
 	start_time = Time.get_ticks_msec() / 1000.0
 	$PlayerShip/FriendlyShipAbility.sea = self
 	$PlayerShip/AutoCannonAbility.sea = self
 	$PlayerShip/BarrelDroppingAbility.sea = self
 	$PlayerShip/Cannon.sea = self
-	
-	
-	
+
 	var canons = Ability.new()
 	canons.current_level = 0
 	canons.max_level = 5
@@ -38,9 +40,9 @@ func _ready() -> void:
 	ships.image = load("res://assets/Ships/ship (4).png")
 	ships.name = "Friendly Ships"
 	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
-	
+
 	abilities.append(ships)
-	
+
 	var barrels = Ability.new()
 	barrels.current_level = 0
 	barrels.max_level = 5
@@ -49,7 +51,7 @@ func _ready() -> void:
 	barrels.leveled.connect($PlayerShip/BarrelDroppingAbility.level_up)
 
 	abilities.append(barrels)
-	
+
 	var userCannon = Ability.new()
 	userCannon.current_level = 0
 	userCannon.max_level = 5
@@ -58,7 +60,7 @@ func _ready() -> void:
 	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
 
 	abilities.append(userCannon)
-	
+
 	var piercing = Ability.new()
 	piercing.current_level = 0
 	piercing.max_level = 5
@@ -69,6 +71,12 @@ func _ready() -> void:
 
 	abilities.append(piercing)
 
+	%SurvivorTime.init(max_score)
+
+func _process(delta: float) -> void:
+	if not dead:
+		%SurvivorTime.seconds = (Time.get_ticks_msec() / 1000.0) - start_time
+
 func _input(event):
 	if event is InputEventKey:
 		if %KillScreen.visible == true and $KillScreenTimer.is_stopped() and event.pressed:
@@ -78,7 +86,7 @@ func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
 	bar.position = pos
 	add_child(bar)
-	
+
 func random_point_on_circle(radius: float) -> Vector2:
 	var angle = randf() * TAU
 	return Vector2(cos(angle), sin(angle)) * radius
@@ -99,7 +107,7 @@ func _on_barrel_spawn_timer_timeout() -> void:
 	if num_floaters < 10:
 		var radius = randf_range(screen_radius * 1.5, max_radius)
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
-	
+
 func _on_man_overboard_spawn_timer_timeout() -> void:
 	var man_overboard = man_overboard_scene.instantiate();
 	man_overboard.set_collision_layer_value(1, false)
@@ -109,17 +117,17 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	man_overboard.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 
 	add_child(man_overboard)
-	
+
 func upgrade_abilities():
 	var upgradable_abilities: Array[Ability] = []
-	
+
 	for ability in abilities:
 		if ability.current_level < 5:
 			upgradable_abilities.append(ability)
-			
+
 	upgradable_abilities.shuffle()  # Randomize the order of elements
 	upgradable_abilities = upgradable_abilities.slice(0, min(2, upgradable_abilities.size()))
-			
+
 	if upgradable_abilities.size() > 0:
 		$%AbilityCards.abilities = upgradable_abilities
 		%AbilityCards.visible = true
@@ -142,9 +150,9 @@ func _on_hitpoint_bar_on_death(parent: Node) -> void:
 func _on_cargo_hold_cargo_updated() -> void:
 	if dead:
 		return
-		
+
 	%CargoCounter.count = %CargoCounter.count + 1
-	
+
 	if %CargoCounter.count >= %CargoCounter.cargo_cap:
 		upgrade_abilities()
 
@@ -162,5 +170,3 @@ func update_properties(properties : PlayerProperties):
 	$PlayerShip.steering_angle = properties.ship_steering_angle
 	$PlayerShip.ramming_damage = properties.ship_ramming_damage
 	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
-	
-	

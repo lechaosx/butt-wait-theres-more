@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://btlqah2g7f5lk"]
+
+[ext_resource type="Script" uid="uid://ch47g2w2x0wvi" path="res://src/survivor_time/survivor_time.gd" id="1_7ucco"]
+[ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://src/hitpoints/hitpoints.tres" id="2_3v8y4"]
+
+[node name="SurvivorTime" type="HBoxContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -4.0
+offset_right = 1293.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ucco")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_3v8y4")
+show_percentage = false
