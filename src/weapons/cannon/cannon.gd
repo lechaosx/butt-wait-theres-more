@@ -12,6 +12,7 @@ var previous_position: Vector2
 var can_fire: bool = true
 
 var level = 0
+var piercing = 0
 
 func _ready() -> void:
 	previous_position = global_position
@@ -29,6 +30,12 @@ func level_up():
 	
 	$Timer.wait_time = default_cannon_cooldown_time - (default_cannon_cooldown_time / 6) * level
 	
+func level_up_piercing():
+	if piercing >= 5:
+		return
+
+	piercing += 1
+	
 func fire():
 	if not can_fire:
 		return
@@ -36,6 +43,7 @@ func fire():
 	can_fire = false
 		
 	var instance = cannon_ball.instantiate()
+	instance.piercing = piercing
 	instance.position = global_position + global_transform.x * $Sprite2D.texture.get_width()
 	instance.scale = Vector2(0.5, 0.5)
 	

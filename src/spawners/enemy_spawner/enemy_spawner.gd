@@ -30,18 +30,17 @@ func spawn_enemy_ship() -> Ship:
 
 	ship.set_collision_layer_value(1, false)
 	ship.set_collision_layer_value(5, true)
-	ship.is_frendly = false;
 	ship.add_to_group("enemies")
 
 	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-	ship.texture = load("res://assets/Ships/ship (2).png")
+	ship.type = Ship.Type.Enemy
 	return ship
 
 func add_hp(ship, hp):
 	var HP = hitpoint_scene.instantiate()
 	HP.on_death.connect(_on_enemy_death)
 	HP.set_max_hitpoints(hp)
-	ship.add_child(HP)
+	ship.add_hitpoint_bar(HP)
 
 func spawn_ramming_enemy(hp):
 	var ship = spawn_enemy_ship()

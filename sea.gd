@@ -12,7 +12,7 @@ func _ready() -> void:
 	canons.current_level = 0
 	canons.max_level = 5
 	canons.image = load("res://assets/Ship parts/cannon.png")
-	canons.name = "Automatic Cannon"
+	canons.name = "Side Cannons"
 	canons.leveled.connect($PlayerShip/AutoCannonAbility.level_up)
 
 	abilities.append(canons)
@@ -21,7 +21,7 @@ func _ready() -> void:
 	ships.current_level = 0
 	ships.max_level = 5
 	ships.image = load("res://assets/Ships/ship (4).png")
-	ships.name = "Friendly Ship"
+	ships.name = "Friendly Ships"
 	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
 	
 	abilities.append(ships)
@@ -39,10 +39,20 @@ func _ready() -> void:
 	userCannon.current_level = 0
 	userCannon.max_level = 5
 	userCannon.image = load("res://assets/Ship parts/cannon.png")
-	userCannon.name = "Main Cannon Cooling System"
+	userCannon.name = "Auto Cannon Cooling System"
 	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
 
 	abilities.append(userCannon)
+	
+	var piercing = Ability.new()
+	piercing.current_level = 0
+	piercing.max_level = 5
+	piercing.image = load("res://assets/Ship parts/cannonBall.png")
+	piercing.name = "Cannon Ball Piercing"
+	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
+	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
+
+	abilities.append(piercing)
 
 
 func create_barrel(pos: Vector2) -> void:
@@ -84,9 +94,19 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	add_child(man_overboard)
 	
 func upgrade_abilities():
-	$%AbilityCards.abilities = abilities
-	%AbilityCards.visible = true
-	Engine.time_scale = 0.1
+	var upgradable_abilities: Array[Ability] = []
+	
+	for ability in abilities:
+		if ability.current_level < 5:
+			upgradable_abilities.append(ability)
+			
+	upgradable_abilities.shuffle()  # Randomize the order of elements
+	upgradable_abilities = upgradable_abilities.slice(0, min(2, upgradable_abilities.size()))
+			
+	if upgradable_abilities.size() > 0:
+		$%AbilityCards.abilities = upgradable_abilities
+		%AbilityCards.visible = true
+		Engine.time_scale = 0.1
 
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	ability.level_up()
