@@ -25,6 +25,11 @@ window/stretch/scale=1.3
 
 project/assembly_name="GameJam2025"
 
+[gui]
+
+theme/custom="uid://1n0tuf8ntefx"
+theme/custom_font="uid://bu7wrbqn6sx7a"
+
 [input]
 
 ui_left={

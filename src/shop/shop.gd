@@ -26,10 +26,10 @@ func update_balance(delta:int):
 func update_properties(sea:Sea) -> void:
 	var properties : PlayerProperties = PlayerProperties.new()
 	
-	properties.ship_hitpoints = $Hitpoints.value()
-	properties.ship_power = $ShipPower.value()
-	properties.ship_steering_angle = $ShipSteeringAngle.value()
-	properties.ship_ramming_damage = $ShipRammingDamage.value()
-	properties.projectile_damage = $CannonDamage.value()
+	properties.ship_hitpoints = $VBoxContainer/Hitpoints.value()
+	properties.ship_power = $VBoxContainer/ShipPower.value()
+	properties.ship_steering_angle = $VBoxContainer/ShipSteeringAngle.value()
+	properties.ship_ramming_damage = $VBoxContainer/ShipRammingDamage.value()
+	properties.projectile_damage = $VBoxContainer/CannonDamage.value()
 	
 	sea.update_properties(properties)
