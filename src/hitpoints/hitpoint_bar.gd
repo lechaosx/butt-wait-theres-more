@@ -54,7 +54,7 @@ func _ready() -> void:
 func set_max_hitpoints(value:int):
 	max_hitpoints = value
 	if $ProgressBar:
-		$ProgressBar.max_value = max_hitpoints
+		$ProgressBar.max_value = value
 
 func _process(delta: float) -> void:
 	rotation = - get_parent().rotation

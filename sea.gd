@@ -1,3 +1,4 @@
+class_name Sea
 extends Node
 
 @onready var barrel = preload("res://src/barrel/barrel.tscn")
@@ -7,6 +8,8 @@ extends Node
 @onready var cargo_scene := preload("res://cargo.tscn")
 
 @export var abilities: Array[Ability] = []
+
+signal game_ended(score:int)
 
 func _ready() -> void:
 	var canons = Ability.new()
@@ -80,7 +83,6 @@ func _on_barrel_spawn_timer_timeout() -> void:
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 	
 func _on_man_overboard_spawn_timer_timeout() -> void:
-	print_debug("spawn")
 	var man_overboard = man_overboard_scene.instantiate();
 	man_overboard.set_collision_layer_value(1, false)
 	man_overboard.set_collision_layer_value(5, true)
@@ -108,9 +110,26 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
 	%KillScreen.die()
+	$KillScreenTimer.start()
 
 func _on_cargo_hold_cargo_updated() -> void:
 	%CargoCounter.count = %CargoCounter.count + 1
 	
 	if %CargoCounter.count >= 5:
 		upgrade_abilities()
+
+func _on_kill_screen_kill_screen_animation_end() -> void:
+	game_ended.emit(50)
+	$KillScreenTimer.stop()
+
+func update_properties(properties : PlayerProperties):
+	$PlayerShip/HitpointBar.set_max_hitpoints(properties.ship_hitpoints)
+	$PlayerShip/HitpointBar.fully_heal()
+	$PlayerShip.brakes = properties.ship_power
+	$PlayerShip.power = properties.ship_power
+	$PlayerShip.steering_angle = properties.ship_steering_angle
+	$PlayerShip.ramming_damage = properties.ship_ramming_damage
+	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
+	$PlayerShip/Cannon.projectile_piercing = properties.projectile_piercing
+	
+	

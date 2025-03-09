@@ -1,0 +1,36 @@
+extends VBoxContainer
+
+@onready var balance: int:
+	set(val):
+		balance = val
+		if $Balance/Label:
+			$Balance/Label.text = str(val)
+		for child in get_children():
+			if child is Property:
+				child.update_button(balance)
+
+func _ready() -> void:
+	balance = 0
+	for child in get_children():
+		if child is Property:
+			child.plus_button_clicked.connect(self.buy_upgrade)
+
+func buy_upgrade(property:Property):
+	if balance >= property.price():
+		balance -= property.price()
+		property.upgrade()
+
+func update_balance(delta:int):
+	balance = delta
+
+func update_properties(sea:Sea) -> void:
+	var properties : PlayerProperties = PlayerProperties.new()
+	
+	properties.ship_hitpoints = $Hitpoints.value()
+	properties.ship_power = $ShipPower.value()
+	properties.ship_steering_angle = $ShipSteeringAngle.value()
+	properties.ship_ramming_damage = $ShipRammingDamage.value()
+	properties.projectile_damage = $CannonDamage.value()
+	properties.projectile_piercing = $CannonPiercing.value()
+	
+	sea.update_properties(properties)
