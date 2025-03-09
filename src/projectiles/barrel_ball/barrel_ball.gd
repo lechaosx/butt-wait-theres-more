@@ -5,6 +5,7 @@ extends RigidBody2D
 @export var piercing : int
 @export var fly_time : float = 1
 @export var cargo_damage: int = 0 ## will be used as create_barrel(damage), @see: barrel.gd
+@export var is_frendly : bool = true
 
 func _ready() -> void:
 	$Timer.wait_time = fly_time
