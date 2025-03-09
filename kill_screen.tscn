@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://88md3i7p5702"]
 
 [ext_resource type="Script" uid="uid://b0jgphss5b3n7" path="res://kill_screen.gd" id="1_vwase"]
-[ext_resource type="Texture2D" uid="uid://de2mxvd7kke6i" path="res://assets/UI/kill_banner.png" id="2_jen13"]
-[ext_resource type="FontFile" uid="uid://d4li2mtv1k00i" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="2_wrd86"]
+[ext_resource type="Texture2D" uid="uid://c2oflyqvkdr7o" path="res://assets/UI/kill_banner.png" id="2_jen13"]
+[ext_resource type="FontFile" uid="uid://bu7wrbqn6sx7a" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="2_wrd86"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jen13"]
 font = ExtResource("2_wrd86")

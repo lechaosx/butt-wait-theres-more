@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvxii0cpdmkdg"]
 
 [ext_resource type="Texture2D" uid="uid://b2v4rlgteuo80" path="res://assets/Ship parts/crew (1).png" id="1_6emqj"]
-[ext_resource type="Script" uid="uid://bx8e2r6h1x61x" path="res://ability_card.gd" id="1_eq0o8"]
+[ext_resource type="Script" path="res://ability_card.gd" id="1_eq0o8"]
 
 [node name="AbilityCard" type="Button"]
 anchors_preset = 15
