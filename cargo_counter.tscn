@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuk2drxe2dov2"]
+[gd_scene load_steps=3 format=3 uid="uid://cuk2drxe2dov2"]
 
 [ext_resource type="Script" uid="uid://c6k2kr8l0vrb1" path="res://cargo_counter.gd" id="1_o8rt5"]
-[ext_resource type="Theme" path="res://src/hitpoints/hitpoints.tres" id="2_1hgtk"]
-[ext_resource type="Texture2D" uid="uid://ci1otcl4rryn2" path="res://assets/box.png" id="2_o8rt5"]
+[ext_resource type="Texture2D" uid="uid://bbkx4sibu7a46" path="res://assets/box.png" id="2_o8rt5"]
 
 [node name="CargoCounter" type="HBoxContainer"]
 anchors_preset = -1
@@ -25,7 +24,6 @@ script = ExtResource("1_o8rt5")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme = ExtResource("2_1hgtk")
 max_value = 5.0
 show_percentage = false
 
