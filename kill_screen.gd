@@ -4,3 +4,4 @@ func die():
 	visible = true
 	$AnimationPlayer.active = true
 	%Hud.visible = false
+	%CargoCounter.visible = false
