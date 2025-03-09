@@ -48,11 +48,11 @@ func _on_body_entered(body: Node) -> void:
 		
 	var instance = impact.instantiate()
 	instance.transform = transform
-	get_tree().root.add_child(instance);
+	get_parent().add_child(instance);
 	queue_free()
 
 func _on_timer_timeout() -> void:
 	var instance = splash.instantiate()
 	instance.position = position
-	get_tree().root.add_child(instance);
+	get_parent().add_child(instance);
 	queue_free()

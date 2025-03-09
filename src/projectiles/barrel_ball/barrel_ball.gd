@@ -44,7 +44,7 @@ func _on_body_entered(body: Node) -> void:
 
 	var instance = impact.instantiate()
 	instance.transform = transform
-	get_tree().root.add_child(instance);
+	get_parent().add_child(instance);
 	queue_free()
 
 func _on_timer_timeout() -> void:
@@ -55,4 +55,4 @@ func create_barrel(damage: int) -> void:
 	var instance: Barrel = barrel.instantiate()
 	instance.position = position
 	instance.damage = damage
-	get_tree().root.add_child(instance)
+	get_parent().add_child(instance)

@@ -3,6 +3,8 @@ extends Node
 @onready var barrel_projectile = preload("res://src/projectiles/barrel_ball/barrel_ball.tscn")
 
 var level = 0
+var sea
+
 
 func level_up():
 	if level >= 5:
@@ -29,4 +31,4 @@ func _on_timer_timeout() -> void:
 	instance.add_collision_exception_with(ship)
 	instance.apply_force(speed * dir + ship.velocity)
 
-	get_tree().get_root().add_child(instance)
+	sea.add_child(instance)

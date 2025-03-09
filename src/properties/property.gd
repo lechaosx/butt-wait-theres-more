@@ -34,6 +34,7 @@ func upgrade()->void:
 		property.upgrade()
 	value_updated.emit(value())
 	$Value.text = "   %d" % value()
+	$Button.text = str(price())
 	
 func update_button(balance:int):
 	if balance >= price():
@@ -55,7 +56,10 @@ func _on_button_pressed() -> void:
 func _on_button_mouse_entered() -> void:
 	if property:
 		$Increment.text = "+%d" % property.increment
+		$Button.text =  "%d +%d" % [price(), property.price_increment]
 
 
 func _on_button_mouse_exited() -> void:
 	$Increment.text = ""
+	$Button.text = "%d" % price()
+	

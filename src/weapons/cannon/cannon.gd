@@ -26,6 +26,7 @@ func _ready() -> void:
 
 var cannon_heat : int 
 var cannon_cooldown : float 
+var sea
 
 func _process(delta: float) -> void:
 	if can_fire && autofire:
@@ -63,7 +64,8 @@ func fire():
 	
 	instance.add_collision_exception_with(get_parent())
 	instance.apply_force(ball_speed * global_transform.x + velocity)
-	get_tree().get_root().add_child(instance)
+	if sea:
+		sea.add_child(instance)
 	
 	$AudioStreamPlayer2D.play()
 	

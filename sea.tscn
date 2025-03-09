@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=21 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://88md3i7p5702" path="res://kill_screen.tscn" id="12_7uhs0"]
 [ext_resource type="PackedScene" uid="uid://uws8en35sklf" path="res://src/spawners/enemy_spawner/enemy_spawner.tscn" id="13_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://cuk2drxe2dov2" path="res://cargo_counter.tscn" id="15_f616m"]
+[ext_resource type="PackedScene" uid="uid://btlqah2g7f5lk" path="res://src/survivor_time/survivor_time.tscn" id="19_yode5"]
 
 [node name="Sea" type="Node"]
 script = ExtResource("1_lotjo")
@@ -99,6 +100,10 @@ visible = false
 
 [node name="CargoCounter" parent="CanvasLayer" instance=ExtResource("15_f616m")]
 unique_name_in_owner = true
+
+[node name="SurvivorTime" parent="CanvasLayer" instance=ExtResource("19_yode5")]
+unique_name_in_owner = true
+anchors_preset = 2
 
 [node name="Hud" parent="." instance=ExtResource("11_24krr")]
 unique_name_in_owner = true
