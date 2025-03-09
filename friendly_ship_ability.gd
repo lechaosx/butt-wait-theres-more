@@ -20,7 +20,7 @@ func level_up():
 	ship.set_collision_mask_value(5, true)
 	ship.add_child(ship.controller)
 	var cannon = cannon_autoaim.instantiate()
-	cannon.scale = Vector2(2, 2)
+	cannon.position.x = 40
 	ship.add_child(cannon)
 	var autoaim_controller = cannon_autoaim_controller.instantiate()
 	cannon.add_child(autoaim_controller)

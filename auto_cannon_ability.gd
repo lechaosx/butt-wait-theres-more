@@ -14,6 +14,9 @@ func level_up():
 	var left_cannon = canon_scene.instantiate()
 	var right_cannon = canon_scene.instantiate()
 	
+	left_cannon.set_z_index(0)
+	right_cannon.set_z_index(0)
+	
 	left_cannon.position.y = 15
 	right_cannon.position.y = -15
 	
