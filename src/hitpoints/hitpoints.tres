@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=8 format=4 uid="uid://1n0tuf8ntefx"]
 
-[ext_resource type="Texture2D" uid="uid://s755lwaiv57a" path="res://assets/UI/hitpoint_bar_bg.png" id="1_g0us1"]
-[ext_resource type="Texture2D" uid="uid://dviqj5ir4oaw8" path="res://assets/UI/hitpoint_bar_fg.png" id="2_42hky"]
+[ext_resource type="Texture2D" uid="uid://dc0vu13dnfnym" path="res://assets/UI/hitpoint_bar_bg.png" id="1_g0us1"]
+[ext_resource type="Texture2D" uid="uid://c3usnkaunxuwn" path="res://assets/UI/hitpoint_bar_fg.png" id="2_42hky"]
 
 [sub_resource type="Image" id="Image_fycw5"]
 data = {
@@ -836,17 +836,17 @@ cache/0/16/10/glyphs/134217736/texture_idx = 0
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_42hky"]
 content_margin_left = 16.0
 texture = ExtResource("1_g0us1")
-texture_margin_left = 32.0
-texture_margin_top = 32.0
-texture_margin_right = 32.0
-texture_margin_bottom = 32.0
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_owd5t"]
 texture = ExtResource("2_42hky")
-texture_margin_left = 32.0
-texture_margin_top = 32.0
-texture_margin_right = 32.0
-texture_margin_bottom = 32.0
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [resource]
 ProgressBar/colors/font_color = Color(1, 0.945098, 0.823529, 1)
