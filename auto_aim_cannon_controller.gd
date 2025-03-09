@@ -17,5 +17,4 @@ func _process(delta: float) -> void:
 	
 	if target:
 		get_parent().global_rotation = (target.global_position - get_parent().global_position).angle()
-		if get_parent().can_fire():
-			get_parent().fire()
+		get_parent().fire()
