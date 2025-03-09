@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuk2drxe2dov2"]
+[gd_scene load_steps=4 format=3 uid="uid://cuk2drxe2dov2"]
 
-[ext_resource type="Script" path="res://cargo_counter.gd" id="1_o8rt5"]
-[ext_resource type="Texture2D" uid="uid://bbkx4sibu7a46" path="res://assets/box.png" id="2_o8rt5"]
+[ext_resource type="Script" uid="uid://c6k2kr8l0vrb1" path="res://cargo_counter.gd" id="1_o8rt5"]
+[ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://src/hitpoints/hitpoints.tres" id="2_1hgtk"]
+[ext_resource type="Texture2D" uid="uid://ci1otcl4rryn2" path="res://assets/box.png" id="2_o8rt5"]
 
 [node name="CargoCounter" type="HBoxContainer"]
 anchors_preset = -1
@@ -9,17 +10,24 @@ anchor_left = 0.95
 anchor_top = 0.05
 anchor_right = 0.95
 anchor_bottom = 0.05
-offset_left = -154.0
-offset_bottom = 69.0
+offset_left = -402.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_o8rt5")
 
-[node name="Label" type="Label" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 50
-text = "0"
+size_flags_vertical = 1
+theme = ExtResource("2_1hgtk")
+max_value = 5.0
+show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
 texture = ExtResource("2_o8rt5")
 expand_mode = 2
+stretch_mode = 6
