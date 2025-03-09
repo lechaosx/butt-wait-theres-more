@@ -14,7 +14,7 @@ func _ready() -> void:
 	if damage == 0:
 		damage = random.randi_range(damage_min, damage_max)
 	var hp: HitpointBar = $HitpointBar
-	#hp.visible = false
+	hp.visible = false
 	hp.set_max_hitpoints(damage)
 	hp.fully_heal()
 	hp.on_death.connect(self._on_barrel_is_dead)
@@ -40,7 +40,6 @@ func _on_barrel_is_dead(parent:Node) -> void:
 		ee_barel.visible = true
 		ee_barel.animation_finished.connect(remove_barrel)
 		ee_barel.play("default")
-		$HitpointBar.visible = false
 		$Area2D.explosion(damage)
 
 func _on_barrel_damage_received(value: int, type: HitpointBar.DamageType) -> void:
@@ -50,10 +49,7 @@ func _on_barrel_damage_received(value: int, type: HitpointBar.DamageType) -> voi
 		update_fire_per_hitpoints()
 
 func _on_timer_timeout() -> void:
-	if sink_direction == +1:
-		$HitpointBar.visible = true
-	elif sink_direction == -1:
-		$HitpointBar.visible = false
+	pass
 
 func update_fire_per_hitpoints() -> void:
 	var hp: HitpointBar = $HitpointBar
@@ -78,12 +74,10 @@ func add_fire(max: int) -> void:
 
 func rise_up() -> void:
 	$Sprite2D.scale = Vector2.ZERO
-	$HitpointBar.visible = false
 	sink_direction = +1
 	$Timer.start(rise_up_time)
 
 func sink_down() -> void:
 	$Sprite2D.scale = Vector2(1, 1)
-	$HitpointBar.visible = true
 	sink_direction = -1
 	$Timer.start(sink_down_time)
