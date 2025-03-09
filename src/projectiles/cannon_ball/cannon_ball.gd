@@ -16,6 +16,7 @@ const time_speed_scalor = 2
 
 var splash = preload("res://src/effects/splash/splash.tscn")
 var impact = preload("res://src/effects/impact/impact.tscn")
+var impact2 = preload("res://src/effects/impact2/impact2.tscn")
 
 func arc(x: float) -> float:
 	return 4 * x * (1 - x)
@@ -40,6 +41,9 @@ func _on_body_entered(body: Node) -> void:
 	
 	if piercing > 0:
 		piercing -= 1
+		var instance = impact2.instantiate()
+		instance.transform = transform
+		get_tree().root.add_child(instance);
 		return
 		
 	var instance = impact.instantiate()

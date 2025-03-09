@@ -144,9 +144,6 @@ func _on_cargo_hold_cargo_updated() -> void:
 func end_game():
 	game_ended.emit((Time.get_ticks_msec() / 1000.0) - start_time)
 
-func _on_kill_screen_kill_screen_animation_end() -> void:
-	$KillScreenTimer.stop()
-
 func update_properties(properties : PlayerProperties):
 	$PlayerShip/HitpointBar.set_max_hitpoints(properties.ship_hitpoints)
 	$PlayerShip/HitpointBar.fully_heal()
