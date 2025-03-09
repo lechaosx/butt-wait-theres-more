@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=8 format=4 uid="uid://1n0tuf8ntefx"]
 
-[ext_resource type="Texture2D" uid="uid://cn184dg310i0t" path="res://assets/UI/hitpoint_bar_bg.png" id="1_g0us1"]
-[ext_resource type="Texture2D" uid="uid://b7x74bbbm5iay" path="res://assets/UI/hitpoint_bar_fg.png" id="2_42hky"]
+[ext_resource type="Texture2D" uid="uid://s755lwaiv57a" path="res://assets/UI/hitpoint_bar_bg.png" id="1_g0us1"]
+[ext_resource type="Texture2D" uid="uid://dviqj5ir4oaw8" path="res://assets/UI/hitpoint_bar_fg.png" id="2_42hky"]
 
 [sub_resource type="Image" id="Image_fycw5"]
 data = {

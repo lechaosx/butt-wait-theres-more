@@ -111,15 +111,23 @@ func spawn_boss_enemy_2(hp):
 
 
 func _on_timer_timeout() -> void:
+	$Timer.wait_time = clamp($Timer.wait_time - 0.01, 2, 6)
+	
 	var rand = randf()
 	
-	if rand < 0.00001 * difficulty_score:
-		spawn_boss_enemy_2(100)
-	elif rand < 0.0001 * difficulty_score:
-		spawn_boss_enemy(60)
-	elif rand < 0.01 * difficulty_score:
+	if rand < 0.01 * difficulty_score:
 		var hp = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
 		spawn_gun_enemy(hp)
 	else:
 		var hp = base_hp + clamp(round(difficulty_score / 50), 0, 10)
 		spawn_ramming_enemy(hp)
+
+
+func _on_boss_timer_timeout() -> void:
+	
+	if difficulty_score >= 300:
+		for n in round(difficulty_score / 400):
+			spawn_boss_enemy_2(100)
+	else:
+		for n in round(difficulty_score / 60):
+			spawn_boss_enemy(60)

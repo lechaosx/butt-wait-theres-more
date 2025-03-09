@@ -61,6 +61,10 @@ func _ready() -> void:
 
 	abilities.append(piercing)
 
+func _input(event):
+	if event is InputEventKey:
+		if %KillScreen.visible == true and $KillScreenTimer.is_stopped() and event.pressed:
+			end_game()
 
 func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
@@ -131,8 +135,10 @@ func _on_cargo_hold_cargo_updated() -> void:
 	if %CargoCounter.count >= %CargoCounter.cargo_cap:
 		upgrade_abilities()
 
-func _on_kill_screen_kill_screen_animation_end() -> void:
+func end_game():
 	game_ended.emit((Time.get_ticks_msec() / 1000.0) - start_time)
+
+func _on_kill_screen_kill_screen_animation_end() -> void:
 	$KillScreenTimer.stop()
 
 func update_properties(properties : PlayerProperties):

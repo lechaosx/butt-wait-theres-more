@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://88md3i7p5702"]
 
 [ext_resource type="Script" uid="uid://b0jgphss5b3n7" path="res://kill_screen.gd" id="1_vwase"]
-[ext_resource type="Texture2D" uid="uid://c2oflyqvkdr7o" path="res://assets/UI/kill_banner.png" id="2_jen13"]
-[ext_resource type="FontFile" uid="uid://bu7wrbqn6sx7a" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="2_wrd86"]
+[ext_resource type="Texture2D" uid="uid://bef0rr7ti8bn8" path="res://assets/UI/kill_banner.png" id="2_jen13"]
+[ext_resource type="FontFile" uid="uid://de0tlvxu1five" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="2_wrd86"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jen13"]
 font = ExtResource("2_wrd86")
@@ -25,7 +25,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_5bnra"]
 resource_name = "bleed_in"
-length = 2.0
+length = 1.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -90,6 +90,25 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 100
 text = "YOU DIED"
+label_settings = SubResource("LabelSettings_jen13")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="ColorRect/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.498
+anchor_top = 1.286
+anchor_right = 0.498
+anchor_bottom = 1.286
+offset_left = -389.342
+offset_top = -300.653
+offset_right = 389.658
+offset_bottom = -215.653
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "press any key to go back"
 label_settings = SubResource("LabelSettings_jen13")
 horizontal_alignment = 1
 vertical_alignment = 1
