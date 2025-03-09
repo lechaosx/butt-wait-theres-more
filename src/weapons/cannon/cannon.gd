@@ -1,4 +1,4 @@
-extends Node2D
+class_name Cannon extends Node2D
 
 @onready var cannon_ball = preload("res://src/projectiles/cannon_ball/cannon_ball.tscn")
 

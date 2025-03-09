@@ -38,5 +38,5 @@ func level_up_piercing():
 	piercing += 1
 	
 	for child in get_parent().get_children():
-		if child is CannonAutomatic:
+		if child is Cannon:
 			child.piercing = piercing
