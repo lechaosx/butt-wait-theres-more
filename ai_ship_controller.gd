@@ -9,6 +9,8 @@ func get_brake_strength():
 	return 0
 
 func get_steer_axis():
+	if not target:
+		return 0
 	var forward = get_parent().transform.x.normalized()
 	var to_target = target.position - get_parent().position
 	
