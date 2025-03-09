@@ -76,6 +76,7 @@ func _on_game_started(max_score: int) -> void:
 func _process(delta: float) -> void:
 	if not dead:
 		%SurvivorTime.seconds = (Time.get_ticks_msec() / 1000.0) - start_time
+		%SurvivorTime.score = ((Time.get_ticks_msec() / 1000.0) - start_time) / 5
 
 func _input(event):
 	if event is InputEventKey:
@@ -157,7 +158,7 @@ func _on_cargo_hold_cargo_updated() -> void:
 		upgrade_abilities()
 
 func end_game():
-	game_ended.emit((Time.get_ticks_msec() / 1000.0) - start_time)
+	game_ended.emit(((Time.get_ticks_msec() / 1000.0) - start_time) / 5)
 
 func update_properties(properties : PlayerProperties):
 	$PlayerShip/HitpointBar.set_max_hitpoints(properties.ship_hitpoints)

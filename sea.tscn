@@ -103,7 +103,6 @@ unique_name_in_owner = true
 
 [node name="SurvivorTime" parent="CanvasLayer" instance=ExtResource("19_yode5")]
 unique_name_in_owner = true
-anchors_preset = 2
 
 [node name="Hud" parent="." instance=ExtResource("11_24krr")]
 unique_name_in_owner = true
