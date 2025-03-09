@@ -7,4 +7,3 @@ extends Resource
 @export var ship_ramming_damage: int
 
 @export var projectile_damage: int
-@export var projectile_piercing: int

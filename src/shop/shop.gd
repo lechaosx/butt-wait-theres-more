@@ -31,6 +31,5 @@ func update_properties(sea:Sea) -> void:
 	properties.ship_steering_angle = $ShipSteeringAngle.value()
 	properties.ship_ramming_damage = $ShipRammingDamage.value()
 	properties.projectile_damage = $CannonDamage.value()
-	properties.projectile_piercing = $CannonPiercing.value()
 	
 	sea.update_properties(properties)
