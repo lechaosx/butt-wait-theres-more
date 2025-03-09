@@ -1,7 +1,7 @@
 class_name HitpointBar
 extends Node2D
 
-@export var max_hitpoints: int = 10
+@export var max_hitpoints: int
 var damage_popup_node: PackedScene = preload("res://src/hitpoints/damage_popup/damage_popup.tscn")
 
 enum DamageType {
@@ -55,6 +55,7 @@ func set_max_hitpoints(value:int):
 	max_hitpoints = value
 	if $ProgressBar:
 		$ProgressBar.max_value = value
+	max_hitpoints_update.emit(value)
 
 func _process(delta: float) -> void:
 	rotation = - get_parent().rotation

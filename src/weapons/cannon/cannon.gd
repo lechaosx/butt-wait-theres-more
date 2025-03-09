@@ -52,7 +52,8 @@ func fire():
 	can_fire = false
 		
 	var instance = cannon_ball.instantiate()
-	instance.damage = projectile_damage
+	if projectile_damage:
+		instance.damage = projectile_damage
 	instance.piercing = piercing
 	instance.position = global_position + global_transform.x * $Sprite2D.texture.get_width()
 	instance.scale = Vector2(0.5, 0.5)
