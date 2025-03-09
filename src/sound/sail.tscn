@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqqm1hsravcgy"]
+
+[ext_resource type="Script" uid="uid://6ks4fuj6dj03" path="res://src/sound/sail.gd" id="1_5vaao"]
+[ext_resource type="AudioStream" uid="uid://bmlrti1t8ob6e" path="res://assets/Sound/sailing.wav" id="2_glqld"]
+
+[node name="Sail" type="Node2D"]
+script = ExtResource("1_5vaao")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_glqld")
+volume_db = -15.0
+pitch_scale = 1.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
