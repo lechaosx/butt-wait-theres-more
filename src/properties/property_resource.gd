@@ -3,13 +3,15 @@ extends Resource
 
 @export var min_value : int
 @export var increment : int
-@export var max_number_of_upgrades : int
+@export var price_increment : int
+@export var min_price : int
 var upgrades : int
-@export var price : int
+
+func price() -> int:
+	return min_price + price_increment * upgrades
 
 func value() -> int:
 	return min_value + increment * upgrades
 
 func upgrade() ->void:
-	if max_number_of_upgrades > upgrades:
-		upgrades += 1
+	upgrades += 1

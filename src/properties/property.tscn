@@ -24,10 +24,17 @@ size_flags_horizontal = 0
 layout_mode = 2
 size_flags_horizontal = 10
 
+[node name="Increment" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.746192, 1.15514e-06, 1)
+
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 icon_alignment = 2
 
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
