@@ -152,8 +152,8 @@ func _on_cargo_hold_cargo_updated() -> void:
 		return
 
 	%CargoCounter.count = %CargoCounter.count + 1
-
-	if %CargoCounter.count >= %CargoCounter.cargo_cap:
+	
+	if %CargoCounter.count >= %CargoCounter.cargo_cap and not %AbilityCards.visible:
 		upgrade_abilities()
 
 func end_game():
