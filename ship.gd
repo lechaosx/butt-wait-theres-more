@@ -66,7 +66,6 @@ func _physics_process(delta: float) -> void:
 
 func add_hitpoint_bar(bar: HitpointBar) -> void:
 	_hitpoint_bar = bar
-	bar.visible = false
 	
 	if get_children().find(bar) == -1:
 		add_child(bar)
