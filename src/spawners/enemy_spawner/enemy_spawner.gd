@@ -91,11 +91,31 @@ func spawn_boss_enemy(hp):
 		
 	get_tree().root.add_child(ship)
 
+func spawn_boss_enemy_2(hp):
+	var ship = spawn_enemy_ship()
+	add_hp(ship, hp)
+	ship.get_node("AnimatedSprite2D").apply_scale(Vector2(3,2))
+	ship.get_node("CollisionShape2D").apply_scale(Vector2(3,3))
+	
+	for n in 10:
+		var cannon = cannon_scene.instantiate()
+		cannon.autofire = true;
+		cannon.position.x = 42
+		cannon.position.y = (5 - n) * 12.5
+		cannon.default_cannon_cooldown_time = 1
+		cannon.ball_speed = cannon.ball_speed * 2
+		ship.add_child(cannon)
+		cannon.set_z_index(2)
+		
+	get_tree().root.add_child(ship)
+
 
 func _on_timer_timeout() -> void:
 	var rand = randf()
 	
-	if rand < 0.0001 * difficulty_score:
+	if rand < 0.00001 * difficulty_score:
+		spawn_boss_enemy_2(100)
+	elif rand < 0.0001 * difficulty_score:
 		spawn_boss_enemy(60)
 	elif rand < 0.01 * difficulty_score:
 		var hp = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
