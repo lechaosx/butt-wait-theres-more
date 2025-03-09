@@ -16,7 +16,6 @@ z_index = 3
 script = ExtResource("1_cn5fv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(42, 0)
 texture = ExtResource("2_ixags")
 
 [node name="Timer" type="Timer" parent="."]

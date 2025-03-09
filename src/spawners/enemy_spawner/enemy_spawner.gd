@@ -52,6 +52,7 @@ func spawn_gun_enemy(hp):
 	var ship = spawn_enemy_ship()
 	add_hp(ship, hp)
 	var cannon = cannon_scene.instantiate()
+	cannon.position.x = 42
 	cannon.autofire = true;
 	ship.add_child(cannon)
 	cannon.set_z_index(2)
@@ -59,14 +60,18 @@ func spawn_gun_enemy(hp):
 	if randf() < 0.001 * difficulty_score:
 		var left_cannon = cannon_scene.instantiate()
 		var right_cannon = cannon_scene.instantiate()
+		left_cannon.position.x = 30
+		left_cannon.position.y = 15
+		right_cannon.position.x = 30
+		right_cannon.position.y = -15
 		left_cannon.autofire = true;
-		left_cannon.autofire = true;
+		right_cannon.autofire = true;
 		left_cannon.rotation = deg_to_rad(45)
 		right_cannon.rotation = deg_to_rad(-45)
 		ship.add_child(left_cannon)
 		ship.add_child(right_cannon)
 		left_cannon.set_z_index(2)
-		left_cannon.set_z_index(2)
+		right_cannon.set_z_index(2)
 	
 	get_tree().root.add_child(ship)
 
@@ -79,6 +84,7 @@ func spawn_boss_enemy(hp):
 	for n in 8:
 		var cannon = cannon_scene.instantiate()
 		cannon.autofire = true;
+		cannon.position.x = 42
 		cannon.position.y = (4 - n) * 12.5
 		ship.add_child(cannon)
 		cannon.set_z_index(2)
