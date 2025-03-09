@@ -44,4 +44,4 @@ func _on_timer_timeout() -> void:
 
 	if target:
 		var forward_dir = global_transform.x
-		CannonSpawn.spawn_cannon_ball(get_parent(), ball_speed, global_position, forward_dir, velocity, 20)
+		CannonSpawn.spawn_cannon_ball(get_parent(), ball_speed, global_position, forward_dir, velocity, 20, 1)

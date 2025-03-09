@@ -43,6 +43,16 @@ func _ready() -> void:
 	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
 
 	abilities.append(userCannon)
+	
+	var piercing = Ability.new()
+	piercing.current_level = 0
+	piercing.max_level = 5
+	piercing.image = load("res://assets/Ship parts/cannonBall.png")
+	piercing.name = "Cannon Ball Piercing"
+	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
+	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
+
+	abilities.append(piercing)
 
 
 func create_barrel(pos: Vector2) -> void:

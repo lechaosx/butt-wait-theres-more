@@ -1,8 +1,8 @@
 class_name CannonBall
 extends RigidBody2D
 
-@export var damage : int
-@export var piercing : int
+@export var damage : int = 1
+@export var piercing : int = 0
 @export var fly_time : float = 1
 @export var from_good_ship : bool = true
 
@@ -37,8 +37,8 @@ func _on_body_entered(body: Node) -> void:
 	
 	add_collision_exception_with(body)
 	
-	piercing-=1
-	if piercing:
+	if piercing > 0:
+		piercing -= 1
 		return
 		
 	var instance = impact.instantiate()

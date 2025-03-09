@@ -14,8 +14,6 @@ contact_monitor = true
 max_contacts_reported = 50
 linear_damp = 0.25
 script = ExtResource("1_n02ov")
-damage = 1
-piercing = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3813t")
