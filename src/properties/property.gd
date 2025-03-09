@@ -56,7 +56,10 @@ func _on_button_pressed() -> void:
 func _on_button_mouse_entered() -> void:
 	if property:
 		$Increment.text = "+%d" % property.increment
+		$Button.text =  "%d +%d" % [price(), property.price_increment]
 
 
 func _on_button_mouse_exited() -> void:
 	$Increment.text = ""
+	$Button.text = "%d" % price()
+	
