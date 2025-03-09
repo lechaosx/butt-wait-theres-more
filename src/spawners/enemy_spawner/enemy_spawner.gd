@@ -22,7 +22,7 @@ func _on_enemy_death(enemy:Node) -> void:
 	get_tree().root.call_deferred("add_child", cargo)
 	enemy.queue_free()
 
-func spawn_enemy_ship():
+func spawn_enemy_ship() -> Ship:
 	var ship = ship_scene.instantiate();
 	ship.controller = AIShipController.new()
 	ship.controller.target = %PlayerShip
@@ -40,7 +40,7 @@ func spawn_enemy_ship():
 func add_hp(ship, hp):
 	var HP = hitpoint_scene.instantiate()
 	HP.on_death.connect(_on_enemy_death)
-	HP.set_max_hitpoints(5)
+	HP.set_max_hitpoints(hp)
 	ship.add_child(HP)
 
 func spawn_ramming_enemy(hp):
@@ -54,12 +54,40 @@ func spawn_gun_enemy(hp):
 	var cannon = cannon_automatic_scene.instantiate()
 	ship.add_child(cannon)
 	cannon.set_z_index(2)
+	
+	if randf() < 0.001 * difficulty_score:
+		var left_cannon = cannon_automatic_scene.instantiate()
+		var right_cannon = cannon_automatic_scene.instantiate()
+		left_cannon.rotation = deg_to_rad(45)
+		right_cannon.rotation = deg_to_rad(-45)
+		ship.add_child(left_cannon)
+		ship.add_child(right_cannon)
+		left_cannon.set_z_index(2)
+		left_cannon.set_z_index(2)
+	
 	get_tree().root.add_child(ship)
+
+func spawn_boss_enemy(hp):
+	var ship = spawn_enemy_ship()
+	add_hp(ship, hp)
+	ship.get_node("Sprite2D").apply_scale(Vector2(2,2))
+	ship.get_node("CollisionShape2D").apply_scale(Vector2(2,2))
+	
+	for n in 8:
+		var cannon = cannon_automatic_scene.instantiate()
+		cannon.position.y = (4 - n) * 12.5
+		ship.add_child(cannon)
+		cannon.set_z_index(2)
+		
+	get_tree().root.add_child(ship)
+
 
 func _on_timer_timeout() -> void:
 	var rand = randf()
 	
-	if rand < 0.01 * difficulty_score:
+	if rand < 0.0001 * difficulty_score:
+		spawn_boss_enemy(60)
+	elif rand < 0.01 * difficulty_score:
 		var hp = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
 		spawn_gun_enemy(hp)
 	else:
