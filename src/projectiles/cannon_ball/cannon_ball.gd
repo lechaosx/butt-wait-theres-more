@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var damage : int
 @export var piercing : int
 @export var fly_time : float = 1
-@export var is_frendly : bool = true
+@export var from_good_ship : bool = true
 
 func _ready() -> void:
 	$Timer.wait_time = fly_time
@@ -26,8 +26,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	
-	# do not shoot same frendly type
-	if body is Ship && body.is_frendly == is_frendly:
+	# do not shoot same friendly type
+	if body is Ship && Ship.is_good(body.type) == from_good_ship:
 		add_collision_exception_with(body) # lul
 		return
 	

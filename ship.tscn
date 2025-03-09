@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbrtvx1fx65q6"]
 
 [ext_resource type="Script" uid="uid://bhwc0xck2c1r0" path="res://ship.gd" id="1_4cq66"]
-[ext_resource type="Texture2D" uid="uid://b8oqvdpae6xxa" path="res://assets/Ships/ship (1).png" id="2_4cq66"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_v4325"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3vuw"]
 radius = 16.0
@@ -19,9 +19,11 @@ collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_4cq66")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 4.71239
-texture = ExtResource("2_4cq66")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -1.5708
+sprite_frames = ExtResource("2_v4325")
+animation = &"friendly"
+speed_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 0)

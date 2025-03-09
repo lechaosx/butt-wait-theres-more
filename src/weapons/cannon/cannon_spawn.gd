@@ -9,7 +9,7 @@ static func spawn_cannon_ball(proj_owner, ball_speed, global_position, forward_d
 		instance.add_collision_exception_with(proj_owner)
 		
 		if proj_owner is Ship:
-			instance.is_frendly = proj_owner.is_frendly
+			instance.from_good_ship = Ship.is_good(proj_owner.type)
 		
 		proj_owner.get_tree().root.add_child(instance)
 		instance.apply_force(ball_speed * forward_dir + velocity)
