@@ -4,6 +4,7 @@ extends RigidBody2D
 @export var damage : int
 @export var piercing : int
 @export var fly_time : float = 1
+@export var is_frendly : bool = true
 
 func _ready() -> void:
 	$Timer.wait_time = fly_time
@@ -24,6 +25,12 @@ func _physics_process(delta: float) -> void:
 	$Sprite2D.scale = Vector2(new_scale, new_scale)
 
 func _on_body_entered(body: Node) -> void:
+	
+	# do not shoot same frendly type
+	if body is Ship && body.is_frendly == is_frendly:
+		add_collision_exception_with(body) # lul
+		return
+	
 	for child in body.get_children():
 		if child is HitpointBar:
 			child.receive_damage(1, HitpointBar.DamageType.PROJECTILE)

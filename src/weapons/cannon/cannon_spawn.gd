@@ -7,6 +7,10 @@ static func spawn_cannon_ball(proj_owner, ball_speed, global_position, forward_d
 		instance.position = global_position + forward_dir * offset
 		instance.scale = Vector2(0.5, 0.5)
 		instance.add_collision_exception_with(proj_owner)
+		
+		if proj_owner is Ship:
+			instance.is_frendly = proj_owner.is_frendly
+		
 		proj_owner.get_tree().root.add_child(instance)
 		instance.apply_force(ball_speed * forward_dir + velocity)
 		return instance
