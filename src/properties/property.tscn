@@ -9,6 +9,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fxd3x")
+no_money_font_color = Color(0.53, 0.141333, 0.106, 1)
+no_money_font_color_hover = Color(0.96, 0.4232, 0.3744, 1)
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 2
@@ -26,7 +28,7 @@ size_flags_horizontal = 10
 
 [node name="Increment" type="Label" parent="."]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0.746192, 1.15514e-06, 1)
+theme_override_colors/font_color = Color(0.458824, 0.741176, 0.309804, 1)
 
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(80, 0)

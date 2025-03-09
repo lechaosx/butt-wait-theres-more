@@ -6,6 +6,9 @@ extends HBoxContainer
 @export var default_value: int
 @export var defailt_price: int
 
+@export var no_money_font_color = Color.from_string("#93413aff", Color.DARK_RED)
+@export var no_money_font_color_hover = Color.from_string("#93413aff", Color.FIREBRICK)
+
 var mouse_inside:bool
 
 signal value_updated(value:int)
@@ -44,8 +47,8 @@ func upgrade()->void:
 	
 func update_button(balance:int):
 	if balance < price():
-		$Button.add_theme_color_override("font_color", "#C41E3A")
-		$Button.add_theme_color_override("font_hover_color", "#FF1919")
+		$Button.add_theme_color_override("font_color", no_money_font_color)
+		$Button.add_theme_color_override("font_hover_color", no_money_font_color_hover)
 	else:
 		$Button.remove_theme_color_override("font_color")
 
