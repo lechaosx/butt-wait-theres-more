@@ -72,7 +72,7 @@ func spawn_gun_enemy(hp):
 func spawn_boss_enemy(hp):
 	var ship = spawn_enemy_ship()
 	add_hp(ship, hp)
-	ship.get_node("Sprite2D").apply_scale(Vector2(2,2))
+	ship.get_node("AnimatedSprite2D").apply_scale(Vector2(2,2))
 	ship.get_node("CollisionShape2D").apply_scale(Vector2(2,2))
 	
 	for n in 8:
