@@ -5,13 +5,13 @@ extends VBoxContainer
 		balance = val
 		if $Balance/Label:
 			$Balance/Label.text = str(val)
-		for child in get_children():
+		for child in $VBoxContainer.get_children():
 			if child is Property:
 				child.update_button(balance)
 
 func _ready() -> void:
 	balance = 0
-	for child in get_children():
+	for child in $VBoxContainer.get_children():
 		if child is Property:
 			child.plus_button_clicked.connect(self.buy_upgrade)
 
