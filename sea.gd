@@ -112,7 +112,8 @@ func upgrade_abilities():
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	ability.level_up()
 	Engine.time_scale = 1
-	%CargoCounter.count -= 5
+	%CargoCounter.count -= %CargoCounter.cargo_cap
+	%CargoCounter.cargo_cap += 1
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
 	%KillScreen.die()
@@ -121,7 +122,7 @@ func _on_hitpoint_bar_on_death(parent: Node) -> void:
 func _on_cargo_hold_cargo_updated() -> void:
 	%CargoCounter.count = %CargoCounter.count + 1
 	
-	if %CargoCounter.count >= 5:
+	if %CargoCounter.count >= %CargoCounter.cargo_cap:
 		upgrade_abilities()
 
 func _on_kill_screen_kill_screen_animation_end() -> void:

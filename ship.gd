@@ -88,9 +88,13 @@ func _update_frames() -> void:
 		$AnimatedSprite2D.frame = 3
 
 func _on_ram_area_body_entered(body: Node2D) -> void:
-	if body is Ship:
-		if _hitpoint_bar != null and is_good(type) != is_good(body.type):
-			_hitpoint_bar.receive_damage(ramming_damage, HitpointBar.DamageType.RAMMING)
+	for child in body.get_children():
+		if child is HitpointBar:
+			if body is Ship:
+				if body.is_good(body.type) != is_good(type):
+					child.receive_damage(ramming_damage, HitpointBar.DamageType.RAMMING)
+			else:
+				child.receive_damage(ramming_damage, HitpointBar.DamageType.RAMMING)
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()

@@ -28,8 +28,9 @@ func spawn_enemy_ship() -> Ship:
 	ship.controller.target = %PlayerShip
 	ship.add_child(ship.controller)
 
-#	ship.set_collision_layer_value(1, false)
-#	ship.set_collision_layer_value(5, true)
+	ship.set_collision_layer_value(1, false)
+	ship.set_collision_layer_value(5, true)
+	ship.set_collision_mask_value(5, true)
 	ship.add_to_group("enemies")
 
 	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)

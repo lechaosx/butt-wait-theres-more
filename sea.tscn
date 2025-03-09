@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 [ext_resource type="PackedScene" uid="uid://pbdp3pu1ndyl" path="res://auto_aim_cannon_controller.tscn" id="8_vmxnl"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
-[ext_resource type="Script" path="res://wind_particles.gd" id="10_7u2wy"]
+[ext_resource type="Script" uid="uid://colodbh4ytdb1" path="res://wind_particles.gd" id="10_7u2wy"]
 [ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
 [ext_resource type="Script" uid="uid://dwn28qn3r10gh" path="res://cargo_hold.gd" id="10_jolub"]
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://src/hud/hud.tscn" id="11_24krr"]
