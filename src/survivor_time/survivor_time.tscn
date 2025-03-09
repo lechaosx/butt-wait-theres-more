@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://btlqah2g7f5lk"]
+[gd_scene load_steps=5 format=3 uid="uid://btlqah2g7f5lk"]
 
 [ext_resource type="Script" uid="uid://ch47g2w2x0wvi" path="res://src/survivor_time/survivor_time.gd" id="1_7ucco"]
-[ext_resource type="Theme" path="res://src/hitpoints/hitpoints.tres" id="2_3v8y4"]
-[ext_resource type="FontFile" uid="uid://d4li2mtv1k00i" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="3_sg4q1"]
+[ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://assets/UI/theme.tres" id="2_3v8y4"]
+[ext_resource type="FontFile" uid="uid://bu7wrbqn6sx7a" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="3_sg4q1"]
+[ext_resource type="Texture2D" uid="uid://cmkgwu5kh3ye1" path="res://assets/UI/coins.png" id="4_6hb1b"]
 
 [node name="SurvivorTime" type="HBoxContainer"]
 offset_right = 32.0
@@ -27,16 +28,15 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 
-[node name="ScoreText" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="Coins" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_sg4q1")
-theme_override_font_sizes/font_size = 42
-text = "Score:"
+texture = ExtResource("4_6hb1b")
 
 [node name="ScoreValue" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
