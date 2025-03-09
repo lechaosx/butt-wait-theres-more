@@ -48,7 +48,7 @@ func fire():
 	instance.scale = Vector2(0.5, 0.5)
 	
 	if get_parent() is Ship:
-			instance.is_frendly = get_parent().is_frendly
+			instance.from_good_ship = get_parent().is_good(get_parent().type)
 	
 	instance.add_collision_exception_with(get_parent())
 	instance.apply_force(ball_speed * global_transform.x + velocity)
