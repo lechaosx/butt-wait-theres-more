@@ -14,13 +14,13 @@ func _on_game_over(score:int) -> void:
 	get_tree().root.remove_child(active_sea)
 	active_sea.queue_free()
 	$MainMenu.visible = true
-	$MainMenu/HBoxContainer/Shop.update_balance(score)
+	$MainMenu/HBoxContainer/VBoxContainer/Shop.update_balance(score)
 
 func _on_button_pressed() -> void:
 	var sea: Sea = sea_scene.instantiate()
 	$MainMenu.visible = false
 	sea.game_ended.connect(self._on_game_over)
 	get_tree().root.add_child(sea)
-	$MainMenu/HBoxContainer/Shop.update_properties(sea)
+	$MainMenu/HBoxContainer/VBoxContainer/Shop.update_properties(sea)
 	active_sea = sea
 	sea.game_started.emit(max_score)

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://nus27csfsws2" path="res://src/weapons/cannon/cannon.gd" id="1_cn5fv"]
 [ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_ixags"]
-[ext_resource type="AudioStream" uid="uid://bb5mjhdt5g23d" path="res://assets/Sound/CannonFire.wav" id="3_ixags"]
-[ext_resource type="AudioStream" uid="uid://6x0qmjk66ips" path="res://assets/Sound/CannonFire2.wav" id="4_n52ym"]
+[ext_resource type="AudioStream" uid="uid://nfjhbn1gm666" path="res://assets/Sound/CannonFire.wav" id="3_ixags"]
+[ext_resource type="AudioStream" uid="uid://m42olj6cuxwi" path="res://assets/Sound/CannonFire2.wav" id="4_n52ym"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ovybr"]
 playback_mode = 1
@@ -19,7 +19,7 @@ script = ExtResource("1_cn5fv")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ixags")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." groups=["GameTimers"]]
 wait_time = 0.5
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

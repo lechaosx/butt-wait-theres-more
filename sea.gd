@@ -76,11 +76,7 @@ func _on_game_started(max_score: int) -> void:
 func _process(delta: float) -> void:
 	if not dead:
 		%SurvivorTime.seconds = (Time.get_ticks_msec() / 1000.0) - start_time
-
-func _input(event):
-	if event is InputEventKey:
-		if %KillScreen.visible == true and $KillScreenTimer.is_stopped() and event.pressed:
-			end_game()
+		%SurvivorTime.score = ((Time.get_ticks_msec() / 1000.0) - start_time)
 
 func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
@@ -140,12 +136,15 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.cargo_cap += 1
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
+	if dead:
+		return
+		
 	dead = true
 	%AbilityCards.hide()
 	Engine.time_scale = 1
 	%KillScreen.die()
-	$KillScreenTimer.start()
 	%PlayerShip.velocity = Vector2(0,0)
+	get_tree().call_group("GameTimers", "stop")
 
 func _on_cargo_hold_cargo_updated() -> void:
 	if dead:
@@ -156,9 +155,6 @@ func _on_cargo_hold_cargo_updated() -> void:
 	if %CargoCounter.count >= %CargoCounter.cargo_cap and not %AbilityCards.visible:
 		upgrade_abilities()
 
-func end_game():
-	game_ended.emit((Time.get_ticks_msec() / 1000.0) - start_time)
-
 func update_properties(properties : PlayerProperties):
 	$PlayerShip/HitpointBar.set_max_hitpoints(properties.ship_hitpoints)
 	$PlayerShip/HitpointBar.fully_heal()
@@ -167,3 +163,7 @@ func update_properties(properties : PlayerProperties):
 	$PlayerShip.steering_angle = properties.ship_steering_angle
 	$PlayerShip.ramming_damage = properties.ship_ramming_damage
 	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
+
+
+func _on_kill_screen_finished() -> void:
+	game_ended.emit((Time.get_ticks_msec() / 1000.0) - start_time)
