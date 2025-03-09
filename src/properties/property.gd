@@ -6,6 +6,8 @@ extends HBoxContainer
 @export var default_value: int
 @export var defailt_price: int
 
+var mouse_inside:bool
+
 signal value_updated(value:int)
 signal plus_button_clicked(property:Property)
 
@@ -30,11 +32,15 @@ func price() -> int:
 	return defailt_price
 
 func upgrade()->void:
-	if property:
-		property.upgrade()
+	if not property:
+		return
+	property.upgrade()
 	value_updated.emit(value())
 	$Value.text = "   %d" % value()
-	$Button.text = str(price())
+	if mouse_inside:
+		$Button.text =  "%d +%d" % [price(), property.price_increment]
+	else:
+		$Button.text = str(price())
 	
 func update_button(balance:int):
 	if balance >= price():
@@ -57,9 +63,10 @@ func _on_button_mouse_entered() -> void:
 	if property:
 		$Increment.text = "+%d" % property.increment
 		$Button.text =  "%d +%d" % [price(), property.price_increment]
+	mouse_inside = true
 
 
 func _on_button_mouse_exited() -> void:
 	$Increment.text = ""
 	$Button.text = "%d" % price()
-	
+	mouse_inside = false
