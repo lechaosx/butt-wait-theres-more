@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var canon_scene = preload("res://src/weapons/cannon_automatic/cannon_automatic.tscn")
+@onready var canon_scene = preload("res://src/weapons/cannon/cannon.tscn")
 
 var level = 0
 
@@ -12,6 +12,9 @@ func level_up():
 	
 	var left_cannon = canon_scene.instantiate()
 	var right_cannon = canon_scene.instantiate()
+	
+	left_cannon.autofire = true
+	right_cannon.autofire = true
 
 	left_cannon.position.x = pos_x
 	right_cannon.position.x = pos_x

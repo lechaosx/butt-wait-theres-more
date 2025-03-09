@@ -7,6 +7,7 @@ var previous_position: Vector2
 
 @export var ball_speed = 40000
 @export var default_cannon_cooldown_time : float = 2
+@export var autofire = false
 
 var can_fire: bool = true
 
@@ -15,6 +16,10 @@ var level = 0
 func _ready() -> void:
 	previous_position = global_position
 	$Timer.wait_time = default_cannon_cooldown_time
+	
+func _process(delta: float) -> void:
+	if can_fire && autofire:
+		fire()
 
 func level_up():
 	if level >= 5:
@@ -33,10 +38,16 @@ func fire():
 	var instance = cannon_ball.instantiate()
 	instance.position = global_position + global_transform.x * $Sprite2D.texture.get_width()
 	instance.scale = Vector2(0.5, 0.5)
+	
+	if get_parent() is Ship:
+			instance.is_frendly = get_parent().is_frendly
+	
 	instance.add_collision_exception_with(get_parent())
 	instance.apply_force(ball_speed * global_transform.x + velocity)
 	get_tree().get_root().add_child(instance)
-
+	
+	$AudioStreamPlayer2D.play()
+	
 	if $Timer.is_stopped():
 		$Timer.start()
 			
@@ -46,3 +57,5 @@ func _physics_process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	can_fire = true
+	if autofire:
+		fire()

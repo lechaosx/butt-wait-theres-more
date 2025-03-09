@@ -4,7 +4,7 @@ extends Node2D
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 @onready var cargo_scene := preload("res://cargo.tscn")
 
-@onready var cannon_automatic_scene := preload("res://src/weapons/cannon_automatic/cannon_automatic.tscn")
+@onready var cannon_scene := preload("res://src/weapons/cannon/cannon.tscn")
 
 @export var difficulty_score : float = 10.0 
 var base_hp = 5
@@ -51,13 +51,16 @@ func spawn_ramming_enemy(hp):
 func spawn_gun_enemy(hp):
 	var ship = spawn_enemy_ship()
 	add_hp(ship, hp)
-	var cannon = cannon_automatic_scene.instantiate()
+	var cannon = cannon_scene.instantiate()
+	cannon.autofire = true;
 	ship.add_child(cannon)
 	cannon.set_z_index(2)
 	
 	if randf() < 0.001 * difficulty_score:
-		var left_cannon = cannon_automatic_scene.instantiate()
-		var right_cannon = cannon_automatic_scene.instantiate()
+		var left_cannon = cannon_scene.instantiate()
+		var right_cannon = cannon_scene.instantiate()
+		left_cannon.autofire = true;
+		left_cannon.autofire = true;
 		left_cannon.rotation = deg_to_rad(45)
 		right_cannon.rotation = deg_to_rad(-45)
 		ship.add_child(left_cannon)
@@ -74,7 +77,8 @@ func spawn_boss_enemy(hp):
 	ship.get_node("CollisionShape2D").apply_scale(Vector2(2,2))
 	
 	for n in 8:
-		var cannon = cannon_automatic_scene.instantiate()
+		var cannon = cannon_scene.instantiate()
+		cannon.autofire = true;
 		cannon.position.y = (4 - n) * 12.5
 		ship.add_child(cannon)
 		cannon.set_z_index(2)

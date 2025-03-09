@@ -34,6 +34,7 @@ func _on_body_entered(body: Node) -> void:
 	for child in body.get_children():
 		if child is HitpointBar:
 			child.receive_damage(1, HitpointBar.DamageType.PROJECTILE)
+			$AudioStreamPlayer2D.play()
 	
 	add_collision_exception_with(body)
 	
