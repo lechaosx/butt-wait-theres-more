@@ -1,59 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://88md3i7p5702"]
+[gd_scene load_steps=8 format=3 uid="uid://88md3i7p5702"]
 
 [ext_resource type="Script" uid="uid://b0jgphss5b3n7" path="res://kill_screen.gd" id="1_vwase"]
+[ext_resource type="Texture2D" uid="uid://c2oflyqvkdr7o" path="res://assets/UI/kill_banner.png" id="2_jen13"]
+[ext_resource type="FontFile" uid="uid://bu7wrbqn6sx7a" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="2_wrd86"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jen13"]
+font = ExtResource("2_wrd86")
+font_size = 80
 
 [sub_resource type="Animation" id="Animation_vwase"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect/Label:theme_override_colors/font_color")
+tracks/0/path = NodePath("ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 0, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_5bnra"]
 resource_name = "bleed_in"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect/Label:theme_override_colors/font_color")
+tracks/0/path = NodePath("ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0.1, 1.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wrd86"]
@@ -78,24 +61,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.0533, 0.0942067, 0.13, 0.392157)
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -235.5
-offset_top = -68.5
-offset_right = 235.5
-offset_bottom = 68.5
+offset_left = -261.5
+offset_right = 317.5
+offset_bottom = 620.0
 grow_horizontal = 2
-grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_jen13")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="ColorRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -156.0
+offset_top = 100.0
+offset_right = 155.0
+offset_bottom = 185.0
+grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 100
 text = "YOU DIED"
+label_settings = SubResource("LabelSettings_jen13")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 active = false
