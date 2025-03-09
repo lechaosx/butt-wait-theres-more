@@ -136,6 +136,9 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.cargo_cap += 1
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
+	if dead:
+		return
+		
 	dead = true
 	%AbilityCards.hide()
 	Engine.time_scale = 1
