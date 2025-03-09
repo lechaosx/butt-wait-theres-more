@@ -5,7 +5,6 @@ extends Node
 @onready var ship_scene := preload("res://ship.tscn")
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 @onready var man_overboard_scene := preload("res://src/man_overboard/man_overboard.tscn")
-@onready var cargo_scene := preload("res://cargo.tscn")
 
 @export var abilities: Array[Ability] = []
 
@@ -16,7 +15,7 @@ func _ready() -> void:
 	canons.current_level = 0
 	canons.max_level = 5
 	canons.image = load("res://assets/Ship parts/cannon.png")
-	canons.name = "Automatic Cannon"
+	canons.name = "Side Cannons"
 	canons.leveled.connect($PlayerShip/AutoCannonAbility.level_up)
 
 	abilities.append(canons)
@@ -25,16 +24,43 @@ func _ready() -> void:
 	ships.current_level = 0
 	ships.max_level = 5
 	ships.image = load("res://assets/Ships/ship (4).png")
-	ships.name = "Friendly Ship"
+	ships.name = "Friendly Ships"
 	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
-
+	
 	abilities.append(ships)
+	
+	var barrels = Ability.new()
+	barrels.current_level = 0
+	barrels.max_level = 5
+	barrels.image = load("res://assets/barrel.png")
+	barrels.name = "Exploding Barrel"
+	barrels.leveled.connect($PlayerShip/BarrelDroppingAbility.level_up)
+
+	abilities.append(barrels)
+	
+	var userCannon = Ability.new()
+	userCannon.current_level = 0
+	userCannon.max_level = 5
+	userCannon.image = load("res://assets/Ship parts/cannon.png")
+	userCannon.name = "Auto Cannon Cooling System"
+	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
+
+	abilities.append(userCannon)
+	
+	var piercing = Ability.new()
+	piercing.current_level = 0
+	piercing.max_level = 5
+	piercing.image = load("res://assets/Ship parts/cannonBall.png")
+	piercing.name = "Cannon Ball Piercing"
+	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
+	piercing.leveled.connect($PlayerShip/AutoCannonAbility.level_up_piercing)
+
+	abilities.append(piercing)
 
 
 func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
 	bar.position = pos
-	
 	add_child(bar)
 	
 func random_point_on_circle(radius: float) -> Vector2:
@@ -47,30 +73,6 @@ func count_objects_in_radius(center: Vector2, radius: float, group_name: String)
 		if obj is Node2D and obj.global_position.distance_to(center) <= radius:
 			count += 1
 	return count
-
-
-func _on_enemy_spawn_timer_timeout() -> void:
-	var ship = ship_scene.instantiate();
-	ship.controller = AIShipController.new()
-	ship.controller.target = %PlayerShip
-	ship.add_child(ship.controller)
-
-	ship.set_collision_layer_value(1, false)
-	ship.set_collision_layer_value(5, true)
-	ship.is_frendly = false;
-	ship.add_to_group("enemies")
-
-	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-	ship.texture = load("res://assets/Ships/ship (2).png")
-
-	var HP = hitpoint_scene.instantiate()
-	HP.on_death.connect(self._on_enemy_death)
-	HP.set_max_hitpoints(5)
-
-	ship.add_child(HP)
-
-	add_child(ship)
-
 
 func _on_barrel_spawn_timer_timeout() -> void:
 	var screen_radius = get_viewport().get_visible_rect().size.length() / 2
@@ -91,17 +93,21 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	man_overboard.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 
 	add_child(man_overboard)
-
-func _on_enemy_death(enemy:Node) -> void:
-	var cargo = cargo_scene.instantiate()
-	cargo.position = enemy.position
-	add_child(cargo)
-	enemy.queue_free()
 	
 func upgrade_abilities():
-	$%AbilityCards.abilities = abilities
-	%AbilityCards.visible = true
-	Engine.time_scale = 0.1
+	var upgradable_abilities: Array[Ability] = []
+	
+	for ability in abilities:
+		if ability.current_level < 5:
+			upgradable_abilities.append(ability)
+			
+	upgradable_abilities.shuffle()  # Randomize the order of elements
+	upgradable_abilities = upgradable_abilities.slice(0, min(2, upgradable_abilities.size()))
+			
+	if upgradable_abilities.size() > 0:
+		$%AbilityCards.abilities = upgradable_abilities
+		%AbilityCards.visible = true
+		Engine.time_scale = 0.1
 
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	ability.level_up()

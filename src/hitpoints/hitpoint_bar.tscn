@@ -8,10 +8,11 @@ script = ExtResource("1_vu7h7")
 max_hitpoints = 50
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -64.0
-offset_top = 64.0
-offset_right = 64.0
-offset_bottom = 96.0
+offset_right = 128.0
+offset_bottom = 64.0
+scale = Vector2(0.75, 0.75)
+size_flags_vertical = 4
 theme = ExtResource("3_mwrvx")
+show_percentage = false
 
 [node name="PopupLocation" type="Marker2D" parent="."]

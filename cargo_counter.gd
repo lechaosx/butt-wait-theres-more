@@ -2,5 +2,5 @@ extends HBoxContainer
 
 var count: int = 0:
 	set(value):
-		$Label.text = "%d" % value
+		$ProgressBar.value = value
 		count = value

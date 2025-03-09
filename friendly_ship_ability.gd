@@ -1,7 +1,8 @@
 extends Node
 
 @onready var ship_scene := preload("res://ship.tscn")
-@onready var cannon_autoaim := preload("res://src/weapons/cannon_autoaim/cannon_autoaim.tscn")
+@onready var cannon_autoaim := preload("res://src/weapons/cannon/cannon.tscn")
+@onready var cannon_autoaim_controller := preload("res://auto_aim_cannon_controller.tscn")
 
 var level = 0
 
@@ -21,8 +22,10 @@ func level_up():
 	var cannon = cannon_autoaim.instantiate()
 	cannon.scale = Vector2(2, 2)
 	ship.add_child(cannon)
-	ship.add_to_group("frendly")
-	ship.texture = load("res://assets/Ships/ship (4).png")
+	var autoaim_controller = cannon_autoaim_controller.instantiate()
+	cannon.add_child(autoaim_controller)
+	ship.add_to_group("friendly")
+	ship.type = Ship.Type.Friendly
 	ship.scale = Vector2(0.5, 0.5)
 	ship.position = get_parent().position + Vector2(0, 100)
 	get_tree().get_root().add_child(ship)

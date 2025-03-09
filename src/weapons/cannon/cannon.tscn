@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://rj64e3jgod0g"]
+[gd_scene load_steps=6 format=3 uid="uid://rj64e3jgod0g"]
 
 [ext_resource type="Script" uid="uid://nus27csfsws2" path="res://src/weapons/cannon/cannon.gd" id="1_cn5fv"]
 [ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_ixags"]
+[ext_resource type="AudioStream" uid="uid://bb5mjhdt5g23d" path="res://assets/Sound/CannonFire.wav" id="3_ixags"]
+[ext_resource type="AudioStream" uid="uid://6x0qmjk66ips" path="res://assets/Sound/CannonFire2.wav" id="4_n52ym"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ovybr"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("3_ixags")
+stream_1/stream = ExtResource("4_n52ym")
 
 [node name="Cannon" type="Node2D"]
 z_index = 3
@@ -10,3 +18,13 @@ script = ExtResource("1_cn5fv")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(42, 0)
 texture = ExtResource("2_ixags")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ovybr")
+volume_db = -8.0
+pitch_scale = 1.8
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
