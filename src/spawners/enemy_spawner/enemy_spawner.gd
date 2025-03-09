@@ -19,7 +19,7 @@ func random_point_on_circle(radius: float) -> Vector2:
 func _on_enemy_death(enemy:Node) -> void:
 	var cargo = cargo_scene.instantiate()
 	cargo.position = enemy.position
-	get_tree().root.call_deferred("add_child", cargo)
+	call_deferred("add_child", cargo)
 	enemy.queue_free()
 
 func spawn_enemy_ship() -> Ship:
@@ -46,7 +46,7 @@ func add_hp(ship, hp):
 func spawn_ramming_enemy(hp):
 	var ship = spawn_enemy_ship()
 	add_hp(ship, hp)
-	get_tree().root.add_child(ship)
+	add_child(ship)
 	
 func spawn_gun_enemy(hp):
 	var ship = spawn_enemy_ship()
@@ -56,6 +56,7 @@ func spawn_gun_enemy(hp):
 	cannon.autofire = true;
 	ship.add_child(cannon)
 	cannon.set_z_index(2)
+	cannon.sea = self
 	
 	if randf() < 0.001 * difficulty_score:
 		var left_cannon = cannon_scene.instantiate()
@@ -72,8 +73,10 @@ func spawn_gun_enemy(hp):
 		ship.add_child(right_cannon)
 		left_cannon.set_z_index(2)
 		right_cannon.set_z_index(2)
+		left_cannon.sea = self
+		right_cannon.sea = self
 	
-	get_tree().root.add_child(ship)
+	add_child(ship)
 
 func spawn_boss_enemy(hp):
 	var ship = spawn_enemy_ship()
@@ -88,8 +91,9 @@ func spawn_boss_enemy(hp):
 		cannon.position.y = (4 - n) * 12.5
 		ship.add_child(cannon)
 		cannon.set_z_index(2)
+		cannon.sea = self
 		
-	get_tree().root.add_child(ship)
+	add_child(ship)
 
 func spawn_boss_enemy_2(hp):
 	var ship = spawn_enemy_ship()
@@ -106,8 +110,9 @@ func spawn_boss_enemy_2(hp):
 		cannon.ball_speed = cannon.ball_speed * 2
 		ship.add_child(cannon)
 		cannon.set_z_index(2)
+		cannon.sea = self
 		
-	get_tree().root.add_child(ship)
+	add_child(ship)
 
 
 func _on_timer_timeout() -> void:

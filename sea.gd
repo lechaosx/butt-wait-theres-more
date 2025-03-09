@@ -14,6 +14,12 @@ signal game_ended(score:int)
 
 func _ready() -> void:
 	start_time = Time.get_ticks_msec() / 1000.0
+	$PlayerShip/FriendlyShipAbility.sea = self
+	$PlayerShip/AutoCannonAbility.sea = self
+	$PlayerShip/BarrelDroppingAbility.sea = self
+	$PlayerShip/Cannon.sea = self
+	
+	
 	
 	var canons = Ability.new()
 	canons.current_level = 0
@@ -124,6 +130,7 @@ func _on_hitpoint_bar_on_death(parent: Node) -> void:
 	%AbilityCards.visible = false
 	%KillScreen.die()
 	$KillScreenTimer.start()
+	%PlayerShip.velocity = Vector2(0,0)
 
 func _on_cargo_hold_cargo_updated() -> void:
 	%CargoCounter.count = %CargoCounter.count + 1

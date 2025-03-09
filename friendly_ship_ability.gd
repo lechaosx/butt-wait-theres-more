@@ -5,6 +5,7 @@ extends Node
 @onready var cannon_autoaim_controller := preload("res://auto_aim_cannon_controller.tscn")
 
 var level = 0
+var sea
 
 func level_up():
 	if level >= 5:
@@ -28,6 +29,6 @@ func level_up():
 	ship.type = Ship.Type.Friendly
 	ship.scale = Vector2(0.5, 0.5)
 	ship.position = get_parent().position + Vector2(0, 100)
-	get_tree().get_root().add_child(ship)
+	sea.add_child(ship)
 
 	level += 1

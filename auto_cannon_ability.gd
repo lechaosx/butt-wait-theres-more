@@ -4,6 +4,7 @@ extends Node2D
 
 var level = 0
 var piercing = 0
+var sea
 
 func level_up():
 	if level >= 5:
@@ -31,6 +32,9 @@ func level_up():
 	
 	left_cannon.piercing = piercing
 	right_cannon.piercing = piercing
+	
+	left_cannon.sea = sea
+	right_cannon.sea = sea
 	
 	get_parent().add_child(left_cannon)
 	get_parent().add_child(right_cannon)
