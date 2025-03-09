@@ -1,3 +1,4 @@
+class_name Sea
 extends Node
 
 @onready var barrel = preload("res://src/barrel/barrel.tscn")
@@ -6,6 +7,8 @@ extends Node
 @onready var man_overboard_scene := preload("res://src/man_overboard/man_overboard.tscn")
 
 @export var abilities: Array[Ability] = []
+
+signal game_ended(score:int)
 
 func _ready() -> void:
 	var canons = Ability.new()
@@ -109,13 +112,30 @@ func upgrade_abilities():
 func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	ability.level_up()
 	Engine.time_scale = 1
-	%CargoCounter.count -= 5
+	%CargoCounter.count -= %CargoCounter.cargo_cap
+	%CargoCounter.cargo_cap += 1
 
 func _on_hitpoint_bar_on_death(parent: Node) -> void:
 	%KillScreen.die()
+	$KillScreenTimer.start()
 
 func _on_cargo_hold_cargo_updated() -> void:
 	%CargoCounter.count = %CargoCounter.count + 1
 	
-	if %CargoCounter.count >= 5:
+	if %CargoCounter.count >= %CargoCounter.cargo_cap:
 		upgrade_abilities()
+
+func _on_kill_screen_kill_screen_animation_end() -> void:
+	game_ended.emit(50)
+	$KillScreenTimer.stop()
+
+func update_properties(properties : PlayerProperties):
+	$PlayerShip/HitpointBar.set_max_hitpoints(properties.ship_hitpoints)
+	$PlayerShip/HitpointBar.fully_heal()
+	$PlayerShip.brakes = properties.ship_power
+	$PlayerShip.power = properties.ship_power
+	$PlayerShip.steering_angle = properties.ship_steering_angle
+	$PlayerShip.ramming_damage = properties.ship_ramming_damage
+	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
+	
+	

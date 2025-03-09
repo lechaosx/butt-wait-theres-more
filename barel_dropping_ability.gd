@@ -25,7 +25,7 @@ func _on_timer_timeout() -> void:
 	var offset = 20 #hardcoded:20
 
 	instance.position = pos + ship.global_transform.x * offset
-	instance.is_frendly = ship.is_frendly
+	instance.is_frendly = ship.is_good(ship.type)
 	instance.add_collision_exception_with(ship)
 	instance.apply_force(speed * dir + ship.velocity)
 

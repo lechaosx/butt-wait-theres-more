@@ -19,6 +19,14 @@ func _ready() -> void:
 	previous_position = global_position
 	$Timer.wait_time = default_cannon_cooldown_time + cannon_cooldown_variation * randf()
 	
+@export var cannon_heat_max : int = 5
+@export var cannon_cooldown_time : float = 0.5
+
+@export var projectile_damage: int
+
+var cannon_heat : int 
+var cannon_cooldown : float 
+
 func _process(delta: float) -> void:
 	if can_fire && autofire:
 		fire()
@@ -44,6 +52,8 @@ func fire():
 	can_fire = false
 		
 	var instance = cannon_ball.instantiate()
+	if projectile_damage:
+		instance.damage = projectile_damage
 	instance.piercing = piercing
 	instance.position = global_position + global_transform.x * $Sprite2D.texture.get_width()
 	instance.scale = Vector2(0.5, 0.5)
