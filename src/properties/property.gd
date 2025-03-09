@@ -50,7 +50,6 @@ func update_button(balance:int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print_debug($Name)
 	if property_name:
 		$Name.text = property_name
 	$Value.text = "   %d" % value()

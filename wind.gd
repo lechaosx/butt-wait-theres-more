@@ -19,7 +19,6 @@ func _ready() -> void:
 func randomize_wind() -> void:
 	_speed = _rng.randf_range(min_speed, max_speed)
 	_direction = Vector2(1,0).rotated(_rng.randf_range(0, PI*2))
-	print_debug("https://www.youtube.com/watch?v=n4RjJKxsamQ")
 	wind_changed.emit(_speed, _direction)
 
 func set_wind(speed: float, direction: Vector2) -> void:

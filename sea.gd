@@ -146,6 +146,7 @@ func _on_hitpoint_bar_on_death(parent: Node) -> void:
 	%KillScreen.die()
 	$KillScreenTimer.start()
 	%PlayerShip.velocity = Vector2(0,0)
+	get_tree().call_group("GameTimers", "stop")
 
 func _on_cargo_hold_cargo_updated() -> void:
 	if dead:

@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" uid="uid://colodbh4ytdb1" path="res://wind_particles.gd" id="10_7u2wy"]
 [ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
-[ext_resource type="Script" path="res://cargo_hold.gd" id="10_jolub"]
+[ext_resource type="Script" uid="uid://dwn28qn3r10gh" path="res://cargo_hold.gd" id="10_jolub"]
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://src/hud/hud.tscn" id="11_24krr"]
 [ext_resource type="PackedScene" uid="uid://kn70kmto5cby" path="res://barel_dropping_ability.tscn" id="11_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://88md3i7p5702" path="res://kill_screen.tscn" id="12_7uhs0"]
@@ -71,16 +71,16 @@ min_speed = 5.0
 max_change_duration = 20.0
 min_change_duration = 5.0
 
-[node name="WindChangeTimer" type="Timer" parent="Wind"]
+[node name="WindChangeTimer" type="Timer" parent="Wind" groups=["GameTimers"]]
 wait_time = 15.0
 one_shot = true
 
 [node name="EnemySpawner" parent="." instance=ExtResource("13_ifsnf")]
 
-[node name="BarrelSpawnTimer" type="Timer" parent="."]
+[node name="BarrelSpawnTimer" type="Timer" parent="." groups=["GameTimers"]]
 autostart = true
 
-[node name="ManOverboardSpawnTimer" type="Timer" parent="."]
+[node name="ManOverboardSpawnTimer" type="Timer" parent="." groups=["GameTimers"]]
 wait_time = 10.0
 autostart = true
 
@@ -103,7 +103,6 @@ unique_name_in_owner = true
 
 [node name="SurvivorTime" parent="CanvasLayer" instance=ExtResource("19_yode5")]
 unique_name_in_owner = true
-anchors_preset = 2
 
 [node name="Hud" parent="." instance=ExtResource("11_24krr")]
 unique_name_in_owner = true
@@ -116,8 +115,8 @@ one_shot = true
 
 [connection signal="on_death" from="PlayerShip/HitpointBar" to="." method="_on_hitpoint_bar_on_death"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="ability_selected" from="CanvasLayer/AbilityCards" to="." method="_on_ability_cards_ability_selected"]
