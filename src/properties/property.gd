@@ -43,10 +43,11 @@ func upgrade()->void:
 		$Button.text = str(price())
 	
 func update_button(balance:int):
-	if balance >= price():
-		$Button.add_theme_color_override("font_color", "#FFFFFF")
-	else:
+	if balance < price():
 		$Button.add_theme_color_override("font_color", "#C41E3A")
+		$Button.add_theme_color_override("font_hover_color", "#FF1919")
+	else:
+		$Button.remove_theme_color_override("font_color")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
