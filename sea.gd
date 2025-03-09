@@ -39,7 +39,7 @@ func _ready() -> void:
 	var userCannon = Ability.new()
 	userCannon.current_level = 0
 	userCannon.max_level = 5
-	userCannon.image = load("res://assets/cannon.png")
+	userCannon.image = load("res://assets/Ship parts/cannon.png")
 	userCannon.name = "Main Cannon Cooling System"
 	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
 
