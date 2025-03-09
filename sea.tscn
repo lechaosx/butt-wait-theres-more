@@ -64,6 +64,14 @@ script = ExtResource("10_7u2wy")
 [node name="Wind" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("8_pfxiy")
+max_speed = 20.0
+min_speed = 5.0
+max_change_duration = 20.0
+min_change_duration = 5.0
+
+[node name="WindChangeTimer" type="Timer" parent="Wind"]
+wait_time = 15.0
+one_shot = true
 
 [node name="EnemySpawner" parent="." instance=ExtResource("13_ifsnf")]
 
