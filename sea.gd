@@ -76,7 +76,7 @@ func _on_game_started(max_score: int) -> void:
 func _process(delta: float) -> void:
 	if not dead:
 		%SurvivorTime.seconds = (Time.get_ticks_msec() / 1000.0) - start_time
-		%SurvivorTime.score = ((Time.get_ticks_msec() / 1000.0) - start_time) / 5
+		%SurvivorTime.score = ((Time.get_ticks_msec() / 1000.0) - start_time)
 
 func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
