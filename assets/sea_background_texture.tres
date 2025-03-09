@@ -1,0 +1,15 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://c8vd5mots3ujc"]
+
+[sub_resource type="Gradient" id="Gradient_6wh2w"]
+colors = PackedColorArray(0.144022, 0.250401, 0.421542, 1, 0.25848, 0.45743, 0.643339, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6wh2w"]
+noise_type = 2
+frequency = 0.0013
+
+[resource]
+width = 1920
+height = 1080
+seamless = true
+color_ramp = SubResource("Gradient_6wh2w")
+noise = SubResource("FastNoiseLite_6wh2w")

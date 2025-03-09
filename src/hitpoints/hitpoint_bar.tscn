@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bw1hebeplamra"]
 
 [ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://src/hitpoints/hitpoint_bar.gd" id="1_vu7h7"]
-[ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://src/hitpoints/hitpoints.tres" id="3_mwrvx"]
+[ext_resource type="Theme" path="res://src/hitpoints/hitpoints.tres" id="3_mwrvx"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vu7h7")

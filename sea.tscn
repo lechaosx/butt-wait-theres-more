@@ -109,10 +109,6 @@ unique_name_in_owner = true
 
 [node name="Properties" type="Node" parent="."]
 
-[node name="KillScreenTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
 [connection signal="on_death" from="PlayerShip/HitpointBar" to="." method="_on_hitpoint_bar_on_death"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
@@ -120,4 +116,4 @@ one_shot = true
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="ability_selected" from="CanvasLayer/AbilityCards" to="." method="_on_ability_cards_ability_selected"]
-[connection signal="timeout" from="KillScreenTimer" to="." method="_on_kill_screen_kill_screen_animation_end"]
+[connection signal="finished" from="CanvasLayer/KillScreen" to="." method="_on_kill_screen_finished"]
