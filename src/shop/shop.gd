@@ -16,9 +16,10 @@ func _ready() -> void:
 			child.plus_button_clicked.connect(self.buy_upgrade)
 
 func buy_upgrade(property:Property):
-	if balance >= property.price():
+	var price = property.price()
+	if balance >= price:
 		property.upgrade()
-		balance -= property.price()
+		balance -= price
 
 func update_balance(delta:int):
 	balance += delta
