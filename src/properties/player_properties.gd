@@ -7,3 +7,4 @@ extends Resource
 @export var ship_ramming_damage: int
 
 @export var projectile_damage: int
+@export var man_overboard_healing: int

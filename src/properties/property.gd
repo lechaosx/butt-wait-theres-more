@@ -48,6 +48,7 @@ func update_button(balance:int):
 		$Button.add_theme_color_override("font_hover_color", "#FF1919")
 	else:
 		$Button.remove_theme_color_override("font_color")
+		$Button.remove_theme_color_override("font_hover_color")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

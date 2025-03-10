@@ -1,7 +1,6 @@
 class_name Sea
 extends Node
 
-var start_time: float
 
 @onready var barrel = preload("res://src/barrel/barrel.tscn")
 @onready var ship_scene := preload("res://ship.tscn")
@@ -11,6 +10,7 @@ var start_time: float
 @export var abilities: Array[Ability] = []
 
 var dead: bool = false;
+var man_overboard_healing : int
 
 signal game_started(max_score:int)
 signal game_ended(score:int)
@@ -19,7 +19,6 @@ func _ready() -> void:
 	game_started.connect(self._on_game_started)
 
 func _on_game_started(max_score: int) -> void:
-	start_time = Time.get_ticks_msec() / 1000.0
 	$PlayerShip/FriendlyShipAbility.sea = self
 	$PlayerShip/AutoCannonAbility.sea = self
 	$PlayerShip/BarrelDroppingAbility.sea = self
@@ -71,13 +70,6 @@ func _on_game_started(max_score: int) -> void:
 
 	abilities.append(piercing)
 
-	%SurvivorTime.init(max_score)
-
-func _process(delta: float) -> void:
-	if not dead:
-		%SurvivorTime.seconds = (Time.get_ticks_msec() / 1000.0) - start_time
-		%SurvivorTime.score = ((Time.get_ticks_msec() / 1000.0) - start_time)
-
 func create_barrel(pos: Vector2) -> void:
 	var bar = barrel.instantiate()
 	bar.position = pos
@@ -111,7 +103,8 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	man_overboard.set_collision_mask_value(4, true)
 
 	man_overboard.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-
+	man_overboard.heal_amount = man_overboard_healing
+	
 	add_child(man_overboard)
 
 func upgrade_abilities():
@@ -162,7 +155,8 @@ func update_properties(properties : PlayerProperties):
 	$PlayerShip.steering_angle = properties.ship_steering_angle
 	$PlayerShip.ramming_damage = properties.ship_ramming_damage
 	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
+	man_overboard_healing = properties.man_overboard_healing
 
 
 func _on_kill_screen_finished() -> void:
-	game_ended.emit((Time.get_ticks_msec() / 1000.0) - start_time)
+	game_ended.emit(%SurvivorTime.score)
