@@ -21,7 +21,7 @@ func buy_upgrade(property:Property):
 		property.upgrade()
 
 func update_balance(delta:int):
-	balance = delta
+	balance += delta
 
 func update_properties(sea:Sea) -> void:
 	var properties : PlayerProperties = PlayerProperties.new()
