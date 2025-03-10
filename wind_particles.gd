@@ -38,7 +38,6 @@ func set_wind(speed: float, direction: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	_spawn_position = %PlayerShip.position - 0.4 * sign(_direction) * effect_area
-	print_debug(_active.size())
 	for particle :WindParticle in _active:
 		if !particle.is_visible_on_screen():
 			# calculate if particle direction is away from player
