@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvxii0cpdmkdg"]
 
 [ext_resource type="Script" path="res://ability_card.gd" id="1_eq0o8"]
-[ext_resource type="Texture2D" uid="uid://drb4ri171egcf" path="res://assets/Abilities/ship.png" id="2_eq0o8"]
+[ext_resource type="Texture2D" uid="uid://vgixclbjf67l" path="res://assets/Abilities/friendly_ship.png" id="2_eq0o8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eq0o8"]
 font_size = 32
