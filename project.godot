@@ -29,7 +29,7 @@ project/assembly_name="GameJam2025"
 [gui]
 
 theme/custom="uid://1n0tuf8ntefx"
-theme/custom_font="uid://bu7wrbqn6sx7a"
+theme/custom_font="uid://cgqemnmn50d3b"
 
 [input]
 
