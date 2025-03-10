@@ -78,11 +78,25 @@ func spawn_gun_enemy(hp):
 	
 	add_child(ship)
 
+func scale_ship(ship:Ship, scale:float)->void:
+	var scaling_components = [
+		ship.get_node("AnimatedSprite2D"),
+		ship.get_node("CollisionShape2D"),
+		ship.get_node("CollisionShape2D2"),
+		ship.get_node("RamArea/CollisionShape2D"),
+	]
+	
+	for scaling_componnent:Node2D in scaling_components:
+		if not scaling_componnent:
+			continue
+		scaling_componnent.transform *= scale # this should multiply scale and position
+	
+
 func spawn_boss_enemy(hp):
 	var ship = spawn_enemy_ship()
 	add_hp(ship, hp)
-	ship.get_node("AnimatedSprite2D").apply_scale(Vector2(2,2))
-	ship.get_node("CollisionShape2D").apply_scale(Vector2(2,2))
+	
+	scale_ship(ship,2)
 	
 	for n in 8:
 		var cannon = cannon_scene.instantiate()
@@ -98,8 +112,8 @@ func spawn_boss_enemy(hp):
 func spawn_boss_enemy_2(hp):
 	var ship = spawn_enemy_ship()
 	add_hp(ship, hp)
-	ship.get_node("AnimatedSprite2D").apply_scale(Vector2(3,2))
-	ship.get_node("CollisionShape2D").apply_scale(Vector2(3,3))
+	
+	scale_ship(ship, 3)
 	
 	for n in 10:
 		var cannon = cannon_scene.instantiate()
@@ -129,7 +143,6 @@ func _on_timer_timeout() -> void:
 
 
 func _on_boss_timer_timeout() -> void:
-	
 	if difficulty_score >= 300:
 		for n in round(difficulty_score / 400):
 			spawn_boss_enemy_2(100)
