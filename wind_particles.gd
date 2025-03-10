@@ -7,8 +7,8 @@ extends Node2D
 # @onready var wind4 = preload("res://assets/Effects/wind4.png")
 
 @export var spawn_interval = 0.005
-@export var total_count = 50
-@export var effect_area = Vector2(1280, 720)
+@export var total_count = 200
+@export var effect_area = Vector2(1280, 720) * 2
 @export var base_speed = 50
 
 var _speedCoef = 1
@@ -38,12 +38,16 @@ func set_wind(speed: float, direction: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	_spawn_position = %PlayerShip.position - 0.4 * sign(_direction) * effect_area
-	
-	for particle in _active:
+	print_debug(_active.size())
+	for particle :WindParticle in _active:
 		if !particle.is_visible_on_screen():
-			particle.visible = false
-			_pool.append(particle)
-			_active.erase(particle)
+			# calculate if particle direction is away from player
+			var l1 = (particle.position - %PlayerShip.position).length()
+			var l2 = (particle.position + particle._direction - %PlayerShip.position).length()
+			if l2 > l1:
+				particle.visible = false
+				_pool.append(particle)
+				_active.erase(particle)
 	
 	_waited_time += delta
 	var max_spawn_count = _waited_time / spawn_interval
