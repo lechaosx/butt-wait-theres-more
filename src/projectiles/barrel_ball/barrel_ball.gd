@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var damage : int
 @export var piercing : int
 @export var fly_time : float = 1
-@export var cargo_damage: int = 0 ## will be used as create_barrel(damage), @see: barrel.gd
+@export var cargo_damage: int = 0 ## will be used as create_barrel(barel_damage), @see: barrel.gd
 @export var is_frendly : bool = true
 
 func _ready() -> void:
@@ -51,8 +51,8 @@ func _on_timer_timeout() -> void:
 	create_barrel(cargo_damage)
 	queue_free()
 
-func create_barrel(damage: int) -> void:
+func create_barrel(barel_damage: int) -> void:
 	var instance: Barrel = barrel.instantiate()
 	instance.position = position
-	instance.damage = damage
+	instance.damage = barel_damage
 	get_parent().add_child(instance)

@@ -17,7 +17,6 @@ func _on_body_entered(body: Node2D) -> void:
 			$Timer.start()
 
 func _process(delta: float) -> void:
-	var t = Time.get_ticks_msec()
 	rotation = rotate_toward(rotation, _rotation_target, float_speed * delta * cos(_rotation_target - rotation))
 	if abs(_rotation_target - rotation) < 0.01:
 		_rotation_target = randf_range(0, PI / 6) * -1 * sign(_rotation_target)

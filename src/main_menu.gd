@@ -4,10 +4,6 @@ extends Node
 var active_sea
 var max_score:int = 0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func _on_game_over(score:int) -> void:
 	if score > max_score:
 		max_score = score

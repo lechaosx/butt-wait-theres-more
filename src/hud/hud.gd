@@ -16,7 +16,3 @@ func update_hitpoints(value:int)->void:
 
 func update_max_hitpoints(value:int) -> void:
 	$PlayerHitpoints.max_value = value
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
