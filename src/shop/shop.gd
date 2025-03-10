@@ -32,6 +32,5 @@ func update_properties(sea:Sea) -> void:
 	properties.ship_steering_angle = $VBoxContainer/ShipSteeringAngle.value()
 	properties.ship_ramming_damage = $VBoxContainer/ShipRammingDamage.value()
 	properties.projectile_damage = $VBoxContainer/CannonDamage.value()
-	properties.man_overboard_healing = $VBoxContainer/SailorHeal.value()
 	
 	sea.update_properties(properties)

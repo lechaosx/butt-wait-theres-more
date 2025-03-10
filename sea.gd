@@ -10,7 +10,6 @@ extends Node
 @export var abilities: Array[Ability] = []
 
 var dead: bool = false;
-var man_overboard_healing : int
 
 signal game_started(max_score:int)
 signal game_ended(score:int)
@@ -103,7 +102,6 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	man_overboard.set_collision_mask_value(4, true)
 
 	man_overboard.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-	man_overboard.heal_amount = man_overboard_healing
 	
 	add_child(man_overboard)
 
@@ -155,7 +153,6 @@ func update_properties(properties : PlayerProperties):
 	$PlayerShip.steering_angle = properties.ship_steering_angle
 	$PlayerShip.ramming_damage = properties.ship_ramming_damage
 	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
-	man_overboard_healing = properties.man_overboard_healing
 
 
 func _on_kill_screen_finished() -> void:
