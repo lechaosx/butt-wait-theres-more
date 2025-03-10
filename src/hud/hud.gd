@@ -12,6 +12,8 @@ func _ready() -> void:
 
 func update_hitpoints(value:int)->void:
 	$PlayerHitpoints.value = value
+	$PlayerHitpoints/HBoxContainer/CurrentHp.text = str(value)
 
 func update_max_hitpoints(value:int) -> void:
 	$PlayerHitpoints.max_value = value
+	$PlayerHitpoints/HBoxContainer/MaxHp.text = str(value)
