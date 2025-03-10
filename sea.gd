@@ -10,7 +10,6 @@ extends Node
 @export var abilities: Array[Ability] = []
 
 var dead: bool = false;
-var man_overboard_healing : int
 
 signal game_started(max_score:int)
 signal game_ended(score:int)
@@ -27,7 +26,7 @@ func _on_game_started(max_score: int) -> void:
 	var canons = Ability.new()
 	canons.current_level = 0
 	canons.max_level = 5
-	canons.image = load("res://assets/Ship parts/cannon.png")
+	canons.image = load("res://assets/Abilities/side_cannons.png")
 	canons.name = "Side Cannons"
 	canons.leveled.connect($PlayerShip/AutoCannonAbility.level_up)
 
@@ -36,7 +35,7 @@ func _on_game_started(max_score: int) -> void:
 	var ships = Ability.new()
 	ships.current_level = 0
 	ships.max_level = 5
-	ships.image = load("res://assets/Ships/ship (4).png")
+	ships.image = load("res://assets/Abilities/friendly_ship.png")
 	ships.name = "Friendly Ships"
 	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
 
@@ -45,7 +44,7 @@ func _on_game_started(max_score: int) -> void:
 	var barrels = Ability.new()
 	barrels.current_level = 0
 	barrels.max_level = 5
-	barrels.image = load("res://assets/barrel.png")
+	barrels.image = load("res://assets/Abilities/barrels.png")
 	barrels.name = "Exploding Barrel"
 	barrels.leveled.connect($PlayerShip/BarrelDroppingAbility.level_up)
 
@@ -54,7 +53,7 @@ func _on_game_started(max_score: int) -> void:
 	var userCannon = Ability.new()
 	userCannon.current_level = 0
 	userCannon.max_level = 5
-	userCannon.image = load("res://assets/Ship parts/cannon.png")
+	userCannon.image = load("res://assets/Abilities/cannon_cooling.png")
 	userCannon.name = "Auto Cannon Cooling System"
 	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
 
@@ -63,7 +62,7 @@ func _on_game_started(max_score: int) -> void:
 	var piercing = Ability.new()
 	piercing.current_level = 0
 	piercing.max_level = 5
-	piercing.image = load("res://assets/Ship parts/cannonBall.png")
+	piercing.image = load("res://assets/Abilities/piercing_cannon_ball.png")
 	piercing.name = "Cannon Ball Piercing"
 	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
 	piercing.leveled.connect($PlayerShip/AutoCannonAbility.level_up_piercing)
@@ -103,7 +102,6 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	man_overboard.set_collision_mask_value(4, true)
 
 	man_overboard.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-	man_overboard.heal_amount = man_overboard_healing
 	
 	add_child(man_overboard)
 
