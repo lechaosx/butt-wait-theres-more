@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var canon_scene = preload("res://src/weapons/cannon/cannon.tscn")
 
+var projectile_damage
 var level = 0
 var piercing = 0
 var sea
@@ -35,6 +36,9 @@ func level_up():
 	
 	left_cannon.sea = sea
 	right_cannon.sea = sea
+	
+	left_cannon.projectile_damage = projectile_damage
+	right_cannon.projectile_damage = projectile_damage
 	
 	get_parent().add_child(left_cannon)
 	get_parent().add_child(right_cannon)

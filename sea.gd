@@ -155,6 +155,7 @@ func update_properties(properties : PlayerProperties):
 	$PlayerShip.steering_angle = properties.ship_steering_angle
 	$PlayerShip.ramming_damage = properties.ship_ramming_damage
 	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
+	$PlayerShip/AutoCannonAbility.projectile_damage = properties.projectile_damage
 	man_overboard_healing = properties.man_overboard_healing
 
 
