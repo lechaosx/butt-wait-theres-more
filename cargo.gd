@@ -13,7 +13,7 @@ func _on_body_entered(body: Node2D) -> void:
 			child.add_cargo(1)
 			$AudioStreamPlayer2D.play()
 			$Sprite2D.visible = false
-			$CollisionShape2D.disabled = false
+			$CollisionShape2D.set_deferred("disabled", false)
 			$Timer.start()
 
 func _process(delta: float) -> void:
