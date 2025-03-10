@@ -83,7 +83,7 @@ func scale_ship(ship:Ship, scale:float)->void:
 		ship.get_node("AnimatedSprite2D"),
 		ship.get_node("CollisionShape2D"),
 		ship.get_node("CollisionShape2D2"),
-		ship.get_node("RamArea/CollisionShape2D"),
+		ship.get_node("RamArea/CollisionShape2D2"),
 	]
 	
 	for scaling_componnent:Node2D in scaling_components:
