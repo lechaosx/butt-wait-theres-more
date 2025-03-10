@@ -45,7 +45,7 @@ theme_override_fonts/font = ExtResource("3_sg4q1")
 theme_override_font_sizes/font_size = 42
 text = "0"
 
-[node name="ScoreTimer" type="Timer" parent="."]
+[node name="ScoreTimer" type="Timer" parent="." groups=["GameTimers"]]
 autostart = true
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

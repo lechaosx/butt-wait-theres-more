@@ -7,7 +7,7 @@ extends VBoxContainer
 			$Balance/Label.text = str(val)
 		for child in $VBoxContainer.get_children():
 			if child is Property:
-				child.update_button(balance)
+				child.update_button(val)
 
 func _ready() -> void:
 	balance = 0
@@ -17,8 +17,8 @@ func _ready() -> void:
 
 func buy_upgrade(property:Property):
 	if balance >= property.price():
-		balance -= property.price()
 		property.upgrade()
+		balance -= property.price()
 
 func update_balance(delta:int):
 	balance += delta
