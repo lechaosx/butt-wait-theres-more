@@ -16,7 +16,7 @@ jobs:
 
     - name: Export
       id: export
-      uses: firebelley/godot-export@master
+      uses: firebelley/godot-export@v6
       with:
         godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip
         godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz
@@ -25,8 +25,10 @@ jobs:
         presets_to_export: Web
         cache: true
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
+    - name: Upload artifacts
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{ steps.export.outputs.build_directory }}
+          path: ${{ steps.export.outputs.build_directory }}/web
+
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
