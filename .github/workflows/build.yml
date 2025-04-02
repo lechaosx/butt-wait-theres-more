@@ -20,7 +20,6 @@ jobs:
       with:
         godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip
         godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz
-        use_preset_export_path: true
         relative_project_path: ./
         presets_to_export: Web
         cache: true
@@ -28,7 +27,7 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-pages-artifact@v3
       with:
-          path: ${{ steps.export.outputs.build_directory }}/web
+          path: ${{ steps.export.outputs.build_directory }}/Web
 
     - name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4
