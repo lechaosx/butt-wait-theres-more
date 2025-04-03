@@ -1,11 +1,4 @@
-class_name Sea
-extends Node
-
-
-@onready var barrel = preload("res://src/barrel/barrel.tscn")
-@onready var ship_scene := preload("res://ship.tscn")
-@onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
-@onready var man_overboard_scene := preload("res://src/man_overboard/man_overboard.tscn")
+class_name Sea extends Node
 
 @export var abilities: Array[Ability] = []
 
@@ -70,7 +63,7 @@ func _on_game_started(max_score: int) -> void:
 	abilities.append(piercing)
 
 func create_barrel(pos: Vector2) -> void:
-	var bar = barrel.instantiate()
+	var bar = preload("res://src/barrel/barrel.tscn").instantiate()
 	bar.position = pos
 	add_child(bar)
 
@@ -96,7 +89,7 @@ func _on_barrel_spawn_timer_timeout() -> void:
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 
 func _on_man_overboard_spawn_timer_timeout() -> void:
-	var man_overboard = man_overboard_scene.instantiate();
+	var man_overboard = preload("res://src/man_overboard/man_overboard.tscn").instantiate();
 	man_overboard.set_collision_layer_value(1, false)
 	man_overboard.set_collision_layer_value(5, true)
 	man_overboard.set_collision_mask_value(4, true)

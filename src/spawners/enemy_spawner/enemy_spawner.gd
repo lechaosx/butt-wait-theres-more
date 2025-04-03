@@ -39,7 +39,7 @@ func spawn_enemy_ship() -> Ship:
 
 func add_hp(ship, hp):
 	var HP = hitpoint_scene.instantiate()
-	HP.on_death.connect(_on_enemy_death)
+	HP.on_death.connect(_on_enemy_death.bind(ship))
 	HP.set_max_hitpoints(hp)
 	ship.add_hitpoint_bar(HP)
 
