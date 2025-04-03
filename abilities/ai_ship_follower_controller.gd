@@ -2,7 +2,7 @@ class_name AIShipFollowerController extends Node
 
 @export var owner_ship : Node2D
 
-@export var range = 300
+@export var view_range = 300
 @export var offset_range = 100
 @export var offset_rotation = 0;
 @export var break_dist = 15;
@@ -56,7 +56,7 @@ func get_target():
 		var enemies = get_tree().get_nodes_in_group("enemies")
 		
 		for enemy in enemies:
-			if (enemy.transform.get_origin() - owner_ship.transform.get_origin()).length() <= range:
+			if (enemy.transform.get_origin() - owner_ship.transform.get_origin()).length() <= view_range:
 				enemy_target = enemy
 				break
 		

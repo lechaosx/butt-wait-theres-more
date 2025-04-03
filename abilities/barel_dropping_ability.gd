@@ -12,7 +12,7 @@ func level_up():
 
 	level += 1
 
-	$Timer.wait_time = 5 / level
+	$Timer.wait_time = 5.0 / level
 
 	if level == 1:
 		$Timer.start()

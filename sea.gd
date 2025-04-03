@@ -4,13 +4,13 @@ class_name Sea extends Node
 
 var dead: bool = false;
 
-signal game_started(max_score:int)
+signal game_started
 signal game_ended(score:int)
 
 func _ready() -> void:
 	game_started.connect(self._on_game_started)
 
-func _on_game_started(max_score: int) -> void:
+func _on_game_started() -> void:
 	$PlayerShip/FriendlyShipAbility.sea = self
 	$PlayerShip/AutoCannonAbility.sea = self
 	$PlayerShip/BarrelDroppingAbility.sea = self
@@ -119,7 +119,7 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.count -= %CargoCounter.cargo_cap
 	%CargoCounter.cargo_cap += 1
 
-func _on_hitpoint_bar_on_death(parent: Node) -> void:
+func _on_hitpoint_bar_on_death(_parent: Node) -> void:
 	if dead:
 		return
 		

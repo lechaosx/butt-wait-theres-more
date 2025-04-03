@@ -28,7 +28,7 @@ var cannon_heat : int
 var cannon_cooldown : float 
 var sea
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if can_fire && autofire:
 		fire()
 
