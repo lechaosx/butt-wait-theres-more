@@ -2,7 +2,7 @@ extends Control
 
 signal ability_selected(ability: Ability)
 
-@onready var ability_card_scene = preload("res://ability_card.tscn")
+@onready var ability_card_scene = preload("ability_card.tscn")
 
 @export var abilities: Array[Ability] = []:
 	set(value):

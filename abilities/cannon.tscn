@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://rj64e3jgod0g"]
 
-[ext_resource type="Script" uid="uid://nus27csfsws2" path="res://src/weapons/cannon/cannon.gd" id="1_cn5fv"]
+[ext_resource type="Script" uid="uid://nus27csfsws2" path="res://abilities/cannon.gd" id="1_cn5fv"]
 [ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_ixags"]
-[ext_resource type="AudioStream" uid="uid://nfjhbn1gm666" path="res://assets/Sound/CannonFire.wav" id="3_ixags"]
-[ext_resource type="AudioStream" uid="uid://m42olj6cuxwi" path="res://assets/Sound/CannonFire2.wav" id="4_n52ym"]
+[ext_resource type="AudioStream" uid="uid://b15tke5pkrb6u" path="res://assets/Sound/CannonFire.wav" id="3_ixags"]
+[ext_resource type="AudioStream" uid="uid://bwdauo1n137nf" path="res://assets/Sound/CannonFire2.wav" id="4_n52ym"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ovybr"]
 playback_mode = 1

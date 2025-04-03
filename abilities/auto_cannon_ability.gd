@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var canon_scene = preload("res://src/weapons/cannon/cannon.tscn")
+@onready var canon_scene = preload("cannon.tscn")
 
 var projectile_damage
 var level = 0

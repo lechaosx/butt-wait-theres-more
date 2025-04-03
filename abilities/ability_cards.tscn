@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://dpdoenrgimjkw"]
 
-[ext_resource type="Script" uid="uid://c5x7we6gnapwq" path="res://ability_cards.gd" id="1_wu3ox"]
-[ext_resource type="PackedScene" uid="uid://cvxii0cpdmkdg" path="res://ability_card.tscn" id="2_wlgwy"]
-[ext_resource type="Texture2D" uid="uid://c7a4tnq8ovm12" path="res://assets/Abilities/cannon_cooling.png" id="3_7mv6s"]
-[ext_resource type="Texture2D" uid="uid://cn3vlf20p0v8h" path="res://assets/Abilities/barrels.png" id="3_etiqn"]
-[ext_resource type="Texture2D" uid="uid://b0snvkyyiuoj7" path="res://assets/Abilities/piercing_cannon_ball.png" id="4_etiqn"]
-[ext_resource type="Texture2D" uid="uid://dvy4muj2jm3a5" path="res://assets/Abilities/side_cannons.png" id="5_3u3kk"]
+[ext_resource type="Script" uid="uid://0c7gloilh2en" path="res://abilities/ability_cards.gd" id="1_wu3ox"]
+[ext_resource type="PackedScene" uid="uid://cvxii0cpdmkdg" path="res://abilities/ability_card.tscn" id="2_wlgwy"]
+[ext_resource type="Texture2D" uid="uid://datp16bda8e80" path="res://abilities/cannon_cooling.png" id="3_7mv6s"]
+[ext_resource type="Texture2D" uid="uid://dfja4pr6vhu4w" path="res://abilities/barrels.png" id="3_etiqn"]
+[ext_resource type="Texture2D" uid="uid://ilr55nbaaxsc" path="res://abilities/piercing_cannon_ball.png" id="4_etiqn"]
+[ext_resource type="Texture2D" uid="uid://bakmcejguewaa" path="res://abilities/side_cannons.png" id="5_3u3kk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dkx1i"]
 font_size = 32

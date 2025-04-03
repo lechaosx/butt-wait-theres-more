@@ -1,8 +1,8 @@
 extends Node
 
 @onready var ship_scene := preload("res://ship.tscn")
-@onready var cannon_autoaim := preload("res://src/weapons/cannon/cannon.tscn")
-@onready var cannon_autoaim_controller := preload("res://auto_aim_cannon_controller.tscn")
+@onready var cannon_autoaim := preload("cannon.tscn")
+@onready var cannon_autoaim_controller := preload("auto_aim_cannon_controller.tscn")
 
 var level = 0
 var sea

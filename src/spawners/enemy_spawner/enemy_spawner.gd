@@ -4,7 +4,7 @@ extends Node2D
 @onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 @onready var cargo_scene := preload("res://cargo.tscn")
 
-@onready var cannon_scene := preload("res://src/weapons/cannon/cannon.tscn")
+@onready var cannon_scene := preload("res://abilities/cannon.tscn")
 
 @export var difficulty_score : float = 10.0 
 var base_hp = 5
