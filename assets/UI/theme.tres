@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=9 format=3 uid="uid://1n0tuf8ntefx"]
 
-[ext_resource type="Texture2D" uid="uid://dhogq4w2c8kaw" path="res://assets/UI/button_32.png" id="1_fps7b"]
-[ext_resource type="Texture2D" uid="uid://cigcyki2xc0ad" path="res://assets/UI/hitpoint_bar_bg.png" id="1_g0us1"]
-[ext_resource type="Texture2D" uid="uid://cjotdy8xx1jxr" path="res://assets/UI/hitpoint_bar_fg.png" id="2_42hky"]
+[ext_resource type="Texture2D" uid="uid://dpa16rgvfw4qk" path="res://assets/UI/button_32.png" id="1_fps7b"]
+[ext_resource type="Texture2D" uid="uid://gh47k1lv585n" path="res://assets/UI/hitpoint_bar_bg.png" id="1_g0us1"]
+[ext_resource type="Texture2D" uid="uid://31ix8q81gr2s" path="res://assets/UI/hitpoint_bar_fg.png" id="2_42hky"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6yjfb"]
 texture = ExtResource("1_fps7b")

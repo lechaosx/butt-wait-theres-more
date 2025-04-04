@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqqm1hsravcgy"]
 
 [ext_resource type="Script" uid="uid://6ks4fuj6dj03" path="res://src/sound/sail.gd" id="1_5vaao"]
-[ext_resource type="AudioStream" uid="uid://bpc8gpl8l7gf3" path="res://assets/Sound/sailing.wav" id="2_glqld"]
+[ext_resource type="AudioStream" uid="uid://ch5jx2nm1kbfw" path="res://assets/Sound/sailing.wav" id="2_glqld"]
 
 [node name="Sail" type="Node2D"]
 script = ExtResource("1_5vaao")

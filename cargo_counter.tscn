@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cuk2drxe2dov2"]
 
 [ext_resource type="Script" uid="uid://c6k2kr8l0vrb1" path="res://cargo_counter.gd" id="1_o8rt5"]
-[ext_resource type="Texture2D" uid="uid://du4x00mdblgec" path="res://assets/box.png" id="2_o8rt5"]
+[ext_resource type="Texture2D" uid="uid://c6ylpcgnx27ga" path="res://assets/box.png" id="2_o8rt5"]
 
 [node name="CargoCounter" type="HBoxContainer"]
 anchors_preset = -1

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqnya2diu0phu"]
 
-[ext_resource type="Texture2D" uid="uid://chss4rvojgfir" path="res://assets/Effects/wind.png" id="1_byqs1"]
+[ext_resource type="Texture2D" uid="uid://7le1coixr8v6" path="res://assets/Effects/wind.png" id="1_byqs1"]
 [ext_resource type="Script" uid="uid://x138ufrcxh0o" path="res://wind_particle.gd" id="2_byqs1"]
 
 [node name="WindParticle" type="Sprite2D"]
