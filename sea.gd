@@ -119,7 +119,7 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.count -= %CargoCounter.cargo_cap
 	%CargoCounter.cargo_cap += 1
 
-func _on_hitpoint_bar_on_death(_parent: Node) -> void:
+func _on_hitpoint_bar_on_death() -> void:
 	if dead:
 		return
 		
