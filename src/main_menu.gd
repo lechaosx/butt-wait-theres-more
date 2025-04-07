@@ -19,4 +19,4 @@ func _on_button_pressed() -> void:
 	get_tree().root.add_child(sea)
 	$MainMenu/HBoxContainer/VBoxContainer/Shop.update_properties(sea)
 	active_sea = sea
-	sea.game_started.emit(max_score)
+	sea.game_started.emit()

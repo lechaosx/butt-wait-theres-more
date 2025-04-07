@@ -1,23 +1,16 @@
-class_name Sea
-extends Node
-
-
-@onready var barrel = preload("res://src/barrel/barrel.tscn")
-@onready var ship_scene := preload("res://ship.tscn")
-@onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
-@onready var man_overboard_scene := preload("res://src/man_overboard/man_overboard.tscn")
+class_name Sea extends Node
 
 @export var abilities: Array[Ability] = []
 
 var dead: bool = false;
 
-signal game_started(max_score:int)
+signal game_started
 signal game_ended(score:int)
 
 func _ready() -> void:
 	game_started.connect(self._on_game_started)
 
-func _on_game_started(max_score: int) -> void:
+func _on_game_started() -> void:
 	$PlayerShip/FriendlyShipAbility.sea = self
 	$PlayerShip/AutoCannonAbility.sea = self
 	$PlayerShip/BarrelDroppingAbility.sea = self
@@ -26,7 +19,7 @@ func _on_game_started(max_score: int) -> void:
 	var canons = Ability.new()
 	canons.current_level = 0
 	canons.max_level = 5
-	canons.image = load("res://assets/Abilities/side_cannons.png")
+	canons.image = load("res://abilities/side_cannons.png")
 	canons.name = "Side Cannons"
 	canons.leveled.connect($PlayerShip/AutoCannonAbility.level_up)
 
@@ -35,7 +28,7 @@ func _on_game_started(max_score: int) -> void:
 	var ships = Ability.new()
 	ships.current_level = 0
 	ships.max_level = 5
-	ships.image = load("res://assets/Abilities/friendly_ship.png")
+	ships.image = load("res://abilities/friendly_ship.png")
 	ships.name = "Friendly Ships"
 	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
 
@@ -44,7 +37,7 @@ func _on_game_started(max_score: int) -> void:
 	var barrels = Ability.new()
 	barrels.current_level = 0
 	barrels.max_level = 5
-	barrels.image = load("res://assets/Abilities/barrels.png")
+	barrels.image = load("res://abilities/barrels.png")
 	barrels.name = "Exploding Barrel"
 	barrels.leveled.connect($PlayerShip/BarrelDroppingAbility.level_up)
 
@@ -53,7 +46,7 @@ func _on_game_started(max_score: int) -> void:
 	var userCannon = Ability.new()
 	userCannon.current_level = 0
 	userCannon.max_level = 5
-	userCannon.image = load("res://assets/Abilities/cannon_cooling.png")
+	userCannon.image = load("res://abilities/cannon_cooling.png")
 	userCannon.name = "Auto Cannon Cooling System"
 	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
 
@@ -62,7 +55,7 @@ func _on_game_started(max_score: int) -> void:
 	var piercing = Ability.new()
 	piercing.current_level = 0
 	piercing.max_level = 5
-	piercing.image = load("res://assets/Abilities/piercing_cannon_ball.png")
+	piercing.image = load("res://abilities/piercing_cannon_ball.png")
 	piercing.name = "Cannon Ball Piercing"
 	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
 	piercing.leveled.connect($PlayerShip/AutoCannonAbility.level_up_piercing)
@@ -70,7 +63,7 @@ func _on_game_started(max_score: int) -> void:
 	abilities.append(piercing)
 
 func create_barrel(pos: Vector2) -> void:
-	var bar = barrel.instantiate()
+	var bar = preload("res://src/barrel/barrel.tscn").instantiate()
 	bar.position = pos
 	add_child(bar)
 
@@ -96,7 +89,7 @@ func _on_barrel_spawn_timer_timeout() -> void:
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 
 func _on_man_overboard_spawn_timer_timeout() -> void:
-	var man_overboard = man_overboard_scene.instantiate();
+	var man_overboard = preload("res://src/man_overboard/man_overboard.tscn").instantiate();
 	man_overboard.set_collision_layer_value(1, false)
 	man_overboard.set_collision_layer_value(5, true)
 	man_overboard.set_collision_mask_value(4, true)
@@ -126,7 +119,7 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.count -= %CargoCounter.cargo_cap
 	%CargoCounter.cargo_cap += 1
 
-func _on_hitpoint_bar_on_death(parent: Node) -> void:
+func _on_hitpoint_bar_on_death() -> void:
 	if dead:
 		return
 		

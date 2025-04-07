@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://cqn0fntt0dsc6" path="res://assets/Effects/explosion1.png" id="1_2b71t"]
 [ext_resource type="Texture2D" uid="uid://ccj3yfwutp0pr" path="res://assets/Effects/explosion2.png" id="2_0q3b6"]
-[ext_resource type="Texture2D" uid="uid://b388pfdobfipi" path="res://assets/Effects/smoke.png" id="3_c7ryn"]
-[ext_resource type="Texture2D" uid="uid://nfg1aqwyvfjl" path="res://assets/Effects/smoke2.png" id="4_38w0j"]
+[ext_resource type="Texture2D" uid="uid://cbtv76np08qre" path="res://assets/Effects/smoke.png" id="3_c7ryn"]
+[ext_resource type="Texture2D" uid="uid://b08mddn3tmjes" path="res://assets/Effects/smoke2.png" id="4_38w0j"]
 [ext_resource type="Script" uid="uid://dwidnxh284qha" path="res://src/effects/impact/impact.gd" id="5_2b71t"]
-[ext_resource type="AudioStream" uid="uid://dhe67xcx822al" path="res://assets/Sound/hit.wav" id="6_0q3b6"]
+[ext_resource type="AudioStream" uid="uid://dq784ybjnvifj" path="res://assets/Sound/hit.wav" id="6_0q3b6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bs0v7"]
 animations = [{

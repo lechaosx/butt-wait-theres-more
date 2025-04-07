@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dnlxx5g3c7k4t"]
 
-[ext_resource type="Texture2D" uid="uid://mipsqi3lfhlx" path="res://assets/Effects/woodexplosion.png" id="1_e535m"]
-[ext_resource type="Texture2D" uid="uid://c6ir8r23v4vrc" path="res://assets/Effects/woodexplosion2.png" id="2_eg23g"]
-[ext_resource type="Texture2D" uid="uid://nfg1aqwyvfjl" path="res://assets/Effects/smoke2.png" id="3_ssiin"]
+[ext_resource type="Texture2D" uid="uid://cnoo42yt8qw7f" path="res://assets/Effects/woodexplosion.png" id="1_e535m"]
+[ext_resource type="Texture2D" uid="uid://b31g520mqkpkn" path="res://assets/Effects/woodexplosion2.png" id="2_eg23g"]
+[ext_resource type="Texture2D" uid="uid://b08mddn3tmjes" path="res://assets/Effects/smoke2.png" id="3_ssiin"]
 [ext_resource type="Script" uid="uid://cei2i3d32okeu" path="res://src/effects/impact2/impact2.gd" id="4_e535m"]
-[ext_resource type="AudioStream" uid="uid://dhe67xcx822al" path="res://assets/Sound/hit.wav" id="5_eg23g"]
+[ext_resource type="AudioStream" uid="uid://dq784ybjnvifj" path="res://assets/Sound/hit.wav" id="5_eg23g"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bs0v7"]
 animations = [{

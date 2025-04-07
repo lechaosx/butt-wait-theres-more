@@ -18,10 +18,10 @@ var hitpoints: int:
 			$ProgressBar.value = value
 		hitpoint_update.emit(value)
 		if hitpoints <= 0:
-			on_death.emit(get_parent())
+			on_death.emit()
 
 
-signal on_death(parent:Node)
+signal on_death
 signal hitpoint_update(new_value:int)
 signal max_hitpoints_update(new_value:int)
 signal damage_received(value: int, type: DamageType)
@@ -57,5 +57,5 @@ func set_max_hitpoints(value:int):
 		$ProgressBar.max_value = value
 	max_hitpoints_update.emit(value)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	rotation = - get_parent().rotation

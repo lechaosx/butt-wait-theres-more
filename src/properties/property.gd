@@ -1,5 +1,4 @@
-class_name Property
-extends HBoxContainer
+class_name Property extends HBoxContainer
 
 @export var property: PropertyResource
 @export var property_name: String

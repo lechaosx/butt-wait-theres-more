@@ -6,8 +6,8 @@ enum Type {
 	Enemy
 }
 
-static func is_good(type: Type) -> bool:
-	return type == Type.Friendly or type == Type.Player
+static func is_good(ship_type: Type) -> bool:
+	return ship_type == Type.Friendly or ship_type == Type.Player
 
 @export var steering_angle = 25
 @export var power = 100

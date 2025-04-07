@@ -21,7 +21,7 @@ func _ready() -> void:
 	hp.damage_received.connect(self._on_barrel_damage_received)
 	rise_up()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var t = $Timer
 	if not t.is_stopped():
 		var sink_scale = (t.time_left / t.wait_time)
@@ -41,7 +41,7 @@ func _on_barrel_is_dead(parent:Node) -> void:
 		ee_barel.play("default")
 		$Area2D.explosion(damage)
 
-func _on_barrel_damage_received(value: int, type: HitpointBar.DamageType) -> void:
+func _on_barrel_damage_received(_value: int, type: HitpointBar.DamageType) -> void:
 	if type == HitpointBar.DamageType.RAMMING:
 		_on_barrel_is_dead(self)
 	else:
@@ -51,19 +51,18 @@ func _on_timer_timeout() -> void:
 	pass
 
 func update_fire_per_hitpoints() -> void:
-	var hp: HitpointBar = $HitpointBar
 	var hpp: = $HitpointBar/ProgressBar
 	var percent = int((hpp.value / hpp.max_value) * 100)
-	var p_limit = 22
-	var max_fire = (100 / p_limit) - (percent / p_limit)
-	if max_fire == 0 and percent < 100:
+	var p_limit = 22.0
+	var max_fire = (100.0 / p_limit) - (percent / p_limit)
+	if max_fire == 0.0 and percent < 100.0:
 		add_fire(1)
 	else:
 		add_fire(max_fire)
 
-func add_fire(max: int) -> void:
+func add_fire(maximum: int) -> void:
 	var parent = $"."
-	for i in range(0, max):
+	for i in range(0, maximum):
 		var new_fire = fire.instantiate()
 		new_fire.translate(Vector2(
 			random.randi_range(-13, +13),
