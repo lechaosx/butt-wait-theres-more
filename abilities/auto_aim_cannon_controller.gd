@@ -29,7 +29,7 @@ func _process(_delta: float) -> void:
 	last_target_position = target.global_position
 	
 	var ball_speed = 10 # this is experimental value, just bulgarian constant xD
-	var shooting_vector = target.global_position + target_velocity * min_dist / ball_speed  - get_parent().global_position
+	var shooting_vector = target.global_position + target_velocity * min_distance / ball_speed  - get_parent().global_position
 	
 	get_parent().global_rotation = shooting_vector.angle()
 	get_parent().fire()
