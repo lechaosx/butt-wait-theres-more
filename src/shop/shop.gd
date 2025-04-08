@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-@onready var balance: int:
+var balance: int:
 	set(val):
 		balance = val
 		if $Balance/Label:
@@ -10,22 +10,19 @@ extends VBoxContainer
 				child.update_button(val)
 
 func _ready() -> void:
-	balance = 0
+	balance = 0 # Here to trigger the setter and redraw the buttons with correct visuals
 	for child in $VBoxContainer.get_children():
 		if child is Property:
 			child.plus_button_clicked.connect(self.buy_upgrade)
 
-func buy_upgrade(property:Property):
+func buy_upgrade(property: Property):
 	var price = property.price()
 	if balance >= price:
 		property.upgrade()
 		balance -= price
 
-func update_balance(delta:int):
-	balance += delta
-
-func update_properties(sea:Sea) -> void:
-	var properties : PlayerProperties = PlayerProperties.new()
+func player_properties() -> PlayerProperties:
+	var properties = PlayerProperties.new()
 	
 	properties.ship_hitpoints = $VBoxContainer/Hitpoints.value()
 	properties.ship_power = $VBoxContainer/ShipPower.value()
@@ -33,4 +30,4 @@ func update_properties(sea:Sea) -> void:
 	properties.ship_ramming_damage = $VBoxContainer/ShipRammingDamage.value()
 	properties.projectile_damage = $VBoxContainer/CannonDamage.value()
 	
-	sea.update_properties(properties)
+	return properties

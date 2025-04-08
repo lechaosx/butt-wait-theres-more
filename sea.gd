@@ -6,6 +6,17 @@ var dead: bool = false;
 
 signal game_ended(score: int)
 
+var properties: PlayerProperties:
+	set(value):
+		$PlayerShip/HitpointBar.set_max_hitpoints(value.ship_hitpoints)
+		$PlayerShip/HitpointBar.fully_heal()
+		$PlayerShip.brakes = value.ship_power
+		$PlayerShip.power = value.ship_power
+		$PlayerShip.steering_angle = value.ship_steering_angle
+		$PlayerShip.ramming_damage = value.ship_ramming_damage
+		$PlayerShip/Cannon.projectile_damage = value.projectile_damage
+		$PlayerShip/AutoCannonAbility.projectile_damage = value.projectile_damage
+
 func _ready() -> void:
 	$PlayerShip/FriendlyShipAbility.sea = self
 	$PlayerShip/AutoCannonAbility.sea = self
@@ -133,17 +144,6 @@ func _on_cargo_hold_cargo_updated() -> void:
 	
 	if %CargoCounter.count >= %CargoCounter.cargo_cap and not %AbilityCards.visible:
 		upgrade_abilities()
-
-func update_properties(properties : PlayerProperties):
-	$PlayerShip/HitpointBar.set_max_hitpoints(properties.ship_hitpoints)
-	$PlayerShip/HitpointBar.fully_heal()
-	$PlayerShip.brakes = properties.ship_power
-	$PlayerShip.power = properties.ship_power
-	$PlayerShip.steering_angle = properties.ship_steering_angle
-	$PlayerShip.ramming_damage = properties.ship_ramming_damage
-	$PlayerShip/Cannon.projectile_damage = properties.projectile_damage
-	$PlayerShip/AutoCannonAbility.projectile_damage = properties.projectile_damage
-
 
 func _on_kill_screen_finished() -> void:
 	game_ended.emit(%SurvivorTime.score)
