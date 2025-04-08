@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://pbdp3pu1ndyl"]
-
-[ext_resource type="Script" uid="uid://bkqfcptttkcv6" path="res://auto_aim_cannon_controller.gd" id="1_6vo7p"]
-
-[node name="AutoAimCannonController" type="Node"]
-script = ExtResource("1_6vo7p")

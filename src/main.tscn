@@ -3,18 +3,27 @@
 [ext_resource type="Script" uid="uid://ybfryiftaoda" path="res://src/main_menu.gd" id="1_5q4o7"]
 [ext_resource type="PackedScene" uid="uid://rv6571yi7xcd" path="res://src/shop/shop.tscn" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://brlr7tvk0u7v1" path="res://background_region.tscn" id="3_3cfgd"]
-[ext_resource type="Texture2D" uid="uid://couuhpeo2xb3a" path="res://assets/logo.png" id="4_3cfgd"]
+[ext_resource type="Texture2D" uid="uid://dwh8sgmjuja5x" path="res://assets/logo.png" id="4_3cfgd"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_5q4o7")
 
-[node name="MainMenu" type="CanvasLayer" parent="."]
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="BackgroundRegion" parent="MainMenu" instance=ExtResource("3_3cfgd")]
 position = Vector2(640, 360)
 px_size = Vector2(1280, 720)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainMenu"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -33,9 +42,10 @@ layout_mode = 2
 size_flags_horizontal = 10
 
 [node name="Shop" parent="MainMenu/HBoxContainer/VBoxContainer" instance=ExtResource("1_eewff")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -43,6 +53,7 @@ theme_override_font_sizes/font_size = 50
 text = "PLAY"
 
 [node name="TextureRect" type="TextureRect" parent="MainMenu"]
+layout_mode = 0
 offset_left = 53.0
 offset_top = 96.0
 offset_right = 393.0
@@ -52,4 +63,4 @@ texture = ExtResource("4_3cfgd")
 expand_mode = 2
 stretch_mode = 4
 
-[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

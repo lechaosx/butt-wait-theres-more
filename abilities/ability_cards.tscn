@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpdoenrgimjkw"]
+
+[ext_resource type="Script" uid="uid://0c7gloilh2en" path="res://abilities/ability_cards.gd" id="1_wu3ox"]
+[ext_resource type="PackedScene" uid="uid://cvxii0cpdmkdg" path="res://abilities/ability_card.tscn" id="2_wlgwy"]
+[ext_resource type="Texture2D" uid="uid://datp16bda8e80" path="res://abilities/cannon_cooling.png" id="3_7mv6s"]
+[ext_resource type="Texture2D" uid="uid://dfja4pr6vhu4w" path="res://abilities/barrels.png" id="3_etiqn"]
+[ext_resource type="Texture2D" uid="uid://ilr55nbaaxsc" path="res://abilities/piercing_cannon_ball.png" id="4_etiqn"]
+[ext_resource type="Texture2D" uid="uid://bakmcejguewaa" path="res://abilities/side_cannons.png" id="5_3u3kk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dkx1i"]
+font_size = 32
+font_color = Color(0.43338, 0.290952, 0.144733, 1)
+
+[node name="AbilityCards" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wu3ox")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="CardContainer" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="AbilityCard" parent="MarginContainer/CardContainer" instance=ExtResource("2_wlgwy")]
+layout_mode = 2
+
+[node name="Texture" parent="MarginContainer/CardContainer/AbilityCard/VBoxContainer/AspectRatioContainer" index="0"]
+texture = ExtResource("3_etiqn")
+
+[node name="AbilityCard2" parent="MarginContainer/CardContainer" instance=ExtResource("2_wlgwy")]
+layout_mode = 2
+
+[node name="Name" parent="MarginContainer/CardContainer/AbilityCard2/VBoxContainer" index="0"]
+label_settings = SubResource("LabelSettings_dkx1i")
+
+[node name="Texture" parent="MarginContainer/CardContainer/AbilityCard2/VBoxContainer/AspectRatioContainer" index="0"]
+texture = ExtResource("3_7mv6s")
+
+[node name="AbilityCard3" parent="MarginContainer/CardContainer" instance=ExtResource("2_wlgwy")]
+layout_mode = 2
+
+[node name="Name" parent="MarginContainer/CardContainer/AbilityCard3/VBoxContainer" index="0"]
+label_settings = SubResource("LabelSettings_dkx1i")
+
+[node name="Texture" parent="MarginContainer/CardContainer/AbilityCard3/VBoxContainer/AspectRatioContainer" index="0"]
+texture = ExtResource("4_etiqn")
+
+[node name="AbilityCard4" parent="MarginContainer/CardContainer" instance=ExtResource("2_wlgwy")]
+layout_mode = 2
+
+[node name="VBoxContainer" parent="MarginContainer/CardContainer/AbilityCard4" index="0"]
+alignment = 1
+
+[node name="Name" parent="MarginContainer/CardContainer/AbilityCard4/VBoxContainer" index="0"]
+label_settings = SubResource("LabelSettings_dkx1i")
+
+[node name="Texture" parent="MarginContainer/CardContainer/AbilityCard4/VBoxContainer/AspectRatioContainer" index="0"]
+texture = ExtResource("5_3u3kk")
+
+[editable path="MarginContainer/CardContainer/AbilityCard"]
+[editable path="MarginContainer/CardContainer/AbilityCard2"]
+[editable path="MarginContainer/CardContainer/AbilityCard3"]
+[editable path="MarginContainer/CardContainer/AbilityCard4"]
