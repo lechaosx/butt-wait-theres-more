@@ -4,13 +4,9 @@ class_name Sea extends Node
 
 var dead: bool = false;
 
-signal game_started
-signal game_ended(score:int)
+signal game_ended(score: int)
 
 func _ready() -> void:
-	game_started.connect(self._on_game_started)
-
-func _on_game_started() -> void:
 	$PlayerShip/FriendlyShipAbility.sea = self
 	$PlayerShip/AutoCannonAbility.sea = self
 	$PlayerShip/BarrelDroppingAbility.sea = self
