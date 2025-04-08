@@ -78,7 +78,7 @@ func spawn_gun_enemy(hp):
 	
 	add_child(ship)
 
-func scale_ship(ship:Ship, scale:float)->void:
+func scale_ship(ship: Ship, ship_scale: float) -> void:
 	var scaling_components = [
 		ship.get_node("AnimatedSprite2D"),
 		ship.get_node("CollisionShape2D"),
@@ -86,10 +86,11 @@ func scale_ship(ship:Ship, scale:float)->void:
 		ship.get_node("RamArea/CollisionShape2D2"),
 	]
 	
-	for scaling_componnent:Node2D in scaling_components:
+	for scaling_componnent: Node2D in scaling_components:
 		if not scaling_componnent:
 			continue
-		scaling_componnent.transform *= scale # this should multiply scale and position
+			
+		scaling_componnent.transform *= ship_scale # this should multiply scale and position
 	
 
 func spawn_boss_enemy(hp):

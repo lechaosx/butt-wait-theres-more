@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://xq8tf04kqcf4" path="res://assets/Ship parts/cannonBall.png" id="1_iufhq"]
 [ext_resource type="Script" uid="uid://60spyqjcbji6" path="res://src/projectiles/cannon_ball/cannon_ball.gd" id="1_n02ov"]
-[ext_resource type="AudioStream" uid="uid://dq784ybjnvifj" path="res://assets/Sound/hit.wav" id="3_syvwo"]
+[ext_resource type="AudioStream" uid="uid://qfcuqfi5xkj4" path="res://assets/Sound/hit.wav" id="3_syvwo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3813t"]
 radius = 4.12311

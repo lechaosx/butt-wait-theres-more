@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://nus27csfsws2" path="res://abilities/cannon.gd" id="1_cn5fv"]
 [ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_ixags"]
-[ext_resource type="AudioStream" uid="uid://bseidgk05evn1" path="res://assets/Sound/CannonFire.wav" id="3_ixags"]
-[ext_resource type="AudioStream" uid="uid://cwxfqsldog88y" path="res://assets/Sound/CannonFire2.wav" id="4_n52ym"]
+[ext_resource type="AudioStream" uid="uid://b15tke5pkrb6u" path="res://assets/Sound/CannonFire.wav" id="3_ixags"]
+[ext_resource type="AudioStream" uid="uid://bwdauo1n137nf" path="res://assets/Sound/CannonFire2.wav" id="4_n52ym"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ovybr"]
 playback_mode = 1
