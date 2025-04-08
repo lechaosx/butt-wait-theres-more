@@ -14,9 +14,9 @@ func is_visible_on_screen() -> bool:
 
 
 func reset(new_position: Vector2, speed: float, direction: Vector2) -> void:
-	_speed = speed
-	_direction = direction
 	speed_random_coef = randf_range(0.8,1.2)
+	_speed = speed * speed_random_coef
+	_direction = direction
 	self.position = new_position
 	rotation = _direction.angle()
 	modulate = Color(1, 1, 1, randf_range(0.2, 0.4))
