@@ -8,5 +8,5 @@ name = "Cannonball Quality"
 start_value = 1
 value_increment = 1
 start_price = 50
-price_increment = 0
+price_increment = 25
 metadata/_custom_type_script = "uid://cn0n0ybawxjos"
