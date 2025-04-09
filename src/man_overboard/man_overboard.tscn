@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://del3ewg44xul"]
 
 [ext_resource type="Script" uid="uid://dkr0v87jxde2h" path="res://src/man_overboard/man_overboard.gd" id="1_jftrm"]
-[ext_resource type="Texture2D" uid="uid://deap2vr882lg" path="res://assets/drowning_man_0.png" id="2_aogsi"]
-[ext_resource type="Texture2D" uid="uid://bnbcft6567fhi" path="res://assets/drowning_man_1.png" id="3_g7kqr"]
-[ext_resource type="Texture2D" uid="uid://4cvm5eo6vpno" path="res://assets/drowning_man_2.png" id="4_aogsi"]
-[ext_resource type="Texture2D" uid="uid://dj3fkawsqi8x0" path="res://assets/drowning_man_3.png" id="5_dccxv"]
-[ext_resource type="Texture2D" uid="uid://bnb38ptfscun8" path="res://assets/drowning_man_4.png" id="6_dccxv"]
+[ext_resource type="Texture2D" uid="uid://dgagevower4da" path="res://assets/drowning_man_0.png" id="2_aogsi"]
+[ext_resource type="Texture2D" uid="uid://2qa2681pov74" path="res://assets/drowning_man_1.png" id="3_g7kqr"]
+[ext_resource type="Texture2D" uid="uid://c5je5o6hnhiv7" path="res://assets/drowning_man_2.png" id="4_aogsi"]
+[ext_resource type="Texture2D" uid="uid://dgbw1lmtfsann" path="res://assets/drowning_man_3.png" id="5_dccxv"]
+[ext_resource type="Texture2D" uid="uid://bq6g01w8q5jr4" path="res://assets/drowning_man_4.png" id="6_dccxv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qogrf"]
 radius = 36.0555

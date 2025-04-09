@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ch47g2w2x0wvi" path="res://src/survivor_time/survivor_time.gd" id="1_7ucco"]
 [ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://assets/UI/theme.tres" id="2_3v8y4"]
-[ext_resource type="FontFile" uid="uid://bnvliunll7xxn" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="3_sg4q1"]
-[ext_resource type="Texture2D" uid="uid://bguke3kxvneds" path="res://assets/UI/coins.png" id="4_6hb1b"]
+[ext_resource type="FontFile" uid="uid://5yqvm3qrp44h" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="3_sg4q1"]
+[ext_resource type="Texture2D" uid="uid://b6lpxxq6015m4" path="res://assets/UI/coins.png" id="4_6hb1b"]
 
 [node name="SurvivorTime" type="HBoxContainer"]
 offset_right = 32.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cgwuhcyd821o0"]
 
 [ext_resource type="Script" uid="uid://t1g2gkbuyl67" path="res://src/projectiles/barrel_ball/barrel_ball.gd" id="1_eabuo"]
-[ext_resource type="Texture2D" uid="uid://bvnir542ipan0" path="res://assets/barrel3.png" id="2_xw340"]
+[ext_resource type="Texture2D" uid="uid://ugctoikhfk83" path="res://assets/barrel3.png" id="2_xw340"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xw340"]
 radius = 4.99457
