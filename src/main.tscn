@@ -1,12 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://bisevcodv64ns"]
+[gd_scene load_steps=10 format=3 uid="uid://bisevcodv64ns"]
 
-[ext_resource type="Script" uid="uid://ybfryiftaoda" path="res://src/main_menu.gd" id="1_5q4o7"]
+[ext_resource type="Script" uid="uid://ybfryiftaoda" path="res://src/main.gd" id="1_5q4o7"]
 [ext_resource type="PackedScene" uid="uid://rv6571yi7xcd" path="res://src/shop/shop.tscn" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://brlr7tvk0u7v1" path="res://background_region.tscn" id="3_3cfgd"]
+[ext_resource type="Resource" uid="uid://b4uaf2dspacu3" path="res://upgrades/acceleration.tres" id="3_uewes"]
 [ext_resource type="Texture2D" uid="uid://dnfjdmao5jvp7" path="res://assets/logo.png" id="4_3cfgd"]
+[ext_resource type="Resource" uid="uid://cibmrjw480lrp" path="res://upgrades/cannon_damage.tres" id="4_kqbth"]
+[ext_resource type="Resource" uid="uid://cnbn420rwqgca" path="res://upgrades/hp.tres" id="5_srxbw"]
+[ext_resource type="Resource" uid="uid://08u1hyb82qaf" path="res://upgrades/ram_damage.tres" id="6_d3u4l"]
+[ext_resource type="Resource" uid="uid://v7qt6jjjmhhh" path="res://upgrades/steering.tres" id="7_mlv6i"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_5q4o7")
+hitpoints = ExtResource("5_srxbw")
+acceleration = ExtResource("3_uewes")
+steering = ExtResource("7_mlv6i")
+ram_damage = ExtResource("6_d3u4l")
+cannon_damage = ExtResource("4_kqbth")
 
 [node name="MainMenu" type="Control" parent="."]
 layout_mode = 3
@@ -22,38 +32,7 @@ size_flags_vertical = 3
 position = Vector2(640, 360)
 px_size = Vector2(1280, 720)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer"]
-custom_minimum_size = Vector2(500, 400)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="Shop" parent="MainMenu/HBoxContainer/VBoxContainer" instance=ExtResource("1_eewff")]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="PlayButton" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 50
-text = "PLAY"
-
 [node name="TextureRect" type="TextureRect" parent="MainMenu"]
-layout_mode = 0
 offset_left = 53.0
 offset_top = 96.0
 offset_right = 393.0
@@ -63,4 +42,29 @@ texture = ExtResource("4_3cfgd")
 expand_mode = 2
 stretch_mode = 4
 
-[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Shop" parent="MainMenu/MarginContainer" instance=ExtResource("1_eewff")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="PlayButton" type="Button" parent="MainMenu/MarginContainer/Shop"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 50
+text = "PLAY"
+
+[connection signal="pressed" from="MainMenu/MarginContainer/Shop/PlayButton" to="." method="_on_play_button_pressed"]

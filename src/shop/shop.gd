@@ -1,33 +1,28 @@
 extends VBoxContainer
 
-var balance: int:
-	set(val):
-		balance = val
-		if $Balance/Label:
-			$Balance/Label.text = str(val)
-		for child in $VBoxContainer.get_children():
-			if child is Property:
-				child.update_button(val)
+var upgrades: Array:
+	set(value):
+		for button in %UpgradeButtons.get_children():
+			button.queue_free()
+		
+		upgrades = value
+		
+		for upgrade in upgrades:
+			var button = preload("res://src/properties/upgrade_button.tscn").instantiate()
+			button.balance = balance
+			button.upgrade = upgrade
+			button.button_pressed.connect(_on_upgrade_button_pressed.bind(upgrade))
+			%UpgradeButtons.add_child(button)
 
-func _ready() -> void:
-	balance = 0 # Here to trigger the setter and redraw the buttons with correct visuals
-	for child in $VBoxContainer.get_children():
-		if child is Property:
-			child.plus_button_clicked.connect(self.buy_upgrade)
-
-func buy_upgrade(property: Property):
-	var price = property.price()
+var balance: int = 0:
+	set(value):
+		balance = value
+		%CurrentBalanceLabel.text = str(balance)
+		for button in %UpgradeButtons.get_children():
+			button.balance = balance
+			
+func _on_upgrade_button_pressed(upgrade: Upgrade):
+	var price = upgrade.start_price + upgrade.price_increment * upgrade.level
 	if balance >= price:
-		property.upgrade()
 		balance -= price
-
-func player_properties() -> PlayerProperties:
-	var properties = PlayerProperties.new()
-	
-	properties.ship_hitpoints = $VBoxContainer/Hitpoints.value()
-	properties.ship_power = $VBoxContainer/ShipPower.value()
-	properties.ship_steering_angle = $VBoxContainer/ShipSteeringAngle.value()
-	properties.ship_ramming_damage = $VBoxContainer/ShipRammingDamage.value()
-	properties.projectile_damage = $VBoxContainer/CannonDamage.value()
-	
-	return properties
+		upgrade.level += 1

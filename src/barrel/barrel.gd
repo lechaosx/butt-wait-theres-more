@@ -16,7 +16,6 @@ func _ready() -> void:
 	var hp: HitpointBar = $HitpointBar
 	hp.visible = false
 	hp.set_max_hitpoints(damage)
-	hp.fully_heal()
 	hp.on_death.connect(self._on_barrel_is_dead)
 	hp.damage_received.connect(self._on_barrel_damage_received)
 	rise_up()

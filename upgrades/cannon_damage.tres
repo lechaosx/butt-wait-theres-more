@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://cibmrjw480lrp"]
+
+[ext_resource type="Script" uid="uid://cn0n0ybawxjos" path="res://upgrade.gd" id="1_2m4yk"]
+
+[resource]
+script = ExtResource("1_2m4yk")
+name = "Cannonball Quality"
+start_value = 1
+value_increment = 1
+start_price = 50
+price_increment = 0
+metadata/_custom_type_script = "uid://cn0n0ybawxjos"

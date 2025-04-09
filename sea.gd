@@ -1,21 +1,32 @@
 class_name Sea extends Node
 
-@export var abilities: Array[Ability] = []
-
-var dead: bool = false;
-
 signal game_ended(score: int)
 
-var properties: PlayerProperties:
+@export var abilities: Array[Ability] = []
+
+var hitpoints: int:
 	set(value):
-		$PlayerShip/HitpointBar.set_max_hitpoints(value.ship_hitpoints)
-		$PlayerShip/HitpointBar.fully_heal()
-		$PlayerShip.brakes = value.ship_power
-		$PlayerShip.power = value.ship_power
-		$PlayerShip.steering_angle = value.ship_steering_angle
-		$PlayerShip.ramming_damage = value.ship_ramming_damage
-		$PlayerShip/Cannon.projectile_damage = value.projectile_damage
-		$PlayerShip/AutoCannonAbility.projectile_damage = value.projectile_damage
+		$PlayerShip/HitpointBar.set_max_hitpoints(value)
+		
+var acceleration: int:
+	set(value):
+		$PlayerShip.brakes = value
+		$PlayerShip.power = value
+
+var steering: int:
+	set(value):
+		$PlayerShip.steering_angle = value
+		
+var ram_damage: int:
+	set(value):
+		$PlayerShip.ramming_damage = value
+		
+var cannon_damage: int:
+	set(value):
+		$PlayerShip/Cannon.projectile_damage = value
+		$PlayerShip/AutoCannonAbility.projectile_damage = value
+
+var _dead: bool = false;
 
 func _ready() -> void:
 	$PlayerShip/FriendlyShipAbility.sea = self
@@ -127,17 +138,17 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.cargo_cap += 1
 
 func _on_hitpoint_bar_on_death() -> void:
-	if dead:
+	if _dead:
 		return
 		
-	dead = true
+	_dead = true
 	%AbilityCards.hide()
 	Engine.time_scale = 1
 	%KillScreen.die()
 	get_tree().call_group("GameTimers", "stop")
 
 func _on_cargo_hold_cargo_updated() -> void:
-	if dead:
+	if _dead:
 		return
 
 	%CargoCounter.count = %CargoCounter.count + 1

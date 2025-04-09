@@ -14,8 +14,7 @@ enum DamageType {
 var hitpoints: int:
 	set(value):
 		hitpoints = value
-		if $ProgressBar:
-			$ProgressBar.value = value
+		$ProgressBar.value = value
 		hitpoint_update.emit(value)
 		if hitpoints <= 0:
 			on_death.emit()
@@ -43,18 +42,14 @@ func receive_heal(heal:int):
 	heal_received.emit(heal)
 	hitpoints = clamp(hitpoints+heal, 0, max_hitpoints)
 
-func fully_heal():
+func _ready() -> void:
+	$ProgressBar.max_value = max_hitpoints
 	hitpoints = max_hitpoints
 
-func _ready() -> void:
-	if $ProgressBar:
-		$ProgressBar.max_value = max_hitpoints
-	fully_heal()
-
-func set_max_hitpoints(value:int):
+func set_max_hitpoints(value: int):
 	max_hitpoints = value
-	if $ProgressBar:
-		$ProgressBar.max_value = value
+	hitpoints = max_hitpoints
+	$ProgressBar.max_value = value
 	max_hitpoints_update.emit(value)
 
 func _process(_delta: float) -> void:

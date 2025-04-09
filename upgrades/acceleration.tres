@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://b4uaf2dspacu3"]
+
+[ext_resource type="Script" uid="uid://cn0n0ybawxjos" path="res://upgrade.gd" id="1_2rkbf"]
+
+[resource]
+script = ExtResource("1_2rkbf")
+name = "Sail System"
+start_value = 100
+value_increment = 5
+start_price = 10
+price_increment = 10
+metadata/_custom_type_script = "uid://cn0n0ybawxjos"
