@@ -37,7 +37,7 @@ func spawn_enemy_ship() -> Ship:
 	return ship
 
 func add_hp(ship, hp):
-	var HP = preload("res://src/hitpoints/hitpoint_bar.tscn").instantiate()
+	var HP = preload("res://src/hitpoints/health_component.tscn").instantiate()
 	HP.on_death.connect(_on_enemy_death.bind(ship))
 	HP.max_hitpoints = hp
 	HP.hitpoints = hp

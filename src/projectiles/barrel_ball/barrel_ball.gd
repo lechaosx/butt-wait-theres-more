@@ -33,8 +33,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	for child in body.get_children():
-		if child is HitpointBar:
-			child.receive_damage(damage, HitpointBar.DamageType.PROJECTILE)
+		if child is HealthComponent:
+			child.receive_damage(damage, HealthComponent.DamageType.PROJECTILE)
 
 	add_collision_exception_with(body)
 

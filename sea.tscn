@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
 [ext_resource type="PackedScene" uid="uid://cgsqmrehcpm3w" path="res://abilities/auto_cannon_ability.tscn" id="4_pfxiy"]
 [ext_resource type="Script" uid="uid://cssc7sab12i3b" path="res://abilities/friendly_ship_ability.gd" id="5_7u2wy"]
-[ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/hitpoint_bar.tscn" id="8_24krr"]
+[ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://src/hitpoints/health_component.tscn" id="8_24krr"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 [ext_resource type="PackedScene" uid="uid://pbdp3pu1ndyl" path="res://abilities/auto_aim_cannon_controller.tscn" id="8_vmxnl"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://abilities/ability_cards.tscn" id="9_ari0p"]
@@ -52,7 +52,7 @@ position = Vector2(36, 0.000130355)
 [node name="UserController" type="Node" parent="PlayerShip"]
 script = ExtResource("2_mehw6")
 
-[node name="HitpointBar" parent="PlayerShip" instance=ExtResource("8_24krr")]
+[node name="HealthComponent" parent="PlayerShip" instance=ExtResource("8_24krr")]
 max_hitpoints = 1
 
 [node name="CargoHold" type="Node" parent="PlayerShip"]
@@ -112,7 +112,7 @@ unique_name_in_owner = true
 
 [node name="Properties" type="Node" parent="."]
 
-[connection signal="on_death" from="PlayerShip/HitpointBar" to="." method="_on_hitpoint_bar_on_death"]
+[connection signal="on_death" from="PlayerShip/HealthComponent" to="." method="_on_hitpoint_bar_on_death"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]

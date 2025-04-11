@@ -10,7 +10,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	for body in get_overlapping_bodies():
 		for child in body.get_children():
-			if child is HitpointBar:
+			if child is HealthComponent:
 				child.receive_heal(1)
 				queue_free()
 				return

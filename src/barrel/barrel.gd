@@ -13,11 +13,11 @@ var sink_direction: int = 0 ## -1 = sink down, +1 = rise up
 func _ready() -> void:
 	if damage == 0:
 		damage = random.randi_range(damage_min, damage_max)
-	$HitpointBar.visible = false
-	$HitpointBar.max_hitpoints = damage
-	$HitpointBar.hitpoints = damage
-	$HitpointBar.on_death.connect(self._on_barrel_is_dead)
-	$HitpointBar.damage_received.connect(self._on_barrel_damage_received)
+	$HealthComponent.visible = false
+	$HealthComponent.max_hitpoints = damage
+	$HealthComponent.hitpoints = damage
+	$HealthComponent.on_death.connect(self._on_barrel_is_dead)
+	$HealthComponent.damage_received.connect(self._on_barrel_damage_received)
 	rise_up()
 
 func _process(_delta: float) -> void:
@@ -40,8 +40,8 @@ func _on_barrel_is_dead(parent:Node) -> void:
 		ee_barel.play("default")
 		$Area2D.explosion(damage)
 
-func _on_barrel_damage_received(_value: int, type: HitpointBar.DamageType) -> void:
-	if type == HitpointBar.DamageType.RAMMING:
+func _on_barrel_damage_received(_value: int, type: HealthComponent.DamageType) -> void:
+	if type == HealthComponent.DamageType.RAMMING:
 		_on_barrel_is_dead(self)
 	else:
 		update_fire_per_hitpoints()
@@ -50,8 +50,7 @@ func _on_timer_timeout() -> void:
 	pass
 
 func update_fire_per_hitpoints() -> void:
-	var hpp: = $HitpointBar/ProgressBar
-	var percent = int((hpp.value / hpp.max_value) * 100)
+	var percent = int(($HealthComponent.hitpoints / $HealthComponent.max_hitpoints) * 100)
 	var p_limit = 22.0
 	var max_fire = (100.0 / p_limit) - (percent / p_limit)
 	if max_fire == 0.0 and percent < 100.0:

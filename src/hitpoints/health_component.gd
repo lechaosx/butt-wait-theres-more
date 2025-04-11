@@ -1,4 +1,4 @@
-class_name HitpointBar extends Node2D
+class_name HealthComponent extends Node2D
 
 enum DamageType {
 	PROJECTILE,
@@ -16,13 +16,11 @@ signal heal_received(value: int)
 @export var max_hitpoints: int:
 	set(value):
 		max_hitpoints = value
-		$ProgressBar.max_value = value
 		max_hitpoints_update.emit(value)
 
 @export var hitpoints: int:
 	set(value):
 		hitpoints = value
-		$ProgressBar.value = value
 		hitpoint_update.emit(value)
 		if hitpoints <= 0:
 			on_death.emit()
@@ -43,7 +41,6 @@ func receive_heal(heal: int) -> void:
 	hitpoints = clamp(hitpoints + heal, 0, max_hitpoints)
 
 func _ready() -> void:
-	$ProgressBar.max_value = max_hitpoints
 	hitpoints = max_hitpoints
 
 func _process(_delta: float) -> void:

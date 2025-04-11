@@ -22,7 +22,7 @@ static func is_good(ship_type: Type) -> bool:
 
 @export var controller: Node
 
-var _hitpoint_bar: HitpointBar = null
+var _hitpoint_bar: HealthComponent = null
 
 func _ready() -> void:
 	match type:
@@ -34,7 +34,7 @@ func _ready() -> void:
 			$AnimatedSprite2D.animation = "player"
 	
 	for child in get_children():
-		if child is HitpointBar:
+		if child is HealthComponent:
 			add_hitpoint_bar(child)
 
 func _physics_process(delta: float) -> void:
@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func add_hitpoint_bar(bar: HitpointBar) -> void:
+func add_hitpoint_bar(bar: HealthComponent) -> void:
 	_hitpoint_bar = bar
 	
 	if get_children().find(bar) == -1:
@@ -88,12 +88,12 @@ func _update_frames() -> void:
 
 func _on_ram_area_body_entered(body: Node2D) -> void:
 	for child in body.get_children():
-		if child is HitpointBar:
+		if child is HealthComponent:
 			if body is Ship:
 				if body.is_good(body.type) != is_good(type):
-					child.receive_damage(ramming_damage, HitpointBar.DamageType.RAMMING)
+					child.receive_damage(ramming_damage, HealthComponent.DamageType.RAMMING)
 			else:
-				child.receive_damage(ramming_damage, HitpointBar.DamageType.RAMMING)
+				child.receive_damage(ramming_damage, HealthComponent.DamageType.RAMMING)
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()

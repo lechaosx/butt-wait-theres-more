@@ -6,10 +6,10 @@ signal game_ended(score: int)
 
 var hitpoints: int:
 	set(value):
-		$PlayerShip/HitpointBar.max_hitpoints = value
-		$PlayerShip/HitpointBar.hitpoints = value
+		$PlayerShip/HealthComponent.max_hitpoints = value
+		$PlayerShip/HealthComponent.hitpoints = value
 	get:
-		return $PlayerShip/HitpointBar.max_hitpoints
+		return $PlayerShip/HealthComponent.max_hitpoints
 		
 var acceleration: int:
 	set(value):

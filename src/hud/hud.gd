@@ -3,7 +3,7 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var player_hp_bar : HitpointBar = %PlayerShip/HitpointBar
+	var player_hp_bar : HealthComponent = %PlayerShip/HealthComponent
 	player_hp_bar.hitpoint_update.connect(self.update_hitpoints)
 	player_hp_bar.max_hitpoints_update.connect(self.update_max_hitpoints)
 	update_max_hitpoints(player_hp_bar.max_hitpoints)
