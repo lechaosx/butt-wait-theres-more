@@ -40,11 +40,8 @@ func _on_barrel_is_dead(parent:Node) -> void:
 		ee_barel.play("default")
 		$Area2D.explosion(damage)
 
-func _on_barrel_damage_received(_value: int, type: HealthComponent.DamageType) -> void:
-	if type == HealthComponent.DamageType.RAMMING:
-		_on_barrel_is_dead(self)
-	else:
-		update_fire_per_hitpoints()
+func _on_barrel_damage_received(_value: int) -> void:
+	update_fire_per_hitpoints()
 
 func _on_timer_timeout() -> void:
 	pass

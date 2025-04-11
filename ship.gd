@@ -91,9 +91,9 @@ func _on_ram_area_body_entered(body: Node2D) -> void:
 		if child is HealthComponent:
 			if body is Ship:
 				if body.is_good(body.type) != is_good(type):
-					child.receive_damage(ramming_damage, HealthComponent.DamageType.RAMMING)
+					child.receive_damage(ramming_damage)
 			else:
-				child.receive_damage(ramming_damage, HealthComponent.DamageType.RAMMING)
+				child.receive_damage(ramming_damage)
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()

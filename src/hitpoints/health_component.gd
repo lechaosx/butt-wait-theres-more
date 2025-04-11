@@ -1,16 +1,9 @@
 class_name HealthComponent extends Node2D
 
-enum DamageType {
-	PROJECTILE,
-	RAMMING,
-	FIRE,
-	EXPLOSION,
-}
-
 signal on_death
 signal hitpoint_update(new_value: int)
 signal max_hitpoints_update(new_value: int)
-signal damage_received(value: int, type: DamageType)
+signal damage_received(value: int)
 signal heal_received(value: int)
 
 @export var max_hitpoints: int:
@@ -31,9 +24,9 @@ func popup(value: int) -> void:
 	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1, 1)) * 20, 0.8)
 	add_child(popup_instance)
 
-func receive_damage(damage: int, type: DamageType) -> void:
+func receive_damage(damage: int) -> void:
 	hitpoints -= damage
-	damage_received.emit(damage, type)
+	damage_received.emit(damage)
 	popup(damage)
 	
 func receive_heal(heal: int) -> void:
