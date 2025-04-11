@@ -5,7 +5,7 @@ signal button_pressed
 var upgrade: Upgrade
 var balance: int = 0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$Name.text = upgrade.name
 	
 	$Value.text = str(upgrade.value())

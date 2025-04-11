@@ -1,8 +1,4 @@
-class_name HitpointBar
-extends Node2D
-
-@export var max_hitpoints: int
-var damage_popup_node: PackedScene = preload("res://src/hitpoints/damage_popup/damage_popup.tscn")
+class_name HitpointBar extends Node2D
 
 enum DamageType {
 	PROJECTILE,
@@ -11,7 +7,19 @@ enum DamageType {
 	EXPLOSION,
 }
 
-var hitpoints: int:
+signal on_death
+signal hitpoint_update(new_value: int)
+signal max_hitpoints_update(new_value: int)
+signal damage_received(value: int, type: DamageType)
+signal heal_received(value: int)
+
+@export var max_hitpoints: int:
+	set(value):
+		max_hitpoints = value
+		$ProgressBar.max_value = value
+		max_hitpoints_update.emit(value)
+
+@export var hitpoints: int:
 	set(value):
 		hitpoints = value
 		$ProgressBar.value = value
@@ -19,38 +27,24 @@ var hitpoints: int:
 		if hitpoints <= 0:
 			on_death.emit()
 
-
-signal on_death
-signal hitpoint_update(new_value:int)
-signal max_hitpoints_update(new_value:int)
-signal damage_received(value: int, type: DamageType)
-signal heal_received(value:int)
-
-func popup(value:int):
-	var popup_instance = damage_popup_node.instantiate()
-	popup_instance.position = $PopupLocation.position
+func popup(value: int) -> void:
+	var popup_instance = preload("res://src/hitpoints/damage_popup/damage_popup.tscn").instantiate()
 	popup_instance.set_text(value)
-	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1,1))*20, 0.8)
+	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1, 1)) * 20, 0.8)
 	add_child(popup_instance)
 
-func receive_damage(damage: int, type : DamageType) -> void:
+func receive_damage(damage: int, type: DamageType) -> void:
 	hitpoints -= damage
 	damage_received.emit(damage, type)
 	popup(damage)
 	
-func receive_heal(heal:int):
+func receive_heal(heal: int) -> void:
 	heal_received.emit(heal)
-	hitpoints = clamp(hitpoints+heal, 0, max_hitpoints)
+	hitpoints = clamp(hitpoints + heal, 0, max_hitpoints)
 
 func _ready() -> void:
 	$ProgressBar.max_value = max_hitpoints
 	hitpoints = max_hitpoints
-
-func set_max_hitpoints(value: int):
-	max_hitpoints = value
-	hitpoints = max_hitpoints
-	$ProgressBar.max_value = value
-	max_hitpoints_update.emit(value)
 
 func _process(_delta: float) -> void:
 	rotation = - get_parent().rotation

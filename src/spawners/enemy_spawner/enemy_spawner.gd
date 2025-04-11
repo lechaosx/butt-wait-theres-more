@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var ship_scene := preload("res://ship.tscn")
-@onready var hitpoint_scene := preload("res://src/hitpoints/hitpoint_bar.tscn")
 @onready var cargo_scene := preload("res://cargo.tscn")
 
 @onready var cannon_scene := preload("res://abilities/cannon.tscn")
@@ -38,9 +37,10 @@ func spawn_enemy_ship() -> Ship:
 	return ship
 
 func add_hp(ship, hp):
-	var HP = hitpoint_scene.instantiate()
+	var HP = preload("res://src/hitpoints/hitpoint_bar.tscn").instantiate()
 	HP.on_death.connect(_on_enemy_death.bind(ship))
-	HP.set_max_hitpoints(hp)
+	HP.max_hitpoints = hp
+	HP.hitpoints = hp
 	ship.add_hitpoint_bar(HP)
 
 func spawn_ramming_enemy(hp):

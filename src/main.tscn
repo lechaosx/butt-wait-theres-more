@@ -33,6 +33,7 @@ position = Vector2(640, 360)
 px_size = Vector2(1280, 720)
 
 [node name="TextureRect" type="TextureRect" parent="MainMenu"]
+layout_mode = 0
 offset_left = 53.0
 offset_top = 96.0
 offset_right = 393.0

@@ -13,11 +13,11 @@ var sink_direction: int = 0 ## -1 = sink down, +1 = rise up
 func _ready() -> void:
 	if damage == 0:
 		damage = random.randi_range(damage_min, damage_max)
-	var hp: HitpointBar = $HitpointBar
-	hp.visible = false
-	hp.set_max_hitpoints(damage)
-	hp.on_death.connect(self._on_barrel_is_dead)
-	hp.damage_received.connect(self._on_barrel_damage_received)
+	$HitpointBar.visible = false
+	$HitpointBar.max_hitpoints = damage
+	$HitpointBar.hitpoints = damage
+	$HitpointBar.on_death.connect(self._on_barrel_is_dead)
+	$HitpointBar.damage_received.connect(self._on_barrel_damage_received)
 	rise_up()
 
 func _process(_delta: float) -> void:

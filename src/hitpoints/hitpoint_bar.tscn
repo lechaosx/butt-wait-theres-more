@@ -4,7 +4,6 @@
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vu7h7")
-max_hitpoints = 50
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 visible = false
@@ -13,5 +12,3 @@ offset_bottom = 64.0
 scale = Vector2(0.75, 0.75)
 size_flags_vertical = 4
 show_percentage = false
-
-[node name="PopupLocation" type="Marker2D" parent="."]

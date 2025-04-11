@@ -6,25 +6,36 @@ signal game_ended(score: int)
 
 var hitpoints: int:
 	set(value):
-		$PlayerShip/HitpointBar.set_max_hitpoints(value)
+		$PlayerShip/HitpointBar.max_hitpoints = value
+		$PlayerShip/HitpointBar.hitpoints = value
+	get:
+		return $PlayerShip/HitpointBar.max_hitpoints
 		
 var acceleration: int:
 	set(value):
 		$PlayerShip.brakes = value
 		$PlayerShip.power = value
+	get:
+		return $PlayerShip.power
 
 var steering: int:
 	set(value):
 		$PlayerShip.steering_angle = value
+	get:
+		return $PlayerShip.steering_angle
 		
 var ram_damage: int:
 	set(value):
 		$PlayerShip.ramming_damage = value
+	get:
+		return $PlayerShip.ramming_damage
 		
 var cannon_damage: int:
 	set(value):
 		$PlayerShip/Cannon.projectile_damage = value
 		$PlayerShip/AutoCannonAbility.projectile_damage = value
+	get:
+		return $PlayerShip/Cannon.projectile_damage
 
 var _dead: bool = false;
 
