@@ -22,7 +22,7 @@ var balance: int = 0:
 			button.balance = balance
 			
 func _on_upgrade_button_pressed(upgrade: Upgrade):
-	var price = upgrade.start_price + upgrade.price_increment * upgrade.level
+	var price = upgrade.price()
 	if balance >= price:
 		balance -= price
 		upgrade.level += 1
