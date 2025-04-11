@@ -22,8 +22,6 @@ static func is_good(ship_type: Type) -> bool:
 
 @export var controller: Node
 
-var _hitpoint_bar: HealthComponent = null
-
 func _ready() -> void:
 	match type:
 		Type.Friendly:
@@ -33,9 +31,18 @@ func _ready() -> void:
 		Type.Player:
 			$AnimatedSprite2D.animation = "player"
 	
+func _process(_delta: float) -> void:
 	for child in get_children():
 		if child is HealthComponent:
-			add_hitpoint_bar(child)
+			var health = 1.0 * child.hitpoints / child.max_hitpoints
+			if health > 0.75:
+				$AnimatedSprite2D.frame = 0
+			elif health > 0.5:
+				$AnimatedSprite2D.frame = 1
+			elif health > 0.25:
+				$AnimatedSprite2D.frame = 2
+			else:
+				$AnimatedSprite2D.frame = 3
 
 func _physics_process(delta: float) -> void:
 	var acceleration_intent = controller.get_acceleration_strength() if controller else 0
@@ -64,36 +71,14 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func add_hitpoint_bar(bar: HealthComponent) -> void:
-	_hitpoint_bar = bar
-	
-	if get_children().find(bar) == -1:
-		add_child(bar)
-	
-	_hitpoint_bar.hitpoint_update.connect(func(_n): _update_frames())
-	_hitpoint_bar.max_hitpoints_update.connect(func(_n): _update_frames())
-	_hitpoint_bar.damage_received.connect(func(_n, _d): _update_frames())
-	_hitpoint_bar.heal_received.connect(func(_n): _update_frames())
-
-func _update_frames() -> void:
-	var health = 1.0 * _hitpoint_bar.hitpoints / _hitpoint_bar.max_hitpoints
-	if health > 0.75:
-		$AnimatedSprite2D.frame = 0
-	elif health > 0.5:
-		$AnimatedSprite2D.frame = 1
-	elif health > 0.25:
-		$AnimatedSprite2D.frame = 2
-	else:
-		$AnimatedSprite2D.frame = 3
-
 func _on_ram_area_body_entered(body: Node2D) -> void:
 	for child in body.get_children():
 		if child is HealthComponent:
 			if body is Ship:
 				if body.is_good(body.type) != is_good(type):
-					child.receive_damage(ramming_damage)
+					child.hitpoints -= ramming_damage
 			else:
-				child.receive_damage(ramming_damage)
+				child.hitpoints -= ramming_damage
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()

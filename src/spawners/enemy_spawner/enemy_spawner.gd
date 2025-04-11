@@ -38,10 +38,10 @@ func spawn_enemy_ship() -> Ship:
 
 func add_hp(ship, hp):
 	var HP = preload("res://src/hitpoints/health_component.tscn").instantiate()
-	HP.on_death.connect(_on_enemy_death.bind(ship))
+	HP.died.connect(_on_enemy_death.bind(ship))
 	HP.max_hitpoints = hp
 	HP.hitpoints = hp
-	ship.add_hitpoint_bar(HP)
+	ship.add_child(HP)
 
 func spawn_ramming_enemy(hp):
 	var ship = spawn_enemy_ship()

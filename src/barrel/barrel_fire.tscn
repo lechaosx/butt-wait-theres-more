@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://rhf33s2p28tb"]
+[gd_scene load_steps=4 format=3 uid="uid://rhf33s2p28tb"]
 
 [ext_resource type="Texture2D" uid="uid://opcwj3jbifvm" path="res://assets/Effects/fire1.png" id="1_fa0pg"]
-[ext_resource type="Script" uid="uid://p8jt6nlgkw3r" path="res://src/barrel/barrel_fire.gd" id="1_idtt0"]
 [ext_resource type="Texture2D" uid="uid://bktrfr3y4qnls" path="res://assets/Effects/fire2.png" id="2_idtt0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_blrkf"]
@@ -18,8 +17,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="BarrelFire" type="Node2D"]
-script = ExtResource("1_idtt0")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="BarrelFire" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_blrkf")
+autoplay = "default"

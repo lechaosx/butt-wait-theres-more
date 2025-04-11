@@ -1,37 +1,33 @@
 class_name HealthComponent extends Node2D
 
-signal on_death
-signal hitpoint_update(new_value: int)
-signal max_hitpoints_update(new_value: int)
-signal damage_received(value: int)
-signal heal_received(value: int)
+signal died
+signal hitpoints_updated
+signal max_hitpoints_updated
 
-@export var max_hitpoints: int:
+@export var max_hitpoints: int = 1:
 	set(value):
 		max_hitpoints = value
-		max_hitpoints_update.emit(value)
+		max_hitpoints_updated.emit()
 
-@export var hitpoints: int:
+@export var hitpoints: int = max_hitpoints:
 	set(value):
-		hitpoints = value
-		hitpoint_update.emit(value)
+		var damage = hitpoints - value
+		
+		hitpoints = clamp(value, 0, max_hitpoints)
+		
+		if damage > 0:
+			spawn_popup(damage)
+			
+		hitpoints_updated.emit()
+		
 		if hitpoints <= 0:
-			on_death.emit()
+			died.emit()
 
-func popup(value: int) -> void:
+func spawn_popup(value: int) -> void:
 	var popup_instance = preload("res://src/hitpoints/damage_popup/damage_popup.tscn").instantiate()
 	popup_instance.set_text(value)
 	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1, 1)) * 20, 0.8)
 	add_child(popup_instance)
-
-func receive_damage(damage: int) -> void:
-	hitpoints -= damage
-	damage_received.emit(damage)
-	popup(damage)
-	
-func receive_heal(heal: int) -> void:
-	heal_received.emit(heal)
-	hitpoints = clamp(hitpoints + heal, 0, max_hitpoints)
 
 func _ready() -> void:
 	hitpoints = max_hitpoints

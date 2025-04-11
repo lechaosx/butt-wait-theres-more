@@ -1,76 +1,61 @@
-class_name Barrel
-extends RigidBody2D
+class_name Barrel extends RigidBody2D
 
-var random = RandomNumberGenerator.new()
-@export var damage_min: int = 6
-@export var damage_max: int = 18
-@export var damage: int = 0 ## if damage == 0 then: rand(damage_min, damage_max)
 @export var sink_down_time: float = 0.25
 @export var rise_up_time: float = 0.5
-var fire = preload("res://src/barrel/barrel_fire.tscn")
+
 var sink_direction: int = 0 ## -1 = sink down, +1 = rise up
 
 func _ready() -> void:
-	if damage == 0:
-		damage = random.randi_range(damage_min, damage_max)
-	$HealthComponent.visible = false
-	$HealthComponent.max_hitpoints = damage
-	$HealthComponent.hitpoints = damage
-	$HealthComponent.on_death.connect(self._on_barrel_is_dead)
-	$HealthComponent.damage_received.connect(self._on_barrel_damage_received)
-	rise_up()
+	_rise_up()
 
 func _process(_delta: float) -> void:
-	var t = $Timer
-	if not t.is_stopped():
-		var sink_scale = (t.time_left / t.wait_time)
+	if not $Timer.is_stopped():
+		var sink_scale = ($Timer.time_left / $Timer.wait_time)
 		if sink_direction == -1:
 			$Sprite2D.scale = Vector2(sink_scale, sink_scale)
 		elif  sink_direction == +1:
 			$Sprite2D.scale = Vector2(1 - sink_scale, 1 - sink_scale)
 
-func _on_barrel_is_dead(parent:Node) -> void:
-	if parent is Barrel:
-		# when animation finished, it will remove barrel
-		var ee_barel = $Effects/EndExplosion
-		var remove_barrel = func():
-			queue_free()
-		ee_barel.visible = true
-		ee_barel.animation_finished.connect(remove_barrel)
-		ee_barel.play("default")
-		$Area2D.explosion(damage)
+func _update_fire() -> void:
+	var desired_fire_count = $HealthComponent.max_hitpoints - $HealthComponent.hitpoints
 
-func _on_barrel_damage_received(_value: int) -> void:
-	update_fire_per_hitpoints()
+	while %FireContainer.get_child_count() < desired_fire_count:
+		var fire = preload("res://src/barrel/barrel_fire.tscn").instantiate()
+		fire.frame = randi_range(0, 1)
+		fire.position = Vector2(randi_range(-13, +13), randi_range(-18, +3))
+		%FireContainer.add_child(fire)
 
-func _on_timer_timeout() -> void:
-	pass
-
-func update_fire_per_hitpoints() -> void:
-	var percent = int(($HealthComponent.hitpoints / $HealthComponent.max_hitpoints) * 100)
-	var p_limit = 22.0
-	var max_fire = (100.0 / p_limit) - (percent / p_limit)
-	if max_fire == 0.0 and percent < 100.0:
-		add_fire(1)
-	else:
-		add_fire(max_fire)
-
-func add_fire(maximum: int) -> void:
-	var parent = $"."
-	for i in range(0, maximum):
-		var new_fire = fire.instantiate()
-		new_fire.translate(Vector2(
-			random.randi_range(-13, +13),
-			random.randi_range(-18, +3)
-		))
-		parent.add_child(new_fire)
-
-func rise_up() -> void:
+	while %FireContainer.get_child_count() > desired_fire_count:
+		%FireContainer.get_child(0).queue_free()
+		
+func _rise_up() -> void:
 	$Sprite2D.scale = Vector2.ZERO
 	sink_direction = +1
 	$Timer.start(rise_up_time)
 
-func sink_down() -> void:
+func _sink_down() -> void:
 	$Sprite2D.scale = Vector2(1, 1)
 	sink_direction = -1
 	$Timer.start(sink_down_time)
+
+func _explode() -> void:
+	for body in $Area2D.get_overlapping_bodies():
+		for component in body.get_children():
+			if component is HealthComponent:
+				component.hitpoints -= 10 # Could be based off square distance or something
+
+func _on_health_component_died() -> void:
+	# when animation finished, it will remove barrel
+	var ee_barel = $Effects/EndExplosion
+	var remove_barrel = func():
+		queue_free()
+	ee_barel.visible = true
+	ee_barel.animation_finished.connect(remove_barrel)
+	ee_barel.play("default")
+	_explode()
+
+func _on_health_component_hitpoints_updated() -> void:
+	_update_fire()
+
+func _on_health_component_max_hitpoints_updated() -> void:
+	_update_fire()

@@ -1,11 +1,8 @@
-class_name BarrelBall
-extends RigidBody2D
+class_name BarrelBall extends RigidBody2D
 
 @export var damage : int
 @export var piercing : int
 @export var fly_time : float = 1
-@export var cargo_damage: int = 0 ## will be used as create_barrel(barel_damage), @see: barrel.gd
-@export var is_frendly : bool = true
 
 func _ready() -> void:
 	$Timer.wait_time = fly_time
@@ -16,9 +13,6 @@ const size_vec_scalor = 0.002
 const size_time_scalor = 3
 const time_speed_scalor = 2
 
-var splash = preload("res://src/effects/splash/splash.tscn")
-var impact = preload("res://src/effects/impact/impact.tscn")
-var barrel = preload("res://src/barrel/barrel.tscn")
 var original_scale: Vector2
 var random = RandomNumberGenerator.new()
 
@@ -32,27 +26,20 @@ func _physics_process(delta: float) -> void:
 	$Sprite2D.rotate(delta * random.randi_range(3, 8))
 
 func _on_body_entered(body: Node) -> void:
+	add_collision_exception_with(body)
 	for child in body.get_children():
 		if child is HealthComponent:
-			child.receive_damage(damage)
+			child.hitpoints -= damage
 
-	add_collision_exception_with(body)
-
-	piercing -= 1
-	if piercing > 0:
-		return
-
-	var instance = impact.instantiate()
-	instance.transform = transform
-	get_parent().add_child(instance);
-	queue_free()
+			piercing -= 1
+			if piercing <= 0:
+				var impact = preload("res://src/effects/impact/impact.tscn").instantiate()
+				impact.transform = transform
+				get_parent().add_child(impact);
+				queue_free()
 
 func _on_timer_timeout() -> void:
-	create_barrel(cargo_damage)
+	var barrel = preload("res://src/barrel/barrel.tscn").instantiate()
+	barrel.position = position
+	get_parent().add_child(barrel)
 	queue_free()
-
-func create_barrel(barel_damage: int) -> void:
-	var instance: Barrel = barrel.instantiate()
-	instance.position = position
-	instance.damage = barel_damage
-	get_parent().add_child(instance)

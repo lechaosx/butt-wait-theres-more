@@ -1,19 +1,17 @@
 extends CanvasLayer
 
-
+@export var health_component: HealthComponent
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var player_hp_bar : HealthComponent = %PlayerShip/HealthComponent
-	player_hp_bar.hitpoint_update.connect(self.update_hitpoints)
-	player_hp_bar.max_hitpoints_update.connect(self.update_max_hitpoints)
-	update_max_hitpoints(player_hp_bar.max_hitpoints)
-	update_hitpoints(player_hp_bar.hitpoints)
-	pass # Replace with function body.
+	health_component.hitpoints_updated.connect(update_hitpoints)
+	health_component.max_hitpoints_updated.connect(update_max_hitpoints)
+	update_max_hitpoints()
+	update_hitpoints()
 
-func update_hitpoints(value:int)->void:
-	$PlayerHitpoints.value = value
-	$PlayerHitpoints/HBoxContainer/CurrentHp.text = str(value)
+func update_hitpoints() -> void:
+	$PlayerHitpoints.value = health_component.hitpoints
+	$PlayerHitpoints/HBoxContainer/CurrentHp.text = str(health_component.hitpoints)
 
-func update_max_hitpoints(value:int) -> void:
-	$PlayerHitpoints.max_value = value
-	$PlayerHitpoints/HBoxContainer/MaxHp.text = str(value)
+func update_max_hitpoints() -> void:
+	$PlayerHitpoints.max_value = health_component.max_hitpoints
+	$PlayerHitpoints/HBoxContainer/MaxHp.text = str(health_component.max_hitpoints)

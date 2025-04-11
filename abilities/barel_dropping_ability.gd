@@ -1,10 +1,7 @@
 extends Node
 
-@onready var barrel_projectile = preload("res://src/projectiles/barrel_ball/barrel_ball.tscn")
-
 var level = 0
 var sea
-
 
 func level_up():
 	if level >= 5:
@@ -18,7 +15,7 @@ func level_up():
 		$Timer.start()
 
 func _on_timer_timeout() -> void:
-	var instance = barrel_projectile.instantiate()
+	var instance = preload("res://src/projectiles/barrel_ball/barrel_ball.tscn").instantiate()
 
 	var ship: Ship = get_parent()
 	var pos = ship.global_position + Vector2(-100, 0).rotated(ship.global_rotation)
@@ -27,7 +24,6 @@ func _on_timer_timeout() -> void:
 	var offset = 20 #hardcoded:20
 
 	instance.position = pos + ship.global_transform.x * offset
-	instance.is_frendly = Ship.is_good(ship.type)
 	instance.add_collision_exception_with(ship)
 	instance.apply_force(speed * dir + ship.velocity)
 

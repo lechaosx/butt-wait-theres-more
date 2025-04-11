@@ -148,16 +148,6 @@ func _on_ability_cards_ability_selected(ability: Ability) -> void:
 	%CargoCounter.count -= %CargoCounter.cargo_cap
 	%CargoCounter.cargo_cap += 1
 
-func _on_hitpoint_bar_on_death() -> void:
-	if _dead:
-		return
-		
-	_dead = true
-	%AbilityCards.hide()
-	Engine.time_scale = 1
-	%KillScreen.die()
-	get_tree().call_group("GameTimers", "stop")
-
 func _on_cargo_hold_cargo_updated() -> void:
 	if _dead:
 		return
@@ -169,3 +159,13 @@ func _on_cargo_hold_cargo_updated() -> void:
 
 func _on_kill_screen_finished() -> void:
 	game_ended.emit(%SurvivorTime.score)
+
+func _on_health_component_died() -> void:
+	if _dead:
+		return
+		
+	_dead = true
+	%AbilityCards.hide()
+	Engine.time_scale = 1
+	%KillScreen.die()
+	get_tree().call_group("GameTimers", "stop")

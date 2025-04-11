@@ -53,7 +53,6 @@ position = Vector2(36, 0.000130355)
 script = ExtResource("2_mehw6")
 
 [node name="HealthComponent" parent="PlayerShip" instance=ExtResource("8_24krr")]
-max_hitpoints = 1
 
 [node name="CargoHold" type="Node" parent="PlayerShip"]
 script = ExtResource("10_jolub")
@@ -107,12 +106,13 @@ unique_name_in_owner = true
 [node name="SurvivorTime" parent="CanvasLayer" instance=ExtResource("19_yode5")]
 unique_name_in_owner = true
 
-[node name="Hud" parent="." instance=ExtResource("11_24krr")]
+[node name="Hud" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("11_24krr")]
 unique_name_in_owner = true
+health_component = NodePath("../PlayerShip/HealthComponent")
 
 [node name="Properties" type="Node" parent="."]
 
-[connection signal="on_death" from="PlayerShip/HealthComponent" to="." method="_on_hitpoint_bar_on_death"]
+[connection signal="died" from="PlayerShip/HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
