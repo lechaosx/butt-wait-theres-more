@@ -16,6 +16,10 @@ run/main_scene="uid://bisevcodv64ns"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://b8oqvdpae6xxa"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+
 [display]
 
 window/size/viewport_width=1280

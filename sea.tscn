@@ -29,9 +29,6 @@ script = ExtResource("1_lotjo")
 unique_name_in_owner = true
 rotation = -1.5708
 slide_on_ceiling = false
-power = 150
-friction = 20
-ship_length = 50
 type = 0
 controller = NodePath("UserController")
 
@@ -77,7 +74,8 @@ min_change_duration = 5.0
 wait_time = 15.0
 one_shot = true
 
-[node name="EnemySpawner" parent="." instance=ExtResource("13_ifsnf")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("sea") instance=ExtResource("13_ifsnf")]
+sea = NodePath("..")
 
 [node name="BarrelSpawnTimer" type="Timer" parent="." groups=["GameTimers"]]
 autostart = true
@@ -114,8 +112,8 @@ health_component = NodePath("../PlayerShip/HealthComponent")
 
 [connection signal="died" from="PlayerShip/HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="ability_selected" from="CanvasLayer/AbilityCards" to="." method="_on_ability_cards_ability_selected"]

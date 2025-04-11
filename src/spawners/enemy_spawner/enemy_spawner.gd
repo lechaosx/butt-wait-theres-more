@@ -1,28 +1,27 @@
 extends Node2D
 
-@onready var ship_scene := preload("res://ship.tscn")
-@onready var cargo_scene := preload("res://cargo.tscn")
-
-@onready var cannon_scene := preload("res://abilities/cannon.tscn")
-
+@export var sea: Sea
 @export var difficulty_score : float = 10.0 
-var base_hp = 5
+@export var base_hp: int = 5
+
+const cannon_scene := preload("res://abilities/cannon.tscn")
+
 
 func _process(delta: float) -> void:
 	difficulty_score += delta
 
 func random_point_on_circle(radius: float) -> Vector2:
-	var angle = randf() * TAU
+	var angle := randf() * TAU
 	return Vector2(cos(angle), sin(angle)) * radius
 
 func _on_enemy_death(enemy:Node) -> void:
-	var cargo = cargo_scene.instantiate()
+	var cargo := preload("res://cargo.tscn").instantiate()
 	cargo.position = enemy.position
 	call_deferred("add_child", cargo)
 	enemy.queue_free()
 
 func spawn_enemy_ship() -> Ship:
-	var ship = ship_scene.instantiate();
+	var ship := preload("res://ship.tscn").instantiate();
 	ship.controller = AIShipController.new()
 	ship.controller.target = %PlayerShip
 	ship.add_child(ship.controller)
@@ -36,31 +35,31 @@ func spawn_enemy_ship() -> Ship:
 	ship.type = Ship.Type.Enemy
 	return ship
 
-func add_hp(ship, hp):
-	var HP = preload("res://src/hitpoints/health_component.tscn").instantiate()
+func add_hp(ship: Ship, hitpoints: int) -> void:
+	var HP := preload("res://src/hitpoints/health_component.tscn").instantiate()
 	HP.died.connect(_on_enemy_death.bind(ship))
-	HP.max_hitpoints = hp
-	HP.hitpoints = hp
+	HP.max_hitpoints = hitpoints
+	HP.hitpoints = hitpoints
 	ship.add_child(HP)
 
-func spawn_ramming_enemy(hp):
-	var ship = spawn_enemy_ship()
-	add_hp(ship, hp)
+func spawn_ramming_enemy(hitpoints: int) -> void:
+	var ship := spawn_enemy_ship()
+	add_hp(ship, hitpoints)
 	add_child(ship)
 	
-func spawn_gun_enemy(hp):
-	var ship = spawn_enemy_ship()
-	add_hp(ship, hp)
-	var cannon = cannon_scene.instantiate()
+func spawn_gun_enemy(hitpoints: int) -> void:
+	var ship := spawn_enemy_ship()
+	add_hp(ship, hitpoints)
+	var cannon := cannon_scene.instantiate()
 	cannon.position.x = 42
 	cannon.autofire = true;
 	ship.add_child(cannon)
 	cannon.set_z_index(2)
-	cannon.sea = self
+	cannon.sea = sea
 	
 	if randf() < 0.001 * difficulty_score:
-		var left_cannon = cannon_scene.instantiate()
-		var right_cannon = cannon_scene.instantiate()
+		var left_cannon := cannon_scene.instantiate()
+		var right_cannon := cannon_scene.instantiate()
 		left_cannon.position.x = 30
 		left_cannon.position.y = 15
 		right_cannon.position.x = 30
@@ -79,7 +78,7 @@ func spawn_gun_enemy(hp):
 	add_child(ship)
 
 func scale_ship(ship: Ship, ship_scale: float) -> void:
-	var scaling_components = [
+	var scaling_components := [
 		ship.get_node("AnimatedSprite2D"),
 		ship.get_node("CollisionShape2D"),
 		ship.get_node("CollisionShape2D2"),
@@ -93,14 +92,13 @@ func scale_ship(ship: Ship, ship_scale: float) -> void:
 		scaling_componnent.transform *= ship_scale # this should multiply scale and position
 	
 
-func spawn_boss_enemy(hp):
-	var ship = spawn_enemy_ship()
-	add_hp(ship, hp)
-	
+func spawn_boss_enemy(hitpoints: int) -> void:
+	var ship := spawn_enemy_ship()
+	add_hp(ship, hitpoints)
 	scale_ship(ship,2)
 	
 	for n in 8:
-		var cannon = cannon_scene.instantiate()
+		var cannon := cannon_scene.instantiate()
 		cannon.autofire = true;
 		cannon.position.x = 42
 		cannon.position.y = (4 - n) * 12.5
@@ -110,14 +108,14 @@ func spawn_boss_enemy(hp):
 		
 	add_child(ship)
 
-func spawn_boss_enemy_2(hp):
-	var ship = spawn_enemy_ship()
-	add_hp(ship, hp)
+func spawn_boss_enemy_2(hitpoints: int) -> void:
+	var ship := spawn_enemy_ship()
+	add_hp(ship, hitpoints)
 	
 	scale_ship(ship, 3)
 	
 	for n in 10:
-		var cannon = cannon_scene.instantiate()
+		var cannon := cannon_scene.instantiate()
 		cannon.autofire = true;
 		cannon.position.x = 42
 		cannon.position.y = (5 - n) * 12.5
@@ -133,20 +131,18 @@ func spawn_boss_enemy_2(hp):
 func _on_timer_timeout() -> void:
 	$Timer.wait_time = clamp($Timer.wait_time - 0.01, 2, 6)
 	
-	var rand = randf()
-	
-	if rand < 0.01 * difficulty_score:
-		var hp = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
-		spawn_gun_enemy(hp)
+	if randf() < 0.01 * difficulty_score:
+		var hitpoints: int = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
+		spawn_gun_enemy(hitpoints)
 	else:
-		var hp = base_hp + clamp(round(difficulty_score / 50), 0, 10)
-		spawn_ramming_enemy(hp)
+		var hitpoints: int = base_hp + clamp(round(difficulty_score / 50), 0, 10)
+		spawn_ramming_enemy(hitpoints)
 
 
 func _on_boss_timer_timeout() -> void:
 	if difficulty_score >= 300:
-		for n in round(difficulty_score / 400):
+		for n in range(round(difficulty_score / 400)):
 			spawn_boss_enemy_2(100)
 	else:
-		for n in round(difficulty_score / 60):
+		for n in range(round(difficulty_score / 60)):
 			spawn_boss_enemy(60)

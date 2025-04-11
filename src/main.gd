@@ -9,7 +9,7 @@ const savefile := "user://savefile.txt"
 @export var cannon_damage: Upgrade
 
 func save_game() -> void:
-	var data = {
+	var data := {
 		"balance": %Shop.balance,
 		"hitpoints": hitpoints.level,
 		"acceleration": acceleration.level,
@@ -18,15 +18,15 @@ func save_game() -> void:
 		"cannon_damage": cannon_damage.level
 	}
 
-	var file = FileAccess.open(savefile, FileAccess.WRITE)
+	var file := FileAccess.open(savefile, FileAccess.WRITE)
 	file.store_string(JSON.stringify(data))
 	
 func try_load_game() -> void:
 	if not FileAccess.file_exists(savefile):
 		return
 	
-	var file = FileAccess.open(savefile, FileAccess.READ)
-	var data = JSON.parse_string(file.get_as_text())
+	var file := FileAccess.open(savefile, FileAccess.READ)
+	var data: Dictionary = JSON.parse_string(file.get_as_text())
 	
 	%Shop.balance = data["balance"]
 	hitpoints.level = data["hitpoints"]

@@ -1,9 +1,10 @@
 extends Node
 
-var level = 0
-var sea
+@export var sea: Sea
 
-func level_up():
+var level: int = 0
+
+func level_up() -> void:
 	if level >= 5:
 		return
 
@@ -15,13 +16,13 @@ func level_up():
 		$Timer.start()
 
 func _on_timer_timeout() -> void:
-	var instance = preload("res://src/projectiles/barrel_ball/barrel_ball.tscn").instantiate()
+	var instance := preload("res://src/projectiles/barrel_ball/barrel_ball.tscn").instantiate()
 
 	var ship: Ship = get_parent()
-	var pos = ship.global_position + Vector2(-100, 0).rotated(ship.global_rotation)
-	var dir = -1 * ship.global_transform.x
-	var speed = 4000 #hardcoded:40000
-	var offset = 20 #hardcoded:20
+	var pos := ship.global_position + Vector2(-100, 0).rotated(ship.global_rotation)
+	var dir := -1 * ship.global_transform.x
+	var speed := 4000 #hardcoded:40000
+	var offset := 20 #hardcoded:20
 
 	instance.position = pos + ship.global_transform.x * offset
 	instance.add_collision_exception_with(ship)

@@ -1,12 +1,12 @@
 extends HBoxContainer
 
-var cargo_cap = 1:
+var cargo_cap: int = 1:
 	set(value):
 		if (value != cargo_cap):
 			cargo_cap = value
 			$ProgressBar.max_value = value
 
-func _ready():
+func _ready() -> void:
 	$ProgressBar.max_value = cargo_cap
 
 var count: int = 0:

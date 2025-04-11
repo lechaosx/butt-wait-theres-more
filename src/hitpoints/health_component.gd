@@ -11,7 +11,7 @@ signal max_hitpoints_updated
 
 @export var hitpoints: int = max_hitpoints:
 	set(value):
-		var damage = hitpoints - value
+		var damage := hitpoints - value
 		
 		hitpoints = clamp(value, 0, max_hitpoints)
 		
@@ -24,7 +24,7 @@ signal max_hitpoints_updated
 			died.emit()
 
 func spawn_popup(value: int) -> void:
-	var popup_instance = preload("res://src/hitpoints/damage_popup/damage_popup.tscn").instantiate()
+	var popup_instance := preload("res://src/hitpoints/damage_popup/damage_popup.tscn").instantiate()
 	popup_instance.set_text(value)
 	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1, 1)) * 20, 0.8)
 	add_child(popup_instance)

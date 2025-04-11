@@ -7,7 +7,7 @@ signal leveled
 @export var current_level: int = 0
 @export var max_level: int = 5
 
-func level_up():
+func level_up() -> void:
 	if current_level >= max_level:
 		return
 		

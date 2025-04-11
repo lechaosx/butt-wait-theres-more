@@ -7,8 +7,8 @@ var upgrades: Array:
 		
 		upgrades = value
 		
-		for upgrade in upgrades:
-			var button = preload("res://src/properties/upgrade_button.tscn").instantiate()
+		for upgrade: Upgrade in upgrades:
+			var button := preload("res://src/properties/upgrade_button.tscn").instantiate()
 			button.balance = balance
 			button.upgrade = upgrade
 			button.button_pressed.connect(_on_upgrade_button_pressed.bind(upgrade))
@@ -21,8 +21,8 @@ var balance: int = 0:
 		for button in %UpgradeButtons.get_children():
 			button.balance = balance
 			
-func _on_upgrade_button_pressed(upgrade: Upgrade):
-	var price = upgrade.price()
+func _on_upgrade_button_pressed(upgrade: Upgrade) -> void:
+	var price := upgrade.price()
 	if balance >= price:
 		balance -= price
 		upgrade.level += 1

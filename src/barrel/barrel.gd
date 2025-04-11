@@ -10,17 +10,17 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if not $Timer.is_stopped():
-		var sink_scale = ($Timer.time_left / $Timer.wait_time)
+		var sink_scale: float = ($Timer.time_left / $Timer.wait_time)
 		if sink_direction == -1:
 			$Sprite2D.scale = Vector2(sink_scale, sink_scale)
 		elif  sink_direction == +1:
 			$Sprite2D.scale = Vector2(1 - sink_scale, 1 - sink_scale)
 
 func _update_fire() -> void:
-	var desired_fire_count = $HealthComponent.max_hitpoints - $HealthComponent.hitpoints
+	var desired_fire_count: int = $HealthComponent.max_hitpoints - $HealthComponent.hitpoints
 
 	while %FireContainer.get_child_count() < desired_fire_count:
-		var fire = preload("res://src/barrel/barrel_fire.tscn").instantiate()
+		var fire := preload("res://src/barrel/barrel_fire.tscn").instantiate()
 		fire.frame = randi_range(0, 1)
 		fire.position = Vector2(randi_range(-13, +13), randi_range(-18, +3))
 		%FireContainer.add_child(fire)
@@ -39,20 +39,16 @@ func _sink_down() -> void:
 	$Timer.start(sink_down_time)
 
 func _explode() -> void:
-	for body in $Area2D.get_overlapping_bodies():
-		for component in body.get_children():
+	for body: Node2D in $Area2D.get_overlapping_bodies():
+		for component: Node in body.get_children():
 			if component is HealthComponent:
-				component.hitpoints -= 10 # Could be based off square distance or something
+				component.hitpoints -= 10 # Could be based off square distance or something\
+	queue_free()
 
 func _on_health_component_died() -> void:
-	# when animation finished, it will remove barrel
-	var ee_barel = $Effects/EndExplosion
-	var remove_barrel = func():
-		queue_free()
-	ee_barel.visible = true
-	ee_barel.animation_finished.connect(remove_barrel)
-	ee_barel.play("default")
-	_explode()
+	$EndExplosion.visible = true
+	$EndExplosion.animation_finished.connect(_explode)
+	$EndExplosion.play("default")
 
 func _on_health_component_hitpoints_updated() -> void:
 	_update_fire()

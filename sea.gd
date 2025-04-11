@@ -45,7 +45,7 @@ func _ready() -> void:
 	$PlayerShip/BarrelDroppingAbility.sea = self
 	$PlayerShip/Cannon.sea = self
 
-	var canons = Ability.new()
+	var canons := Ability.new()
 	canons.current_level = 0
 	canons.max_level = 5
 	canons.image = load("res://abilities/side_cannons.png")
@@ -54,7 +54,7 @@ func _ready() -> void:
 
 	abilities.append(canons)
 
-	var ships = Ability.new()
+	var ships := Ability.new()
 	ships.current_level = 0
 	ships.max_level = 5
 	ships.image = load("res://abilities/friendly_ship.png")
@@ -63,7 +63,7 @@ func _ready() -> void:
 
 	abilities.append(ships)
 
-	var barrels = Ability.new()
+	var barrels := Ability.new()
 	barrels.current_level = 0
 	barrels.max_level = 5
 	barrels.image = load("res://abilities/barrels.png")
@@ -72,7 +72,7 @@ func _ready() -> void:
 
 	abilities.append(barrels)
 
-	var userCannon = Ability.new()
+	var userCannon := Ability.new()
 	userCannon.current_level = 0
 	userCannon.max_level = 5
 	userCannon.image = load("res://abilities/cannon_cooling.png")
@@ -81,7 +81,7 @@ func _ready() -> void:
 
 	abilities.append(userCannon)
 
-	var piercing = Ability.new()
+	var piercing := Ability.new()
 	piercing.current_level = 0
 	piercing.max_level = 5
 	piercing.image = load("res://abilities/piercing_cannon_ball.png")
@@ -91,34 +91,35 @@ func _ready() -> void:
 
 	abilities.append(piercing)
 
-func create_barrel(pos: Vector2) -> void:
-	var bar = preload("res://src/barrel/barrel.tscn").instantiate()
-	bar.position = pos
-	add_child(bar)
+func create_barrel(position: Vector2) -> void:
+	var barrel := preload("res://src/barrel/barrel.tscn").instantiate()
+	barrel.position = position
+	add_child(barrel)
 
 func random_point_on_circle(radius: float) -> Vector2:
-	var angle = randf() * TAU
+	var angle := randf() * TAU
 	return Vector2(cos(angle), sin(angle)) * radius
 
 func count_objects_in_radius(center: Vector2, radius: float, group_name: String) -> int:
-	var count = 0
+	var count: int = 0
 	for obj in get_tree().get_nodes_in_group(group_name):
 		if obj is Node2D and obj.global_position.distance_to(center) <= radius:
 			count += 1
 	return count
 
 func _on_barrel_spawn_timer_timeout() -> void:
-	var screen_radius = get_viewport().get_visible_rect().size.length() / 2
+	var screen_radius := get_viewport().get_visible_rect().size.length() / 2
 
-	var max_radius = screen_radius * 3
+	var max_radius := screen_radius * 3
 
-	var num_floaters = count_objects_in_radius(%PlayerShip.position, max_radius, "floaters")
+	var num_floaters := count_objects_in_radius(%PlayerShip.position, max_radius, "floaters")
 	if num_floaters < 10:
-		var radius = randf_range(screen_radius * 1.5, max_radius)
+		var radius := randf_range(screen_radius * 1.5, max_radius)
 		create_barrel(%PlayerShip.position + random_point_on_circle(radius))
 
 func _on_man_overboard_spawn_timer_timeout() -> void:
-	var man_overboard = preload("res://src/man_overboard/man_overboard.tscn").instantiate();
+	var man_overboard := preload("res://src/man_overboard/man_overboard.tscn").instantiate();
+	
 	man_overboard.set_collision_layer_value(1, false)
 	man_overboard.set_collision_layer_value(5, true)
 	man_overboard.set_collision_mask_value(4, true)
@@ -127,7 +128,7 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	
 	add_child(man_overboard)
 
-func upgrade_abilities():
+func upgrade_abilities() -> void:
 	var upgradable_abilities: Array[Ability] = []
 
 	for ability in abilities:

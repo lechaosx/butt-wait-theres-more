@@ -1,20 +1,21 @@
 extends Node2D
 
-@onready var canon_scene = preload("cannon.tscn")
+@export var sea: Sea
 
-var projectile_damage
-var level = 0
-var piercing = 0
-var sea
+var projectile_damage: int = 1
+var level: int = 0
+var piercing: int = 0
 
-func level_up():
+func level_up() -> void:
 	if level >= 5:
 		return
 	
-	var pos_x = position.x + 30 - (level * 15)
+	var pos_x := position.x + 30 - (level * 15)
 	
-	var left_cannon = canon_scene.instantiate()
-	var right_cannon = canon_scene.instantiate()
+	const canon_scene := preload("cannon.tscn")
+	
+	var left_cannon := canon_scene.instantiate()
+	var right_cannon := canon_scene.instantiate()
 	
 	left_cannon.set_z_index(0)
 	right_cannon.set_z_index(0)
@@ -45,7 +46,7 @@ func level_up():
 
 	level += 1
 
-func level_up_piercing():
+func level_up_piercing() -> void:
 	if piercing >= 5:
 		return
 		

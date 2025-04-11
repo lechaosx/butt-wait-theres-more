@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var float_speed = 0.3
+@export var float_speed: float = 0.3
 
 var _rotation_target: float
 

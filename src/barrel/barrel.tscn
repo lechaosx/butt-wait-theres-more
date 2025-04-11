@@ -51,9 +51,7 @@ shape = SubResource("CapsuleShape2D_a12vh")
 max_hitpoints = 5
 hitpoints = 5
 
-[node name="Effects" type="CanvasGroup" parent="."]
-
-[node name="EndExplosion" type="AnimatedSprite2D" parent="Effects"]
+[node name="EndExplosion" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(0, -6)
 scale = Vector2(1.42373, 1.42373)

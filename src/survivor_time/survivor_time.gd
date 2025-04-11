@@ -1,7 +1,6 @@
 extends HBoxContainer
 
-
-var score = 0:
+var score: int = 0:
 	set(value):
 		if (value != score):
 			score = value
