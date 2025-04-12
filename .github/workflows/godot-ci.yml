@@ -45,7 +45,7 @@ jobs:
       uses: tsickert/discord-webhook@v7.0.0
       with:
         webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+        embed-url: "https://tenor.com/bbe0oL0S9yr.gif"
         content: |
             🔥🔥🔥 **FLEE! FLEE FOR YOUR LIVES! ABANDON YOUR POSTS!** 🔥🔥🔥
             A GitHub Action [pipeline](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) is failing!
-        embed-url: "https://tenor.com/bbe0oL0S9yr.gif"
