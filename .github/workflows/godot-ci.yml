@@ -35,3 +35,19 @@ jobs:
 
     - name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4
+
+  notify:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: build-and-deploy
+    steps:
+    - name: Send Discord notification
+      uses: tsickert/discord-webhook@v7
+      with:
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+        content: |
+            🔥🔥🔥
+            **FLEE! FLEE FOR YOUR LIVES! ABANDON YOUR POSTS!**
+            A GitHub Action has failed in `${{ github.repository }}` on branch `${{ github.ref_name }}`.
+            [View the chaos](${{ github.run_url }})
+            ![Denethor](https://media1.tenor.com/m/-Z4d82jp0JQAAAAd/fire-denethor.gif)
