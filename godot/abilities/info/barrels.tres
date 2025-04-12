@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://bpm1fplv02c6f"]
+
+[ext_resource type="Script" uid="uid://4o4o67dkaqdh" path="res://abilities/ability_info.gd" id="1_desow"]
+[ext_resource type="Texture2D" uid="uid://drnqp036kli5e" path="res://abilities/info/barrels.png" id="1_klvkd"]
+
+[resource]
+script = ExtResource("1_desow")
+name = "Exploding Barrels"
+image = ExtResource("1_klvkd")
+max_level = 5
+current_level = 0
+metadata/_custom_type_script = "uid://4o4o67dkaqdh"

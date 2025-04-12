@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://vs3qhquaylj"]
+
+[ext_resource type="Texture2D" uid="uid://bro1aupi1ywg3" path="res://abilities/info/cannon_cooling.png" id="1_5htvb"]
+[ext_resource type="Script" uid="uid://4o4o67dkaqdh" path="res://abilities/ability_info.gd" id="1_hg185"]
+
+[resource]
+script = ExtResource("1_hg185")
+name = "Auto Cannon Cooling"
+image = ExtResource("1_5htvb")
+max_level = 5
+current_level = 0
+metadata/_custom_type_script = "uid://4o4o67dkaqdh"

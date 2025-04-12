@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://ktrn4wes4mhh"]
+
+[ext_resource type="Script" uid="uid://4o4o67dkaqdh" path="res://abilities/ability_info.gd" id="1_2tfb2"]
+[ext_resource type="Texture2D" uid="uid://caqdymxqmbweb" path="res://abilities/info/friendly_ships.png" id="1_wljly"]
+
+[resource]
+script = ExtResource("1_2tfb2")
+name = "Friendly Ships"
+image = ExtResource("1_wljly")
+current_level = 0
+max_level = 5
+metadata/_custom_type_script = "uid://4o4o67dkaqdh"

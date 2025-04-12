@@ -1,18 +1,17 @@
-extends Node2D
+class_name SideCannons extends Node2D
 
 @export var sea: Sea
+@export var body: CharacterBody2D
 
-var projectile_damage: int = 1
-var level: int = 0
-var piercing: int = 0
+@export var projectile_damage: int = 1
 
-func level_up() -> void:
-	if level >= 5:
-		return
+var _pairs: int = 0
+var _piercing: int = 0
+
+func add_pair() -> void:
+	var pos_x := position.x + 30 - (_pairs * 15)
 	
-	var pos_x := position.x + 30 - (level * 15)
-	
-	const canon_scene := preload("cannon.tscn")
+	const canon_scene := preload("auto_cannon.tscn")
 	
 	var left_cannon := canon_scene.instantiate()
 	var right_cannon := canon_scene.instantiate()
@@ -23,35 +22,31 @@ func level_up() -> void:
 	left_cannon.position.y = 15
 	right_cannon.position.y = -15
 	
-	left_cannon.autofire = true
-	right_cannon.autofire = true
-
 	left_cannon.position.x = pos_x
 	right_cannon.position.x = pos_x
 	
 	left_cannon.rotation = deg_to_rad(90)
 	right_cannon.rotation = deg_to_rad(-90)
 	
-	left_cannon.piercing = piercing
-	right_cannon.piercing = piercing
+	left_cannon.piercing = _piercing
+	right_cannon.piercing = _piercing
 	
 	left_cannon.sea = sea
 	right_cannon.sea = sea
 	
+	left_cannon.body = body
+	right_cannon.body = body
+	
 	left_cannon.projectile_damage = projectile_damage
 	right_cannon.projectile_damage = projectile_damage
 	
-	get_parent().add_child(left_cannon)
-	get_parent().add_child(right_cannon)
+	add_child(left_cannon)
+	add_child(right_cannon)
 
-	level += 1
+	_pairs += 1
 
 func level_up_piercing() -> void:
-	if piercing >= 5:
-		return
-		
-	piercing += 1
+	_piercing += 1
 	
-	for child in get_parent().get_children():
-		if child is Cannon:
-			child.piercing = piercing
+	for cannon in get_children():
+		cannon.piercing = _piercing

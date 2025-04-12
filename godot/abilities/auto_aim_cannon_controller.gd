@@ -1,4 +1,4 @@
-extends Node
+class_name AutoAimCannonController extends Node
 
 @export var view_range: int = 500
 @export var target_group: String = "enemies"
@@ -16,6 +16,7 @@ func _process(_delta: float) -> void:
 			target = enemy
 	
 	if not target:
+		get_parent().rotation = 0
 		return
 	
 	if last_target != target:
@@ -30,7 +31,3 @@ func _process(_delta: float) -> void:
 	var shooting_vector: Vector2 = target.global_position + target_velocity * min_distance / ball_speed  - get_parent().global_position
 	
 	get_parent().global_rotation = shooting_vector.angle()
-	get_parent().fire()
-	
-	
-	

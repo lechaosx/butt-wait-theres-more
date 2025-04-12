@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jocwlq0g5sq7"
-path="res://.godot/imported/piercing_cannon_ball.png-023cb6d63e0fd75c2b958bfa261b3ea3.ctex"
+uid="uid://bro1aupi1ywg3"
+path="res://.godot/imported/cannon_cooling.png-e41777d39cdb5d3ec308b207df4c54c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://abilities/piercing_cannon_ball.png"
-dest_files=["res://.godot/imported/piercing_cannon_ball.png-023cb6d63e0fd75c2b958bfa261b3ea3.ctex"]
+source_file="res://abilities/info/cannon_cooling.png"
+dest_files=["res://.godot/imported/cannon_cooling.png-e41777d39cdb5d3ec308b207df4c54c6.ctex"]
 
 [params]
 

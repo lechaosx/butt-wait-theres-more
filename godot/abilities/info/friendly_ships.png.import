@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bro1aupi1ywg3"
-path="res://.godot/imported/cannon_cooling.png-af1eac6355d026066c092c27be258d3b.ctex"
+uid="uid://caqdymxqmbweb"
+path="res://.godot/imported/friendly_ships.png-dc1278036a11d61e8858923a85e5d2ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://abilities/cannon_cooling.png"
-dest_files=["res://.godot/imported/cannon_cooling.png-af1eac6355d026066c092c27be258d3b.ctex"]
+source_file="res://abilities/info/friendly_ships.png"
+dest_files=["res://.godot/imported/friendly_ships.png-dc1278036a11d61e8858923a85e5d2ae.ctex"]
 
 [params]
 

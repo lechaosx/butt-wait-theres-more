@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://dtatsy3jllmwu"]
+
+[ext_resource type="Script" uid="uid://4o4o67dkaqdh" path="res://abilities/ability_info.gd" id="1_b53rs"]
+[ext_resource type="Texture2D" uid="uid://bf4my56807qhx" path="res://abilities/info/side_cannons.png" id="1_u6cqi"]
+
+[resource]
+script = ExtResource("1_b53rs")
+name = "Side Cannons"
+image = ExtResource("1_u6cqi")
+current_level = 0
+max_level = 5
+metadata/_custom_type_script = "uid://4o4o67dkaqdh"

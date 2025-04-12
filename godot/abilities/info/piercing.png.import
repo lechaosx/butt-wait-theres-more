@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caqdymxqmbweb"
-path="res://.godot/imported/friendly_ship.png-f88c3cca23922b3cf41530863f472b6b.ctex"
+uid="uid://jocwlq0g5sq7"
+path="res://.godot/imported/piercing.png-0ae4100b2c9e2abf29e10b23d304803d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://abilities/friendly_ship.png"
-dest_files=["res://.godot/imported/friendly_ship.png-f88c3cca23922b3cf41530863f472b6b.ctex"]
+source_file="res://abilities/info/piercing.png"
+dest_files=["res://.godot/imported/piercing.png-0ae4100b2c9e2abf29e10b23d304803d.ctex"]
 
 [params]
 

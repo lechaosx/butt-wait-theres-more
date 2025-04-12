@@ -1,26 +1,32 @@
-[gd_scene load_steps=22 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=28 format=3 uid="uid://p6yfac4vlqls"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
 [ext_resource type="Script" uid="uid://1p3ot4ug2gag" path="res://user_controller.gd" id="2_mehw6"]
-[ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://abilities/cannon.tscn" id="3_ari0p"]
+[ext_resource type="PackedScene" uid="uid://rj64e3jgod0g" path="res://abilities/auto_cannon.tscn" id="3_ari0p"]
+[ext_resource type="Resource" uid="uid://vs3qhquaylj" path="res://abilities/info/cannon_cooling.tres" id="3_ydg3f"]
+[ext_resource type="Resource" uid="uid://bpm1fplv02c6f" path="res://abilities/info/barrels.tres" id="4_2q14h"]
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
-[ext_resource type="PackedScene" uid="uid://cgsqmrehcpm3w" path="res://abilities/auto_cannon_ability.tscn" id="4_pfxiy"]
-[ext_resource type="Script" uid="uid://cssc7sab12i3b" path="res://abilities/friendly_ship_ability.gd" id="5_7u2wy"]
+[ext_resource type="Script" uid="uid://cssc7sab12i3b" path="res://abilities/friendly_ship_spawner.gd" id="5_7u2wy"]
+[ext_resource type="Script" uid="uid://bkqfcptttkcv6" path="res://abilities/auto_aim_cannon_controller.gd" id="5_osfek"]
+[ext_resource type="Resource" uid="uid://ktrn4wes4mhh" path="res://abilities/info/friendly_ships.tres" id="5_yhn66"]
+[ext_resource type="Resource" uid="uid://d3slri3n4gn4o" path="res://abilities/info/piercing.tres" id="6_m2tg1"]
+[ext_resource type="Resource" uid="uid://dtatsy3jllmwu" path="res://abilities/info/side_cannons.tres" id="7_cfwfa"]
 [ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://hitpoints/health_component.tscn" id="8_24krr"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
-[ext_resource type="PackedScene" uid="uid://pbdp3pu1ndyl" path="res://abilities/auto_aim_cannon_controller.tscn" id="8_vmxnl"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://abilities/ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" uid="uid://colodbh4ytdb1" path="res://wind_particles.gd" id="10_7u2wy"]
 [ext_resource type="Script" uid="uid://ct0mm4rbfdlm6" path="res://background.gd" id="10_7uhs0"]
 [ext_resource type="Script" uid="uid://dwn28qn3r10gh" path="res://cargo_hold.gd" id="10_jolub"]
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://hud/hud.tscn" id="11_24krr"]
-[ext_resource type="PackedScene" uid="uid://kn70kmto5cby" path="res://abilities/barel_dropping_ability.tscn" id="11_ifsnf"]
+[ext_resource type="PackedScene" uid="uid://kn70kmto5cby" path="res://abilities/barel_dropping.tscn" id="11_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://88md3i7p5702" path="res://kill_screen.tscn" id="12_7uhs0"]
-[ext_resource type="PackedScene" uid="uid://bqqm1hsravcgy" path="res://sound/sail.tscn" id="12_gdvtx"]
+[ext_resource type="PackedScene" uid="uid://bqqm1hsravcgy" path="res://sound/sailing_sound.tscn" id="12_gdvtx"]
 [ext_resource type="PackedScene" uid="uid://uws8en35sklf" path="res://spawners/enemy_spawner/enemy_spawner.tscn" id="13_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://cuk2drxe2dov2" path="res://cargo_counter.tscn" id="15_f616m"]
+[ext_resource type="Script" uid="uid://bxaap6op8xe3g" path="res://abilities/side_cannons.gd" id="18_ydg3f"]
 [ext_resource type="PackedScene" uid="uid://btlqah2g7f5lk" path="res://survivor_time/survivor_time.tscn" id="19_yode5"]
+[ext_resource type="Script" uid="uid://sl7mlnyefejt" path="res://abilities/ability.gd" id="28_ydg3f"]
 
 [node name="Sea" type="Node"]
 script = ExtResource("1_lotjo")
@@ -32,19 +38,19 @@ slide_on_ceiling = false
 type = 0
 controller = NodePath("UserController")
 
-[node name="AutoCannonAbility" parent="PlayerShip" instance=ExtResource("4_pfxiy")]
-z_index = -2
-
-[node name="FriendlyShipAbility" type="Node" parent="PlayerShip"]
-script = ExtResource("5_7u2wy")
-
 [node name="PlayerCamera" type="Camera2D" parent="PlayerShip"]
 script = ExtResource("4_a0flf")
 
-[node name="Cannon" parent="PlayerShip" instance=ExtResource("3_ari0p")]
+[node name="AutoCannon" parent="PlayerShip" node_paths=PackedStringArray("sea", "body") instance=ExtResource("3_ari0p")]
+unique_name_in_owner = true
 position = Vector2(36, 0.000130355)
+sea = NodePath("../..")
+body = NodePath("..")
+projectile_damage = 2
 
-[node name="AutoAimCannonController" parent="PlayerShip/Cannon" instance=ExtResource("8_vmxnl")]
+[node name="AutoAimCannonController" type="Node" parent="PlayerShip/AutoCannon"]
+script = ExtResource("5_osfek")
+metadata/_custom_type_script = "uid://bkqfcptttkcv6"
 
 [node name="UserController" type="Node" parent="PlayerShip"]
 script = ExtResource("2_mehw6")
@@ -54,9 +60,25 @@ script = ExtResource("2_mehw6")
 [node name="CargoHold" type="Node" parent="PlayerShip"]
 script = ExtResource("10_jolub")
 
-[node name="BarrelDroppingAbility" parent="PlayerShip" instance=ExtResource("11_ifsnf")]
+[node name="BarelDropping" parent="PlayerShip" node_paths=PackedStringArray("sea", "body") instance=ExtResource("11_ifsnf")]
+unique_name_in_owner = true
+sea = NodePath("../..")
+body = NodePath("..")
 
-[node name="Sail" parent="PlayerShip" instance=ExtResource("12_gdvtx")]
+[node name="SailingSound" parent="PlayerShip" instance=ExtResource("12_gdvtx")]
+
+[node name="FriendlyShipSpawner" type="Node" parent="PlayerShip" node_paths=PackedStringArray("sea")]
+unique_name_in_owner = true
+script = ExtResource("5_7u2wy")
+sea = NodePath("../..")
+metadata/_custom_type_script = "uid://cssc7sab12i3b"
+
+[node name="SideCannons" type="Node2D" parent="PlayerShip" node_paths=PackedStringArray("sea", "body")]
+unique_name_in_owner = true
+script = ExtResource("18_ydg3f")
+sea = NodePath("../..")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://bxaap6op8xe3g"
 
 [node name="WindParticles" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -108,13 +130,43 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 health_component = NodePath("../PlayerShip/HealthComponent")
 
-[node name="Properties" type="Node" parent="."]
+[node name="Abilities" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Cooling" type="Node" parent="Abilities"]
+script = ExtResource("28_ydg3f")
+info = ExtResource("3_ydg3f")
+metadata/_custom_type_script = "uid://sl7mlnyefejt"
+
+[node name="Piercing" type="Node" parent="Abilities"]
+script = ExtResource("28_ydg3f")
+info = ExtResource("6_m2tg1")
+metadata/_custom_type_script = "uid://sl7mlnyefejt"
+
+[node name="SideCannons" type="Node" parent="Abilities"]
+script = ExtResource("28_ydg3f")
+info = ExtResource("7_cfwfa")
+metadata/_custom_type_script = "uid://sl7mlnyefejt"
+
+[node name="FriendlyShips" type="Node" parent="Abilities"]
+script = ExtResource("28_ydg3f")
+info = ExtResource("5_yhn66")
+metadata/_custom_type_script = "uid://sl7mlnyefejt"
+
+[node name="Barrels" type="Node" parent="Abilities"]
+script = ExtResource("28_ydg3f")
+info = ExtResource("4_2q14h")
+metadata/_custom_type_script = "uid://sl7mlnyefejt"
 
 [connection signal="died" from="PlayerShip/HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
-[connection signal="ability_selected" from="CanvasLayer/AbilityCards" to="." method="_on_ability_cards_ability_selected"]
 [connection signal="finished" from="CanvasLayer/KillScreen" to="." method="_on_kill_screen_finished"]
+[connection signal="leveled_up" from="Abilities/Cooling" to="." method="_on_cooling_leveled_up"]
+[connection signal="leveled_up" from="Abilities/Piercing" to="." method="_on_piercing_leveled_up"]
+[connection signal="leveled_up" from="Abilities/SideCannons" to="." method="_on_side_cannons_leveled_up"]
+[connection signal="leveled_up" from="Abilities/FriendlyShips" to="." method="_on_friendly_ships_leveled_up"]
+[connection signal="leveled_up" from="Abilities/Barrels" to="." method="_on_barrels_leveled_up"]

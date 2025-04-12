@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drnqp036kli5e"
-path="res://.godot/imported/barrels.png-fa7333a7a71620cbe8fd0af1a38e5f93.ctex"
+uid="uid://bf4my56807qhx"
+path="res://.godot/imported/side_cannons.png-6c356b17009a4194b7adf7f012933452.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://abilities/barrels.png"
-dest_files=["res://.godot/imported/barrels.png-fa7333a7a71620cbe8fd0af1a38e5f93.ctex"]
+source_file="res://abilities/info/side_cannons.png"
+dest_files=["res://.godot/imported/side_cannons.png-6c356b17009a4194b7adf7f012933452.ctex"]
 
 [params]
 

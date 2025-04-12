@@ -45,7 +45,7 @@ func get_brake_strength() -> float:
 	else:
 		return 0
 
-func get_steer_axis() -> Vector2:
+func get_steer_axis() -> float:
 	var forward: Vector2 = get_parent().transform.x.normalized()
 	var to_target: Vector2 = target - get_parent().position
 	return sign(forward.cross(to_target))

@@ -1,16 +1,18 @@
-class_name Ability extends Resource
+class_name Ability extends Node
 
-signal leveled
+signal leveled_up
 
-@export var name: String = ""
-@export var image: Texture = null
-@export var current_level: int = 0
-@export var max_level: int = 5
+@export var info: AbilityInfo
+
+var _level: int = 0
+
+func level() -> int:
+	return _level
 
 func level_up() -> void:
-	if current_level >= max_level:
+	if _level >= info.max_level:
 		return
-		
-	current_level += 1
 	
-	leveled.emit() 
+	_level += 1
+	
+	leveled_up.emit()

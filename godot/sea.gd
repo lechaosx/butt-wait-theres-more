@@ -2,94 +2,35 @@ class_name Sea extends Node
 
 signal game_ended(score: int)
 
-@export var abilities: Array[Ability] = []
-
-var hitpoints: int:
+@export var hitpoints: int:
 	set(value):
+		hitpoints = value
 		$PlayerShip/HealthComponent.max_hitpoints = value
 		$PlayerShip/HealthComponent.hitpoints = value
-	get:
-		return $PlayerShip/HealthComponent.max_hitpoints
 		
-var acceleration: int:
+@export var acceleration: int:
 	set(value):
+		acceleration = value
 		$PlayerShip.brakes = value
 		$PlayerShip.power = value
-	get:
-		return $PlayerShip.power
 
-var steering: int:
+@export var steering: int:
 	set(value):
+		steering = value
 		$PlayerShip.steering_angle = value
-	get:
-		return $PlayerShip.steering_angle
 		
-var ram_damage: int:
+@export var ram_damage: int:
 	set(value):
+		ram_damage = value
 		$PlayerShip.ramming_damage = value
-	get:
-		return $PlayerShip.ramming_damage
 		
-var cannon_damage: int:
+@export var cannon_damage: int:
 	set(value):
-		$PlayerShip/Cannon.projectile_damage = value
-		$PlayerShip/AutoCannonAbility.projectile_damage = value
-	get:
-		return $PlayerShip/Cannon.projectile_damage
+		cannon_damage = value
+		%AutoCannon.projectile_damage = value
+		%SideCannons.projectile_damage = value
 
 var _dead: bool = false;
-
-func _ready() -> void:
-	$PlayerShip/FriendlyShipAbility.sea = self
-	$PlayerShip/AutoCannonAbility.sea = self
-	$PlayerShip/BarrelDroppingAbility.sea = self
-	$PlayerShip/Cannon.sea = self
-
-	var canons := Ability.new()
-	canons.current_level = 0
-	canons.max_level = 5
-	canons.image = load("res://abilities/side_cannons.png")
-	canons.name = "Side Cannons"
-	canons.leveled.connect($PlayerShip/AutoCannonAbility.level_up)
-
-	abilities.append(canons)
-
-	var ships := Ability.new()
-	ships.current_level = 0
-	ships.max_level = 5
-	ships.image = load("res://abilities/friendly_ship.png")
-	ships.name = "Friendly Ships"
-	ships.leveled.connect($PlayerShip/FriendlyShipAbility.level_up)
-
-	abilities.append(ships)
-
-	var barrels := Ability.new()
-	barrels.current_level = 0
-	barrels.max_level = 5
-	barrels.image = load("res://abilities/barrels.png")
-	barrels.name = "Exploding Barrel"
-	barrels.leveled.connect($PlayerShip/BarrelDroppingAbility.level_up)
-
-	abilities.append(barrels)
-
-	var userCannon := Ability.new()
-	userCannon.current_level = 0
-	userCannon.max_level = 5
-	userCannon.image = load("res://abilities/cannon_cooling.png")
-	userCannon.name = "Auto Cannon Cooling System"
-	userCannon.leveled.connect($PlayerShip/Cannon.level_up)
-
-	abilities.append(userCannon)
-
-	var piercing := Ability.new()
-	piercing.current_level = 0
-	piercing.max_level = 5
-	piercing.image = load("res://abilities/piercing_cannon_ball.png")
-	piercing.name = "Cannon Ball Piercing"
-	piercing.leveled.connect($PlayerShip/Cannon.level_up_piercing)
-	piercing.leveled.connect($PlayerShip/AutoCannonAbility.level_up_piercing)
-
-	abilities.append(piercing)
 
 func create_barrel(position: Vector2) -> void:
 	var barrel := preload("res://barrel/barrel.tscn").instantiate()
@@ -128,11 +69,11 @@ func _on_man_overboard_spawn_timer_timeout() -> void:
 	
 	add_child(man_overboard)
 
-func upgrade_abilities() -> void:
+func _upgrade_abilities() -> void:
 	var upgradable_abilities: Array[Ability] = []
 
-	for ability in abilities:
-		if ability.current_level < 5:
+	for ability in %Abilities.get_children():
+		if ability.level() < ability.info.max_level:
 			upgradable_abilities.append(ability)
 
 	upgradable_abilities.shuffle()  # Randomize the order of elements
@@ -141,13 +82,14 @@ func upgrade_abilities() -> void:
 	if upgradable_abilities.size() > 0:
 		$%AbilityCards.abilities = upgradable_abilities
 		%AbilityCards.visible = true
-		Engine.time_scale = 0.1
-
-func _on_ability_cards_ability_selected(ability: Ability) -> void:
-	ability.level_up()
-	Engine.time_scale = 1
-	%CargoCounter.count -= %CargoCounter.cargo_cap
-	%CargoCounter.cargo_cap += 1
+		Engine.time_scale = 0
+		
+		var ability: Ability = await %AbilityCards.ability_selected
+		
+		ability.level_up()
+		Engine.time_scale = 1
+		%CargoCounter.count -= %CargoCounter.cargo_cap
+		%CargoCounter.cargo_cap += 1
 
 func _on_cargo_hold_cargo_updated() -> void:
 	if _dead:
@@ -156,7 +98,7 @@ func _on_cargo_hold_cargo_updated() -> void:
 	%CargoCounter.count = %CargoCounter.count + 1
 	
 	if %CargoCounter.count >= %CargoCounter.cargo_cap and not %AbilityCards.visible:
-		upgrade_abilities()
+		_upgrade_abilities()
 
 func _on_kill_screen_finished() -> void:
 	game_ended.emit(%SurvivorTime.score)
@@ -170,3 +112,20 @@ func _on_health_component_died() -> void:
 	Engine.time_scale = 1
 	%KillScreen.die()
 	get_tree().call_group("GameTimers", "stop")
+
+
+func _on_cooling_leveled_up() -> void:
+	%AutoCannon.interval = 2.0 - (2.0 * $Abilities/Cooling.level() / 6.0)
+
+func _on_piercing_leveled_up() -> void:
+	%SideCannons.level_up_piercing()
+	%AutoCannon.piercing += 1
+
+func _on_side_cannons_leveled_up() -> void:
+	%SideCannons.add_pair()
+
+func _on_friendly_ships_leveled_up() -> void:
+	%FriendlyShipSpawner.spawn()
+
+func _on_barrels_leveled_up() -> void:
+	%BarelDropping.interval = 5.0 / $Abilities/Barrels.level()
