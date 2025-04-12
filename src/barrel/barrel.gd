@@ -2,6 +2,7 @@ class_name Barrel extends RigidBody2D
 
 @export var sink_down_time: float = 0.25
 @export var rise_up_time: float = 0.5
+@export var max_fire_count: int = 5
 
 var sink_direction: int = 0 ## -1 = sink down, +1 = rise up
 
@@ -17,7 +18,7 @@ func _process(_delta: float) -> void:
 			$Sprite2D.scale = Vector2(1 - sink_scale, 1 - sink_scale)
 
 func _update_fire() -> void:
-	var desired_fire_count: int = $HealthComponent.max_hitpoints - $HealthComponent.hitpoints
+	var desired_fire_count: int = lerp(max_fire_count, 0, 1.0 * $HealthComponent.hitpoints / $HealthComponent.max_hitpoints)
 
 	while %FireContainer.get_child_count() < desired_fire_count:
 		var fire := preload("res://src/barrel/barrel_fire.tscn").instantiate()
@@ -38,20 +39,24 @@ func _sink_down() -> void:
 	sink_direction = -1
 	$Timer.start(sink_down_time)
 
-func _explode() -> void:
-	for body: Node2D in $Area2D.get_overlapping_bodies():
-		for component: Node in body.get_children():
-			if component is HealthComponent:
-				component.hitpoints -= 10 # Could be based off square distance or something\
-	queue_free()
-
-func _on_health_component_died() -> void:
-	$EndExplosion.visible = true
-	$EndExplosion.animation_finished.connect(_explode)
-	$EndExplosion.play("default")
-
 func _on_health_component_hitpoints_updated() -> void:
 	_update_fire()
 
 func _on_health_component_max_hitpoints_updated() -> void:
 	_update_fire()
+	
+func _on_health_component_died() -> void:
+	$DetonationTimer.start()
+
+func _on_detonation_timer_timeout() -> void:
+	$EndExplosion.visible = true
+	$EndExplosion.animation_finished.connect(_explode)
+	$EndExplosion.play("default")
+
+func _explode() -> void:
+	for body: Node2D in $Area2D.get_overlapping_bodies():
+		for component: Node in body.get_children():
+			if component is HealthComponent:
+				component.hitpoints -= 10 # Could be based off square distance or something\
+	
+	queue_free()

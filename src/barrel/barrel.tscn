@@ -72,6 +72,10 @@ one_shot = true
 [node name="FireContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
 
+[node name="DetonationTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="hitpoints_updated" from="HealthComponent" to="." method="_on_health_component_hitpoints_updated"]
 [connection signal="max_hitpoints_updated" from="HealthComponent" to="." method="_on_health_component_max_hitpoints_updated"]
+[connection signal="timeout" from="DetonationTimer" to="." method="_on_detonation_timer_timeout"]
