@@ -47,5 +47,5 @@ jobs:
         webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
         content: |
             🔥🔥🔥 **FLEE! FLEE FOR YOUR LIVES! ABANDON YOUR POSTS!** 🔥🔥🔥
-            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        embeds: '[{"image": {"url": "https://images-ext-1.discordapp.net/external/9IqK1vVIJELe5nEUmdZjgm59iS3f6zBBqo_rzRXwLk4/https/media.tenor.com/TmMxoRQQnmMAAAPo/denethor-eating.mp4"}}]'
+            A GitHub Action [pipeline](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) is failing!
+        embed-url: "https://tenor.com/bbe0oL0S9yr.gif"
