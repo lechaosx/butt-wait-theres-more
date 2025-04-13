@@ -26,9 +26,11 @@ func _update_fire() -> void:
 		fire.position = Vector2(randi_range(-13, +13), randi_range(-18, +3))
 		%FireContainer.add_child(fire)
 
-	while %FireContainer.get_child_count() > desired_fire_count:
-		%FireContainer.get_child(0).queue_free()
-		
+	var excess := %FireContainer.get_child_count() - desired_fire_count
+	if excess > 0:
+		for i in range(excess):
+			%FireContainer.get_child(i).queue_free()
+			
 func _rise_up() -> void:
 	$Sprite2D.scale = Vector2.ZERO
 	sink_direction = +1

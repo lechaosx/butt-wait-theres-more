@@ -27,10 +27,10 @@ func _on_timer_timeout() -> void:
 	instance.position = global_position + global_transform.x * $Sprite2D.texture.get_width()
 	instance.scale = Vector2(0.5, 0.5)
 	
-	if get_parent() is Ship:
-		instance.from_good_ship = get_parent().is_good(get_parent().type)
+	if body is Ship:
+		instance.from_good_ship = body.is_good(body.type)
 	
-	instance.add_collision_exception_with(get_parent())
+	instance.add_collision_exception_with(body)
 	instance.apply_force(ball_speed * global_transform.x + body.velocity)
 	sea.add_child(instance)
 	
