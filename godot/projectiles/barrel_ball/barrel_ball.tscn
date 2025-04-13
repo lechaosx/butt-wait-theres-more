@@ -8,8 +8,6 @@ radius = 4.99457
 height = 12.7675
 
 [node name="BarrelBall" type="RigidBody2D"]
-collision_layer = 8
-collision_mask = 14
 contact_monitor = true
 max_contacts_reported = 50
 linear_damp = 0.25

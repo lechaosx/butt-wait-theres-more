@@ -61,10 +61,6 @@ func _on_barrel_spawn_timer_timeout() -> void:
 func _on_man_overboard_spawn_timer_timeout() -> void:
 	var man_overboard := preload("res://man_overboard/man_overboard.tscn").instantiate();
 	
-	man_overboard.set_collision_layer_value(1, false)
-	man_overboard.set_collision_layer_value(5, true)
-	man_overboard.set_collision_mask_value(4, true)
-
 	man_overboard.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 	
 	add_child(man_overboard)

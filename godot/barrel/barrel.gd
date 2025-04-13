@@ -54,7 +54,7 @@ func _on_detonation_timer_timeout() -> void:
 	$EndExplosion.play("default")
 
 func _explode() -> void:
-	for body: Node2D in $Area2D.get_overlapping_bodies():
+	for body: Node2D in %ExplosionArea.get_overlapping_bodies():
 		for component: Node in body.get_children():
 			if component is HealthComponent:
 				component.hitpoints -= 10 # Could be based off square distance or something\

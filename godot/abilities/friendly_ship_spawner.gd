@@ -8,9 +8,6 @@ func spawn() -> void:
 	ship.controller.owner_ship = get_parent()
 	ship.power = 250
 	ship.traction = 50
-	ship.set_collision_layer_value(1, false)
-	ship.set_collision_layer_value(6, true)
-	ship.set_collision_mask_value(5, true)
 	ship.add_child(ship.controller)
 	
 	var cannon := preload("auto_cannon.tscn").instantiate()

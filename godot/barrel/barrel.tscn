@@ -33,9 +33,6 @@ radius = 150.0
 
 [node name="Barrel" type="RigidBody2D" groups=["floaters"]]
 disable_mode = 1
-collision_layer = 6
-collision_mask = 63
-mass = 1000.0
 contact_monitor = true
 max_contacts_reported = 50
 script = ExtResource("1_a12vh")
@@ -59,11 +56,10 @@ sprite_frames = SubResource("SpriteFrames_18xnr")
 frame = 2
 frame_progress = 1.0
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 17
+[node name="ExplosionArea" type="Area2D" parent="."]
+unique_name_in_owner = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
 shape = SubResource("CircleShape2D_1m3au")
 
 [node name="Timer" type="Timer" parent="."]

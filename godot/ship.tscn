@@ -15,7 +15,6 @@ b = Vector2(1, 0)
 
 [node name="Ship" type="CharacterBody2D"]
 z_index = 1
-collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_4cq66")
 
@@ -37,8 +36,6 @@ shape = SubResource("RectangleShape2D_v4325")
 
 [node name="RamArea" type="Area2D" parent="."]
 position = Vector2(52, 0)
-collision_layer = 8
-collision_mask = 53
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
 shape = SubResource("SegmentShape2D_v4325")
