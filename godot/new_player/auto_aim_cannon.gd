@@ -30,9 +30,7 @@ func _process(_delta: float) -> void:
 		rotation = 0
 		return
 	
-	var ball_speed: float = 10 # this is experimental value, just bulgarian constant xD
-	
-	global_rotation = global_position.direction_to(target.global_position + target.velocity * global_position.distance_to(target.global_position) / ball_speed).angle()
+	global_rotation = global_position.direction_to(target.global_position + target.velocity * global_position.distance_to(target.global_position) / 10).angle()
 
 func _on_timer_timeout() -> void:
 	var instance := preload("res://projectiles/cannon_ball/cannon_ball.tscn").instantiate()
