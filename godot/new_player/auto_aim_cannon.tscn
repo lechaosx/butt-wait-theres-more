@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://sqdcgd478kj0"]
+
+[ext_resource type="Script" uid="uid://g2xbg1tfwrpo" path="res://new_player/auto_aim_cannon.gd" id="1_ujryv"]
+[ext_resource type="Texture2D" uid="uid://cymidl8utg7kq" path="res://assets/Ship parts/cannon.png" id="2_io5tl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2kdyf"]
+radius = 500.0
+
+[node name="AutoAimCannon" type="Node2D"]
+script = ExtResource("1_ujryv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_io5tl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_2kdyf")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

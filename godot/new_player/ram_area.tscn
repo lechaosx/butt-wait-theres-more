@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://llttm3t64occ"]
+
+[ext_resource type="Script" uid="uid://38377jab0uwa" path="res://new_player/ram_area.gd" id="1_36xjw"]
+
+[node name="RamArea" type="Area2D"]
+script = ExtResource("1_36xjw")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
