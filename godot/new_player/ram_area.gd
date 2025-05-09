@@ -4,5 +4,4 @@ class_name RamArea extends Area2D
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is HitboxComponent:
-		area.damage(damage)
-		
+		area.apply_damage(damage)

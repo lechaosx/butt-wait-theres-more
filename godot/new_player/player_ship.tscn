@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://xyb6o5gqthi2"]
+[gd_scene load_steps=13 format=3 uid="uid://xyb6o5gqthi2"]
 
 [ext_resource type="Script" uid="uid://brrk43wy7e488" path="res://new_player/player_ship.gd" id="1_vat7b"]
 [ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_lxoi7"]
@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://didqcel80rtxr" path="res://new_player/player_ship.tres" id="7_8yco2"]
 [ext_resource type="Script" uid="uid://cagylv8tw55it" path="res://new_player/hitbox_component.gd" id="8_1duo4"]
 [ext_resource type="PackedScene" uid="uid://sqdcgd478kj0" path="res://new_player/auto_aim_cannon.tscn" id="10_w07hb"]
-[ext_resource type="Script" uid="uid://dwn28qn3r10gh" path="res://cargo_hold.gd" id="11_2kdyf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w07hb"]
 radius = 16.0
@@ -27,7 +26,7 @@ script = ExtResource("1_vat7b")
 
 [node name="HealthBasedSpriteComponent" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("health_component")]
 sprite_frames = ExtResource("2_lxoi7")
-animation = &"player"
+animation = &"white"
 script = ExtResource("4_lv0p8")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://dicrof58losyh"
@@ -59,8 +58,9 @@ unique_name_in_owner = true
 script = ExtResource("4_bjshi")
 metadata/_custom_type_script = "uid://dsmk2mjcttyx8"
 
-[node name="HitboxComponent" type="Area2D" parent="."]
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("8_1duo4")
+health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cagylv8tw55it"
 
 [node name="BodyShape" type="CollisionShape2D" parent="HitboxComponent"]
@@ -72,11 +72,7 @@ position = Vector2(0, 41)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_lxoi7")
 
-[node name="AutoAimCannon" parent="." node_paths=PackedStringArray("world") instance=ExtResource("10_w07hb")]
+[node name="AutoAimCannon" parent="." node_paths=PackedStringArray("owning_body") instance=ExtResource("10_w07hb")]
 unique_name_in_owner = true
 position = Vector2(0, 30)
-world = NodePath("..")
-
-[node name="CargoHold" type="Node" parent="."]
-script = ExtResource("11_2kdyf")
-metadata/_custom_type_script = "uid://dwn28qn3r10gh"
+owning_body = NodePath("..")

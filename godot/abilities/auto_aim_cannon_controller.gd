@@ -10,7 +10,7 @@ func _process(_delta: float) -> void:
 	var min_distance: float = view_range
 	var target: Node2D
 	for enemy in get_tree().get_nodes_in_group(target_group):
-		var distance: float = (enemy.transform.get_origin() - get_parent().global_position).length()
+		var distance: float = (enemy.global_position - get_parent().global_position).length()
 		if distance <= min_distance:
 			min_distance = distance
 			target = enemy

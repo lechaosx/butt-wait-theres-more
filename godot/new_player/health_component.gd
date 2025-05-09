@@ -3,8 +3,12 @@ class_name HealthComponent2 extends Node
 signal health_updated
 signal died
 
-@export var max_health := 10
-@export var health := 10:
+@export var max_health: int:
+	set(value):
+		max_health = value
+		health = clamp(health, 0, max_health)
+
+@export var health: int:
 	set(value):
 		var prev_health := health
 	
