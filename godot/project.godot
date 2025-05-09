@@ -31,10 +31,6 @@ window/stretch/scale=1.3
 
 project/assembly_name="GameJam2025"
 
-[global_group]
-
-GameTimers=""
-
 [gui]
 
 theme/custom="uid://1n0tuf8ntefx"

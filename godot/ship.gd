@@ -26,11 +26,11 @@ static func is_good(ship_type: Type) -> bool:
 func _ready() -> void:
 	match type:
 		Type.Friendly:
-			$AnimatedSprite2D.animation = "friendly"
+			$AnimatedSprite2D.animation = "green"
 		Type.Enemy:
-			$AnimatedSprite2D.animation = "enemy"
+			$AnimatedSprite2D.animation = "gray"
 		Type.Player:
-			$AnimatedSprite2D.animation = "player"
+			$AnimatedSprite2D.animation = "white"
 	
 func _process(_delta: float) -> void:
 	for child in get_children():

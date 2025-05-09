@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://btlqah2g7f5lk"]
 
-[ext_resource type="Script" uid="uid://ch47g2w2x0wvi" path="res://survivor_time/survivor_time.gd" id="1_7ucco"]
+[ext_resource type="Script" uid="uid://ch47g2w2x0wvi" path="res://hud/survivor_time.gd" id="1_7ucco"]
 [ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://assets/UI/theme.tres" id="2_3v8y4"]
 [ext_resource type="FontFile" uid="uid://5yqvm3qrp44h" path="res://assets/UI/KidsDraw-BWzyd.ttf" id="3_sg4q1"]
 [ext_resource type="Texture2D" uid="uid://b6lpxxq6015m4" path="res://assets/UI/coins.png" id="4_6hb1b"]
@@ -45,7 +45,7 @@ theme_override_fonts/font = ExtResource("3_sg4q1")
 theme_override_font_sizes/font_size = 42
 text = "0"
 
-[node name="ScoreTimer" type="Timer" parent="." groups=["GameTimers"]]
+[node name="ScoreTimer" type="Timer" parent="."]
 autostart = true
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

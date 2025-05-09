@@ -52,6 +52,8 @@ func _on_play_button_pressed() -> void:
 	sea.cannon_damage = cannon_damage.value()
 	add_child(sea)
 	
+	
+	
 	%Shop.balance += await sea.game_ended
 	
 	sea.queue_free()

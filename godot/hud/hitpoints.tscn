@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://b66eer0eet1j7"]
+
+[ext_resource type="Theme" uid="uid://1n0tuf8ntefx" path="res://assets/UI/theme.tres" id="1_t8ofo"]
+[ext_resource type="Script" uid="uid://bh26q54udpf1n" path="res://hud/hitpoints.gd" id="2_o7vl0"]
+
+[node name="PlayerHitpoints" type="ProgressBar"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95
+anchor_right = 0.5
+anchor_bottom = 0.95
+offset_left = -150.0
+offset_top = -30.0
+offset_right = 250.0
+offset_bottom = 2.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("1_t8ofo")
+show_percentage = false
+script = ExtResource("2_o7vl0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -10.5
+offset_top = -27.0
+offset_right = 10.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CurrentHp" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slash" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "/"
+
+[node name="MaxHp" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2

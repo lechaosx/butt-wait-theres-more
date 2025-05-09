@@ -76,16 +76,15 @@ func _upgrade_abilities() -> void:
 	upgradable_abilities = upgradable_abilities.slice(0, min(2, upgradable_abilities.size()))
 
 	if upgradable_abilities.size() > 0:
-		$%AbilityCards.abilities = upgradable_abilities
-		%AbilityCards.visible = true
-		Engine.time_scale = 0
+		get_tree().paused = true
 		
+		$%AbilityCards.select_ability(upgradable_abilities)
 		var ability: Ability = await %AbilityCards.ability_selected
-		
 		ability.level_up()
-		Engine.time_scale = 1
 		%CargoCounter.count -= %CargoCounter.cargo_cap
 		%CargoCounter.cargo_cap += 1
+		
+		get_tree().paused = false
 
 func _on_cargo_hold_cargo_updated() -> void:
 	if _dead:
@@ -105,10 +104,7 @@ func _on_health_component_died() -> void:
 		
 	_dead = true
 	%AbilityCards.hide()
-	Engine.time_scale = 1
 	%KillScreen.die()
-	get_tree().call_group("GameTimers", "stop")
-
 
 func _on_cooling_leveled_up() -> void:
 	%AutoCannon.interval = 2.0 - (2.0 * $Abilities/Cooling.level() / 6.0)
@@ -125,3 +121,9 @@ func _on_friendly_ships_leveled_up() -> void:
 
 func _on_barrels_leveled_up() -> void:
 	%BarelDropping.interval = 5.0 / $Abilities/Barrels.level()
+
+func _on_health_component_hitpoints_updated() -> void:
+	%PlayerHitpoints.set_hitpoints(%HealthComponent.hitpoints)
+
+func _on_health_component_max_hitpoints_updated() -> void:
+	%PlayerHitpoints.set_max_hitpoints(%HealthComponent.max_hitpoints)
