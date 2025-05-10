@@ -5,30 +5,45 @@ signal game_ended(score: int)
 @export var hitpoints: int:
 	set(value):
 		hitpoints = value
-		$PlayerShip/HealthComponent.max_hitpoints = value
-		$PlayerShip/HealthComponent.hitpoints = value
+
+		if not is_node_ready(): await ready
+
+		$PlayerShip/HealthComponent.max_hitpoints = hitpoints
+		$PlayerShip/HealthComponent.hitpoints = hitpoints
 		
 @export var acceleration: int:
 	set(value):
 		acceleration = value
-		$PlayerShip.brakes = value
-		$PlayerShip.power = value
+
+		if not is_node_ready(): await ready
+
+		$PlayerShip.brakes = acceleration
+		$PlayerShip.power = acceleration
 
 @export var steering: int:
 	set(value):
 		steering = value
-		$PlayerShip.steering_angle = value
+
+		if not is_node_ready(): await ready
+
+		$PlayerShip.steering_angle = steering
 		
 @export var ram_damage: int:
 	set(value):
 		ram_damage = value
-		$PlayerShip.ramming_damage = value
+
+		if not is_node_ready(): await ready
+
+		$PlayerShip.ramming_damage = ram_damage
 		
 @export var cannon_damage: int:
 	set(value):
 		cannon_damage = value
-		%AutoCannon.projectile_damage = value
-		%SideCannons.projectile_damage = value
+
+		if not is_node_ready(): await ready
+
+		%AutoCannon.projectile_damage = cannon_damage
+		%SideCannons.projectile_damage = cannon_damage
 
 var _dead: bool = false;
 
@@ -77,14 +92,14 @@ func _upgrade_abilities() -> void:
 
 	if upgradable_abilities.size() > 0:
 		get_tree().paused = true
+		var ability: Ability = await %AbilityCards.select_ability(upgradable_abilities)
+		get_tree().paused = false
 		
-		$%AbilityCards.select_ability(upgradable_abilities)
-		var ability: Ability = await %AbilityCards.ability_selected
 		ability.level_up()
+		
 		%CargoCounter.count -= %CargoCounter.cargo_cap
 		%CargoCounter.cargo_cap += 1
 		
-		get_tree().paused = false
 
 func _on_cargo_hold_cargo_updated() -> void:
 	if _dead:

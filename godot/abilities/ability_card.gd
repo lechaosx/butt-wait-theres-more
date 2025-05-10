@@ -2,6 +2,10 @@ extends Button
 
 @export var ability: Ability:
 	set(value):
-		%Name.text = value.info.name
-		%Texture.texture = value.info.image
-		%Level.text = "%d / %d" % [value.level(), value.info.max_level]
+		ability = value
+		
+		if not is_node_ready(): await ready
+		
+		%Name.text = ability.info.name
+		%Texture.texture = ability.info.image
+		%Level.text = "%d / %d" % [ability.level(), ability.info.max_level]

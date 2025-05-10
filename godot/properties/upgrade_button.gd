@@ -1,14 +1,17 @@
-class_name UpgradeButton extends HBoxContainer
+@tool class_name UpgradeButton extends HBoxContainer
 
 signal button_pressed
 
 @export var no_money_font_color := Color(0.53, 0.141333, 0.106)
 @export var no_money_font_color_hover := Color(0.96, 0.4232, 0.3744)
 
-var upgrade: Upgrade
 var balance: int = 0
+var upgrade: Upgrade
 
 func _process(_delta: float) -> void:
+	if not upgrade:
+		return
+		
 	$Name.text = upgrade.name
 	
 	$Value.text = str(upgrade.value())

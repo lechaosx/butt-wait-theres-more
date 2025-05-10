@@ -1,28 +1,32 @@
-extends VBoxContainer
+@tool extends VBoxContainer
 
 var upgrades: Array:
 	set(value):
+		upgrades = value
+
+		if not is_node_ready(): await ready
+	
 		for button in %UpgradeButtons.get_children():
 			button.queue_free()
-		
-		upgrades = value
 		
 		for upgrade: Upgrade in upgrades:
 			var button := preload("res://properties/upgrade_button.tscn").instantiate()
 			button.balance = balance
 			button.upgrade = upgrade
-			button.button_pressed.connect(_on_upgrade_button_pressed.bind(upgrade))
+			button.button_pressed.connect(func() -> void:
+				if balance >= upgrade.price():
+					balance -= upgrade.price()
+					upgrade.level += 1
+			)
 			%UpgradeButtons.add_child(button)
 
 var balance: int = 0:
 	set(value):
 		balance = value
+
+		if not is_node_ready(): await ready
+
 		%CurrentBalanceLabel.text = str(balance)
 		for button in %UpgradeButtons.get_children():
 			button.balance = balance
 			
-func _on_upgrade_button_pressed(upgrade: Upgrade) -> void:
-	var price := upgrade.price()
-	if balance >= price:
-		balance -= price
-		upgrade.level += 1

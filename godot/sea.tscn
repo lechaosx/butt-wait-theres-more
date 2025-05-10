@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://vs3qhquaylj" path="res://abilities/info/cannon_cooling.tres" id="3_ydg3f"]
 [ext_resource type="Resource" uid="uid://bpm1fplv02c6f" path="res://abilities/info/barrels.tres" id="4_2q14h"]
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="4_a0flf"]
-[ext_resource type="Script" path="res://abilities/friendly_ship_spawner.gd" id="5_7u2wy"]
+[ext_resource type="Script" uid="uid://cssc7sab12i3b" path="res://abilities/friendly_ship_spawner.gd" id="5_7u2wy"]
 [ext_resource type="Script" uid="uid://bkqfcptttkcv6" path="res://abilities/auto_aim_cannon_controller.gd" id="5_osfek"]
 [ext_resource type="Resource" uid="uid://ktrn4wes4mhh" path="res://abilities/info/friendly_ships.tres" id="5_yhn66"]
 [ext_resource type="Resource" uid="uid://d3slri3n4gn4o" path="res://abilities/info/piercing.tres" id="6_m2tg1"]
@@ -47,6 +47,7 @@ unique_name_in_owner = true
 position = Vector2(36, 0.000130355)
 sea = NodePath("../..")
 body = NodePath("..")
+interval = 2.0
 
 [node name="AutoAimCannonController" type="Node" parent="PlayerShip/AutoCannon"]
 script = ExtResource("5_osfek")
@@ -162,8 +163,8 @@ metadata/_custom_type_script = "uid://sl7mlnyefejt"
 [connection signal="hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_hitpoints_updated"]
 [connection signal="max_hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_max_hitpoints_updated"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="finished" from="HUD/KillScreen" to="." method="_on_kill_screen_finished"]

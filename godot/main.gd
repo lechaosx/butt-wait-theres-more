@@ -1,4 +1,4 @@
-extends Node
+@tool extends Node
 
 const savefile := "user://savefile.txt"
 
@@ -36,8 +36,10 @@ func try_load_game() -> void:
 	cannon_damage.level = data["cannon_damage"]
 	
 func _ready() -> void:
-	try_load_game()
 	%Shop.upgrades = [hitpoints, acceleration, steering, ram_damage, cannon_damage]
+	
+	if not Engine.is_editor_hint():
+		try_load_game()
 
 func _on_play_button_pressed() -> void:
 	save_game() # Save when leaving shop and entering the game
@@ -51,8 +53,6 @@ func _on_play_button_pressed() -> void:
 	sea.ram_damage = ram_damage.value()
 	sea.cannon_damage = cannon_damage.value()
 	add_child(sea)
-	
-	
 	
 	%Shop.balance += await sea.game_ended
 	

@@ -1,17 +1,15 @@
-class_name FriendlyShip extends CharacterBody2D
+@tool extends CharacterBody2D
 
 @export var parent: Node2D
 
 @export var target_group: String = "enemies"
 @export var view_range: int = 800:
 	set(value):
-		if not is_node_ready():
-			await ready
+		view_range = value
+		
+		if not is_node_ready(): await ready
 		
 		%ViewArea/CollisionShape2D.shape.radius = value
-		
-	get: return %ViewArea/CollisionShape2D.shape.radius
-
 
 func _get_target() -> Node2D:
 	var bodies: Array[Node2D] = %ViewArea.get_overlapping_bodies()
@@ -37,6 +35,9 @@ func _get_target() -> Node2D:
 	return enemy
 
 func _physics_process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	var target := _get_target()
 	
 	if target:

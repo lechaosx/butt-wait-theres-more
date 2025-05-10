@@ -1,16 +1,17 @@
-extends HBoxContainer
+@tool extends HBoxContainer
 
-var cargo_cap: int = 1:
+@export var cargo_cap: int:
 	set(value):
-		if (value != cargo_cap):
-			cargo_cap = value
-			$ProgressBar.max_value = value
+		cargo_cap = value
+		
+		if not is_node_ready(): await ready
 
-func _ready() -> void:
-	$ProgressBar.max_value = cargo_cap
+		$ProgressBar.max_value = value
 
-var count: int = 0:
+@export var count: int:
 	set(value):
-		if (value != count):
-			$ProgressBar.value = value
-			count = value
+		count = value
+		
+		if not is_node_ready(): await ready
+		
+		$ProgressBar.value = value

@@ -19,12 +19,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 script = ExtResource("1_o8rt5")
+cargo_cap = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-max_value = 5.0
+max_value = 1.0
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="."]

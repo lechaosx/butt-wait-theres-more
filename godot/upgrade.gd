@@ -1,4 +1,4 @@
-class_name Upgrade extends Resource
+@tool class_name Upgrade extends Resource
 
 @export var name: String = ""
 

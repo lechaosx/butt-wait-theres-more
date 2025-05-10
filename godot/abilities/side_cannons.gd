@@ -16,6 +16,9 @@ func add_pair() -> void:
 	var left_cannon := canon_scene.instantiate()
 	var right_cannon := canon_scene.instantiate()
 	
+	left_cannon.interval = 2.0;
+	right_cannon.interval = 2.0;
+	
 	left_cannon.set_z_index(0)
 	right_cannon.set_z_index(0)
 	

@@ -11,6 +11,7 @@ func spawn() -> void:
 	ship.add_child(ship.controller)
 	
 	var cannon := preload("auto_cannon.tscn").instantiate()
+	cannon.interval = 2
 	cannon.position.x = 40
 	cannon.add_child(AutoAimCannonController.new())
 	ship.add_child(cannon)

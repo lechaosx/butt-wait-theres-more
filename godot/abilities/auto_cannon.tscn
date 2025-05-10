@@ -15,13 +15,11 @@ stream_1/stream = ExtResource("4_3ha1b")
 z_index = 3
 z_as_relative = false
 script = ExtResource("1_tx01i")
-interval = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_7wds1")
 
 [node name="Timer" type="Timer" parent="."]
-autostart = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_ovybr")

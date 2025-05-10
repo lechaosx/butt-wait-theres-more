@@ -47,6 +47,7 @@ func spawn_gun_enemy(hitpoints: int) -> void:
 	var ship := spawn_enemy_ship()
 	add_hp(ship, hitpoints)
 	var cannon := cannon_scene.instantiate()
+	cannon.interval = 2
 	cannon.position.x = 42
 	cannon.set_z_index(2)
 	cannon.sea = sea
@@ -56,6 +57,8 @@ func spawn_gun_enemy(hitpoints: int) -> void:
 	if randf() < 0.001 * difficulty_score:
 		var left_cannon := cannon_scene.instantiate()
 		var right_cannon := cannon_scene.instantiate()
+		left_cannon.interval = 2
+		right_cannon.interval = 2
 		left_cannon.position.x = 30
 		left_cannon.position.y = 15
 		right_cannon.position.x = 30
@@ -95,6 +98,7 @@ func spawn_boss_enemy(hitpoints: int) -> void:
 	
 	for n in 8:
 		var cannon := cannon_scene.instantiate()
+		cannon.interval = 2
 		cannon.position.x = 42
 		cannon.position.y = (4 - n) * 12.5
 		cannon.set_z_index(2)
@@ -112,6 +116,7 @@ func spawn_boss_enemy_2(hitpoints: int) -> void:
 	
 	for n in 10:
 		var cannon := cannon_scene.instantiate()
+		cannon.interval = 2
 		cannon.position.x = 42
 		cannon.position.y = (5 - n) * 12.5
 		cannon.default_cannon_cooldown_time = 1
