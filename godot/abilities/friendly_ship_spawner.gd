@@ -19,7 +19,7 @@ func spawn() -> void:
 	cannon.body = ship
 	
 	ship.add_to_group("friendly")
-	ship.type = Ship.Type.Friendly
+	ship.get_node("AnimatedSprite2D").animation = "green"
 	ship.scale = Vector2(0.5, 0.5)
 	ship.position = get_parent().position + Vector2(0, 100)
 	

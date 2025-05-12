@@ -28,7 +28,7 @@ func spawn_enemy_ship() -> Ship:
 	ship.add_to_group("enemies")
 
 	ship.position = %PlayerShip.position + random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-	ship.type = Ship.Type.Enemy
+	ship.get_node("AnimatedSprite2D").animation = "gray"
 	return ship
 
 func add_hp(ship: Ship, hitpoints: int) -> void:

@@ -62,6 +62,9 @@ func count_objects_in_radius(center: Vector2, radius: float, group_name: String)
 		if obj is Node2D and obj.global_position.distance_to(center) <= radius:
 			count += 1
 	return count
+	
+func _ready() -> void:
+	%PlayerShip/AnimatedSprite2D.animation = "white"
 
 func _on_barrel_spawn_timer_timeout() -> void:
 	var screen_radius := get_viewport().get_visible_rect().size.length() / 2

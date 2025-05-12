@@ -4,7 +4,6 @@ extends RigidBody2D
 @export var damage : int = 1
 @export var piercing : int = 0
 @export var fly_time : float = 1
-@export var from_good_ship : bool = true
 
 func _ready() -> void:
 	$Timer.wait_time = fly_time
@@ -22,12 +21,6 @@ func _physics_process(_delta: float) -> void:
 	$Sprite2D.scale = Vector2(new_scale, new_scale)
 
 func _on_body_entered(body: Node) -> void:
-	
-	# do not shoot same friendly type
-	if body is Ship && Ship.is_good(body.type) == from_good_ship:
-		add_collision_exception_with(body) # lul
-		return
-	
 	for child in body.get_children():
 		if child is HealthComponent:
 			child.hitpoints -= damage

@@ -1,14 +1,5 @@
 class_name Ship extends CharacterBody2D
 
-enum Type {
-	Player,
-	Friendly,
-	Enemy
-}
-
-static func is_good(ship_type: Type) -> bool:
-	return ship_type == Type.Friendly or ship_type == Type.Player
-
 @export var steering_angle: float = 25
 @export var power: float  = 100
 @export var friction: float  = 30
@@ -19,19 +10,8 @@ static func is_good(ship_type: Type) -> bool:
 
 @export var ramming_damage: int = 1
 
-@export var type := Type.Enemy
-
 @export var controller: Node
 
-func _ready() -> void:
-	match type:
-		Type.Friendly:
-			$AnimatedSprite2D.animation = "green"
-		Type.Enemy:
-			$AnimatedSprite2D.animation = "gray"
-		Type.Player:
-			$AnimatedSprite2D.animation = "white"
-	
 func _process(_delta: float) -> void:
 	for child in get_children():
 		if child is HealthComponent:
@@ -80,11 +60,7 @@ func _physics_process(delta: float) -> void:
 func _on_ram_area_body_entered(body: Node2D) -> void:
 	for child in body.get_children():
 		if child is HealthComponent:
-			if body is Ship:
-				if body.is_good(body.type) != is_good(type):
-					child.hitpoints -= ramming_damage
-			else:
-				child.hitpoints -= ramming_damage
+			child.hitpoints -= ramming_damage
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()
