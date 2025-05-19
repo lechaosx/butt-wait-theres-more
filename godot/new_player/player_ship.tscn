@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://xyb6o5gqthi2"]
+[gd_scene load_steps=12 format=3 uid="uid://xyb6o5gqthi2"]
 
 [ext_resource type="Script" uid="uid://brrk43wy7e488" path="res://new_player/player_ship.gd" id="1_vat7b"]
 [ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_lxoi7"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://new_player/health_based_sprite_component.gd" id="4_lv0p8"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://new_player/ship_movement_component.gd" id="6_vc7ef"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://new_player/ram_area.tscn" id="7_1duo4"]
-[ext_resource type="Resource" uid="uid://didqcel80rtxr" path="res://new_player/player_ship.tres" id="7_8yco2"]
 [ext_resource type="Script" uid="uid://cagylv8tw55it" path="res://new_player/hitbox_component.gd" id="8_1duo4"]
 [ext_resource type="PackedScene" uid="uid://sqdcgd478kj0" path="res://new_player/auto_aim_cannon.tscn" id="10_w07hb"]
 
@@ -23,6 +22,8 @@ b = Vector2(0, 1)
 [node name="PlayerShip" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_vat7b")
+max_health = 5
+acceleration = 5
 
 [node name="HealthBasedSpriteComponent" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("health_component")]
 sprite_frames = ExtResource("2_lxoi7")
@@ -50,12 +51,13 @@ shape = SubResource("SegmentShape2D_jx5pu")
 unique_name_in_owner = true
 script = ExtResource("6_vc7ef")
 character = NodePath("..")
-properties = ExtResource("7_8yco2")
 metadata/_custom_type_script = "uid://dgkclkobpug1q"
 
 [node name="HealthComponent" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_bjshi")
+max_health = 5
+health = 5
 metadata/_custom_type_script = "uid://dsmk2mjcttyx8"
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]

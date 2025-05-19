@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdcbv68l7mevp"]
+[gd_scene load_steps=9 format=3 uid="uid://cdcbv68l7mevp"]
 
 [ext_resource type="Script" uid="uid://cdg0y5y5rjgjk" path="res://new_player/friendly_ship.gd" id="1_roj7t"]
 [ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_x3hw2"]
-[ext_resource type="Script" uid="uid://cv0ao8ymtivrv" path="res://new_player/ship_properties.gd" id="4_acmpf"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://new_player/ship_movement_component.gd" id="4_go85f"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://new_player/ram_area.tscn" id="5_acmpf"]
 
@@ -12,17 +11,6 @@ height = 48.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_acmpf"]
 size = Vector2(7.5, 7.5)
-
-[sub_resource type="Resource" id="Resource_8lgvm"]
-script = ExtResource("4_acmpf")
-steering_angle = 30.0
-power = 100.0
-friction = 30.0
-drag = 0.1
-traction = 0.8
-brakes = 100.0
-ship_length = 50.0
-metadata/_custom_type_script = "uid://cv0ao8ymtivrv"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_go85f"]
 radius = 600.0
@@ -53,7 +41,13 @@ shape = SubResource("RectangleShape2D_acmpf")
 unique_name_in_owner = true
 script = ExtResource("4_go85f")
 character = NodePath("..")
-properties = SubResource("Resource_8lgvm")
+steering_angle = 30.0
+power = 100.0
+friction = 30.0
+drag = 0.1
+traction = 0.8
+brakes = 100.0
+ship_length = 50.0
 metadata/_custom_type_script = "uid://dgkclkobpug1q"
 
 [node name="ViewArea" type="Area2D" parent="."]
