@@ -12,7 +12,6 @@
 [ext_resource type="Resource" uid="uid://ktrn4wes4mhh" path="res://abilities/info/friendly_ships.tres" id="5_yhn66"]
 [ext_resource type="Resource" uid="uid://d3slri3n4gn4o" path="res://abilities/info/piercing.tres" id="6_m2tg1"]
 [ext_resource type="Resource" uid="uid://dtatsy3jllmwu" path="res://abilities/info/side_cannons.tres" id="7_cfwfa"]
-[ext_resource type="PackedScene" uid="uid://bw1hebeplamra" path="res://hitpoints/health_component.tscn" id="8_24krr"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="8_pfxiy"]
 [ext_resource type="PackedScene" uid="uid://dpdoenrgimjkw" path="res://abilities/ability_cards.tscn" id="9_ari0p"]
 [ext_resource type="Script" uid="uid://colodbh4ytdb1" path="res://wind_particles.gd" id="10_7u2wy"]
@@ -21,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://b66eer0eet1j7" path="res://hud/hitpoints.tscn" id="11_24krr"]
 [ext_resource type="PackedScene" uid="uid://kn70kmto5cby" path="res://abilities/barel_dropping.tscn" id="11_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://88md3i7p5702" path="res://hud/kill_screen.tscn" id="12_7uhs0"]
+[ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="12_f1b51"]
 [ext_resource type="PackedScene" uid="uid://bqqm1hsravcgy" path="res://sound/sailing_sound.tscn" id="12_gdvtx"]
 [ext_resource type="PackedScene" uid="uid://uws8en35sklf" path="res://spawners/enemy_spawner/enemy_spawner.tscn" id="13_ifsnf"]
 [ext_resource type="PackedScene" uid="uid://cuk2drxe2dov2" path="res://hud/cargo_counter.tscn" id="15_f616m"]
@@ -55,16 +55,13 @@ metadata/_custom_type_script = "uid://bkqfcptttkcv6"
 [node name="UserController" type="Node" parent="PlayerShip"]
 script = ExtResource("2_mehw6")
 
-[node name="HealthComponent" parent="PlayerShip" instance=ExtResource("8_24krr")]
-unique_name_in_owner = true
-
 [node name="CargoHold" type="Node" parent="PlayerShip"]
 script = ExtResource("10_jolub")
 
-[node name="BarelDropping" parent="PlayerShip" node_paths=PackedStringArray("sea", "body") instance=ExtResource("11_ifsnf")]
+[node name="BarelDropping" parent="PlayerShip" node_paths=PackedStringArray("world", "parent") instance=ExtResource("11_ifsnf")]
 unique_name_in_owner = true
-sea = NodePath("../..")
-body = NodePath("..")
+world = NodePath("../..")
+parent = NodePath("..")
 
 [node name="SailingSound" parent="PlayerShip" instance=ExtResource("12_gdvtx")]
 
@@ -79,6 +76,11 @@ script = ExtResource("18_ydg3f")
 world = NodePath("../..")
 parent = NodePath("..")
 metadata/_custom_type_script = "uid://bxaap6op8xe3g"
+
+[node name="HealthComponent" type="Node2D" parent="PlayerShip"]
+unique_name_in_owner = true
+script = ExtResource("12_f1b51")
+metadata/_custom_type_script = "uid://diciamkrxbr8n"
 
 [node name="WindParticles" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -158,10 +160,9 @@ script = ExtResource("28_ydg3f")
 info = ExtResource("4_2q14h")
 metadata/_custom_type_script = "uid://sl7mlnyefejt"
 
-[connection signal="died" from="PlayerShip/HealthComponent" to="." method="_on_health_component_died"]
-[connection signal="hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_hitpoints_updated"]
-[connection signal="max_hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_max_hitpoints_updated"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
+[connection signal="health_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_health_updated"]
+[connection signal="max_health_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_max_health_updated"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]

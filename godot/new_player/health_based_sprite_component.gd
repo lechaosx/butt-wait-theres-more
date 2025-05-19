@@ -1,6 +1,6 @@
 class_name HealthBasedSpriteComponent extends AnimatedSprite2D
 
-@export var health_component: HealthComponent2
+@export var health_component: HealthComponent
 
 func _ready() -> void:
 	health_component.health_updated.connect(_on_health_updated)

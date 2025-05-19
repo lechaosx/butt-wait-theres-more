@@ -31,21 +31,24 @@ func spawn_enemy_ship() -> Ship:
 	ship.get_node("AnimatedSprite2D").animation = "gray"
 	return ship
 
-func add_hp(ship: Ship, hitpoints: int) -> void:
-	var HP := preload("res://hitpoints/health_component.tscn").instantiate()
-	HP.died.connect(_on_enemy_death.bind(ship))
-	HP.max_hitpoints = hitpoints
-	HP.hitpoints = hitpoints
+func add_hp(ship: Ship, health: int) -> void:
+	var HP := HealthComponent.new()
+	HP.health_updated.connect(func() -> void: 
+		if HP.health <= 0: 
+			_on_enemy_death(ship)
+	)
+	HP.max_health = health
+	HP.health = health
 	ship.add_child(HP)
 
-func spawn_ramming_enemy(hitpoints: int) -> void:
+func spawn_ramming_enemy(health: int) -> void:
 	var ship := spawn_enemy_ship()
-	add_hp(ship, hitpoints)
+	add_hp(ship, health)
 	add_child(ship)
 	
-func spawn_gun_enemy(hitpoints: int) -> void:
+func spawn_gun_enemy(health: int) -> void:
 	var ship := spawn_enemy_ship()
-	add_hp(ship, hitpoints)
+	add_hp(ship, health)
 	var cannon := cannon_scene.instantiate()
 	cannon.interval = 2
 	cannon.position.x = 42
@@ -91,9 +94,9 @@ func scale_ship(ship: Ship, ship_scale: float) -> void:
 		scaling_componnent.transform *= ship_scale # this should multiply scale and position
 	
 
-func spawn_boss_enemy(hitpoints: int) -> void:
+func spawn_boss_enemy(health: int) -> void:
 	var ship := spawn_enemy_ship()
-	add_hp(ship, hitpoints)
+	add_hp(ship, health)
 	scale_ship(ship,2)
 	
 	for n in 8:
@@ -108,9 +111,9 @@ func spawn_boss_enemy(hitpoints: int) -> void:
 		
 	add_child(ship)
 
-func spawn_boss_enemy_2(hitpoints: int) -> void:
+func spawn_boss_enemy_2(health: int) -> void:
 	var ship := spawn_enemy_ship()
-	add_hp(ship, hitpoints)
+	add_hp(ship, health)
 	
 	scale_ship(ship, 3)
 	
@@ -133,11 +136,11 @@ func _on_timer_timeout() -> void:
 	$Timer.wait_time = clamp($Timer.wait_time - 0.01, 2, 6)
 	
 	if randf() < 0.01 * difficulty_score:
-		var hitpoints: int = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
-		spawn_gun_enemy(hitpoints)
+		var health: int = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
+		spawn_gun_enemy(health)
 	else:
-		var hitpoints: int = base_hp + clamp(round(difficulty_score / 50), 0, 10)
-		spawn_ramming_enemy(hitpoints)
+		var health: int = base_hp + clamp(round(difficulty_score / 50), 0, 10)
+		spawn_ramming_enemy(health)
 
 
 func _on_boss_timer_timeout() -> void:

@@ -6,8 +6,8 @@ signal game_ended(score: int)
 	set(value):
 		hitpoints = value
 		if not is_node_ready(): await ready
-		$PlayerShip/HealthComponent.max_hitpoints = hitpoints
-		$PlayerShip/HealthComponent.hitpoints = hitpoints
+		$PlayerShip/HealthComponent.max_health = hitpoints
+		$PlayerShip/HealthComponent.health = hitpoints
 		
 @export var acceleration: int:
 	set(value):
@@ -106,13 +106,14 @@ func _on_friendly_ships_leveled_up() -> void:
 func _on_barrels_leveled_up() -> void:
 	%BarelDropping.interval = 5.0 / $Abilities/Barrels.level()
 
-func _on_health_component_died() -> void:
-	%AbilityCards.hide()
-	await %KillScreen.die()
-	game_ended.emit(%SurvivorTime.score)
+func _on_health_component_health_updated() -> void:
+	%PlayerHitpoints.set_hitpoints(%HealthComponent.health)
+	
+	if %HealthComponent.health <= 0:
+		%AbilityCards.hide()
+		await %KillScreen.die()
+		game_ended.emit(%SurvivorTime.score)
 
-func _on_health_component_hitpoints_updated() -> void:
-	%PlayerHitpoints.set_hitpoints(%HealthComponent.hitpoints)
 
-func _on_health_component_max_hitpoints_updated() -> void:
-	%PlayerHitpoints.set_max_hitpoints(%HealthComponent.max_hitpoints)
+func _on_health_component_max_health_updated() -> void:
+	%PlayerHitpoints.set_max_hitpoints(%HealthComponent.max_health)

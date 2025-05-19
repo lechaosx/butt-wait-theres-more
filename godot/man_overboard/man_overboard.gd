@@ -10,6 +10,6 @@ func _process(_delta: float) -> void:
 	for body in get_overlapping_bodies():
 		for child in body.get_children():
 			if child is HealthComponent:
-				child.hitpoints += 1
+				child.health += 1
 				queue_free()
 				return

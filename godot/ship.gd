@@ -15,7 +15,7 @@ class_name Ship extends CharacterBody2D
 func _process(_delta: float) -> void:
 	for child in get_children():
 		if child is HealthComponent:
-			var health: float = 1.0 * child.hitpoints / child.max_hitpoints
+			var health: float = 1.0 * child.health / child.max_health
 			if health > 0.75:
 				$AnimatedSprite2D.frame = 0
 			elif health > 0.5:
@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 func _on_ram_area_body_entered(body: Node2D) -> void:
 	for child in body.get_children():
 		if child is HealthComponent:
-			child.hitpoints -= ramming_damage
+			child.health -= ramming_damage
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()

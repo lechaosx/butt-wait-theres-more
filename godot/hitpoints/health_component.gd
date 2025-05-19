@@ -1,36 +1,29 @@
-class_name HealthComponent extends Node2D
+@tool class_name HealthComponent extends Node
 
-signal died
-signal hitpoints_updated
-signal max_hitpoints_updated
+signal max_health_updated
+signal health_updated
 
-@export var max_hitpoints: int = 1:
+@export var max_health: int = 5:
 	set(value):
-		max_hitpoints = value
-		max_hitpoints_updated.emit()
+		if value != max_health:
+			max_health = value
+			max_health_updated.emit()
+			health = clamp(health, 0, max_health)
 
-@export var hitpoints: int = max_hitpoints:
+@export var health: int = 5:
 	set(value):
-		var damage := hitpoints - value
-		
-		hitpoints = clamp(value, 0, max_hitpoints)
-		
-		if damage > 0:
-			spawn_popup(damage)
+		value = clamp(value, 0, max_health)
+		if value != health:
 			
-		hitpoints_updated.emit()
-		
-		if hitpoints <= 0:
-			died.emit()
+			var damage := health - value
+			if damage > 0:
+				_spawn_popup(damage)
+				
+			health = value
+			health_updated.emit()
 
-func spawn_popup(value: int) -> void:
-	var popup_instance := preload("res://hitpoints/damage_popup/damage_popup.tscn").instantiate()
-	popup_instance.set_text(value)
-	create_tween().tween_property(popup_instance, "position", Vector2(1, randf_range(-1, 1)) * 20, 0.8)
-	add_child(popup_instance)
-
-func _ready() -> void:
-	hitpoints = max_hitpoints
-
-func _process(_delta: float) -> void:
-	rotation = - get_parent().rotation
+func _spawn_popup(value: int) -> void:
+	var popup := preload("res://hitpoints/damage_popup.tscn").instantiate()
+	popup.set_text(value)
+	create_tween().tween_property(popup, "position", Vector2(1, randf_range(-1, 1)) * 20, 0.8)
+	add_sibling(popup)

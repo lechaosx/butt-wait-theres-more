@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://brrk43wy7e488" path="res://new_player/player_ship.gd" id="1_vat7b"]
 [ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_lxoi7"]
-[ext_resource type="Script" uid="uid://dsmk2mjcttyx8" path="res://new_player/health_component.gd" id="4_bjshi"]
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://new_player/health_based_sprite_component.gd" id="4_lv0p8"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://new_player/ship_movement_component.gd" id="6_vc7ef"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://new_player/ram_area.tscn" id="7_1duo4"]
 [ext_resource type="Script" uid="uid://cagylv8tw55it" path="res://new_player/hurtbox_component.gd" id="8_1duo4"]
+[ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="8_jx5pu"]
 [ext_resource type="PackedScene" uid="uid://sqdcgd478kj0" path="res://new_player/auto_aim_cannon.tscn" id="10_w07hb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w07hb"]
@@ -80,15 +80,16 @@ parent = NodePath("..")
 target_groups = Array[String](["enemies"])
 friendly_groups = Array[String](["players"])
 
-[node name="HealthComponent" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("4_bjshi")
-metadata/_custom_type_script = "uid://dsmk2mjcttyx8"
-
 [node name="ShipMovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
 unique_name_in_owner = true
 script = ExtResource("6_vc7ef")
 character = NodePath("..")
 metadata/_custom_type_script = "uid://dgkclkobpug1q"
 
+[node name="HealthComponent" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("8_jx5pu")
+metadata/_custom_type_script = "uid://diciamkrxbr8n"
+
 [connection signal="health_updated" from="HealthComponent" to="." method="_on_health_component_health_updated"]
+[connection signal="max_health_updated" from="HealthComponent" to="." method="_on_health_component_max_health_updated"]

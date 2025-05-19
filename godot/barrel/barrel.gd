@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 			$Sprite2D.scale = Vector2(1 - sink_scale, 1 - sink_scale)
 
 func _update_fire() -> void:
-	var desired_fire_count: int = lerp(max_fire_count, 0, 1.0 * $HealthComponent.hitpoints / $HealthComponent.max_hitpoints)
+	var desired_fire_count: int = lerp(max_fire_count, 0, 1.0 * $HealthComponent.health / $HealthComponent.max_health)
 
 	while %FireContainer.get_child_count() < desired_fire_count:
 		var fire := preload("res://barrel/barrel_fire.tscn").instantiate()
@@ -41,15 +41,15 @@ func _sink_down() -> void:
 	sink_direction = -1
 	$Timer.start(sink_down_time)
 
-func _on_health_component_hitpoints_updated() -> void:
+func _on_health_component_health_updated() -> void:
 	_update_fire()
 
-func _on_health_component_max_hitpoints_updated() -> void:
+	if $HealthComponent.health <= 0:
+		$DetonationTimer.start()
+
+func _on_health_component_max_health_updated() -> void:
 	_update_fire()
 	
-func _on_health_component_died() -> void:
-	$DetonationTimer.start()
-
 func _on_detonation_timer_timeout() -> void:
 	$EndExplosion.visible = true
 	$EndExplosion.animation_finished.connect(_explode)
@@ -59,6 +59,6 @@ func _explode() -> void:
 	for body: Node2D in %ExplosionArea.get_overlapping_bodies():
 		for component: Node in body.get_children():
 			if component is HealthComponent:
-				component.hitpoints -= 10 # Could be based off square distance or something\
+				component.health -= 10 # Could be based off square distance or something\
 	
 	queue_free()

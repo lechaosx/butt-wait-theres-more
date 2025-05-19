@@ -28,7 +28,7 @@ func _on_body_entered(body: Node) -> void:
 	add_collision_exception_with(body)
 	for child in body.get_children():
 		if child is HealthComponent:
-			child.hitpoints -= damage
+			child.health -= damage
 
 			piercing -= 1
 			if piercing <= 0:
