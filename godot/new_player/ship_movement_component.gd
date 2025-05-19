@@ -15,7 +15,7 @@ var brake_intent: float = 0.0
 var steer_intent: float = 0.0
 
 func _physics_process(delta: float) -> void:
-	var direction := character.transform.y
+	var direction := Vector2.RIGHT.rotated(character.rotation)
 
 	var acceleration := direction * power * acceleration_intent
 
@@ -32,6 +32,11 @@ func _physics_process(delta: float) -> void:
 
 	character.velocity = lerp(character.velocity, new_heading * character.velocity.length(), traction) + acceleration * delta
 
-	character.rotation = new_heading.rotated(deg_to_rad(-90)).angle()
+	character.rotation = new_heading.angle()
 
 	character.move_and_slide()
+	
+	for i in character.get_slide_collision_count():
+		var collision := character.get_slide_collision(i)
+		if collision.get_collider() is RigidBody2D:
+			collision.get_collider().apply_central_impulse(-collision.get_normal() * 50)

@@ -1,7 +1,7 @@
 class_name SideCannons extends Node2D
 
-@export var sea: Sea
-@export var body: CharacterBody2D
+@export var world: Node
+@export var parent: CharacterBody2D
 
 @export var projectile_damage: int = 1
 
@@ -34,11 +34,11 @@ func add_pair() -> void:
 	left_cannon.piercing = _piercing
 	right_cannon.piercing = _piercing
 	
-	left_cannon.world = sea
-	right_cannon.world = sea
+	left_cannon.world = world
+	right_cannon.world = world
 	
-	left_cannon.body = body
-	right_cannon.body = body
+	left_cannon.parent = parent
+	right_cannon.parent = parent
 	
 	left_cannon.projectile_damage = projectile_damage
 	right_cannon.projectile_damage = projectile_damage

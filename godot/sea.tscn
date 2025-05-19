@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://p6yfac4vlqls"]
+[gd_scene load_steps=28 format=3 uid="uid://cmqfu6lt4wicv"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_lotjo"]
 [ext_resource type="PackedScene" uid="uid://cbrtvx1fx65q6" path="res://ship.tscn" id="1_xwcm7"]
@@ -73,11 +73,11 @@ unique_name_in_owner = true
 script = ExtResource("5_7u2wy")
 sea = NodePath("../..")
 
-[node name="SideCannons" type="Node2D" parent="PlayerShip" node_paths=PackedStringArray("sea", "body")]
+[node name="SideCannons" type="Node2D" parent="PlayerShip" node_paths=PackedStringArray("world", "parent")]
 unique_name_in_owner = true
 script = ExtResource("18_ydg3f")
-sea = NodePath("../..")
-body = NodePath("..")
+world = NodePath("../..")
+parent = NodePath("..")
 metadata/_custom_type_script = "uid://bxaap6op8xe3g"
 
 [node name="WindParticles" type="Node2D" parent="."]
@@ -162,11 +162,10 @@ metadata/_custom_type_script = "uid://sl7mlnyefejt"
 [connection signal="hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_hitpoints_updated"]
 [connection signal="max_hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_max_hitpoints_updated"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
-[connection signal="finished" from="HUD/KillScreen" to="." method="_on_kill_screen_finished"]
 [connection signal="leveled_up" from="Abilities/Cooling" to="." method="_on_cooling_leveled_up"]
 [connection signal="leveled_up" from="Abilities/Piercing" to="." method="_on_piercing_leveled_up"]
 [connection signal="leveled_up" from="Abilities/SideCannons" to="." method="_on_side_cannons_leveled_up"]

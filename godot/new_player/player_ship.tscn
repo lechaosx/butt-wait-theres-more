@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://new_player/health_based_sprite_component.gd" id="4_lv0p8"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://new_player/ship_movement_component.gd" id="6_vc7ef"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://new_player/ram_area.tscn" id="7_1duo4"]
-[ext_resource type="Script" uid="uid://cagylv8tw55it" path="res://new_player/hitbox_component.gd" id="8_1duo4"]
+[ext_resource type="Script" uid="uid://cagylv8tw55it" path="res://new_player/hurtbox_component.gd" id="8_1duo4"]
 [ext_resource type="PackedScene" uid="uid://sqdcgd478kj0" path="res://new_player/auto_aim_cannon.tscn" id="10_w07hb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w07hb"]
@@ -17,15 +17,21 @@ height = 96.0
 size = Vector2(15, 15)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_jx5pu"]
-b = Vector2(0, 1)
+b = Vector2(1, 0)
 
-[node name="PlayerShip" type="CharacterBody2D"]
+[node name="PlayerShip" type="CharacterBody2D" groups=["players"]]
 motion_mode = 1
 script = ExtResource("1_vat7b")
 max_health = 5
-acceleration = 5
+health = 5
+power = 100
+brakes = 100
+steering = 25
+ramming_damage = 1
+projectile_damage = 1
 
 [node name="HealthBasedSpriteComponent" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("health_component")]
+rotation = -1.5708
 sprite_frames = ExtResource("2_lxoi7")
 animation = &"white"
 script = ExtResource("4_lv0p8")
@@ -33,19 +39,51 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://dicrof58losyh"
 
 [node name="BodyShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(-3, 0)
+rotation = -1.5708
 shape = SubResource("CapsuleShape2D_w07hb")
 
 [node name="FrontShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 41)
+position = Vector2(41, 0)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_lxoi7")
 
 [node name="RamArea" parent="." instance=ExtResource("7_1duo4")]
+position = Vector2(51, 0)
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RamArea"]
-position = Vector2(0, 52)
 shape = SubResource("SegmentShape2D_jx5pu")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component") groups=["players"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("8_1duo4")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cagylv8tw55it"
+
+[node name="BodyShape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-3, 0)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_w07hb")
+
+[node name="FrontShape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(41, 0)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_lxoi7")
+
+[node name="AutoAimCannon" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("10_w07hb")]
+unique_name_in_owner = true
+position = Vector2(40, 0)
+parent = NodePath("..")
+target_groups = Array[String](["enemies"])
+friendly_groups = Array[String](["players"])
+
+[node name="HealthComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_bjshi")
+metadata/_custom_type_script = "uid://dsmk2mjcttyx8"
 
 [node name="ShipMovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
 unique_name_in_owner = true
@@ -53,27 +91,4 @@ script = ExtResource("6_vc7ef")
 character = NodePath("..")
 metadata/_custom_type_script = "uid://dgkclkobpug1q"
 
-[node name="HealthComponent" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("4_bjshi")
-max_health = 5
-health = 5
-metadata/_custom_type_script = "uid://dsmk2mjcttyx8"
-
-[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("8_1duo4")
-health_component = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://cagylv8tw55it"
-
-[node name="BodyShape" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, -3)
-shape = SubResource("CapsuleShape2D_w07hb")
-
-[node name="FrontShape" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, 41)
-rotation = 0.785398
-shape = SubResource("RectangleShape2D_lxoi7")
-
-[node name="AutoAimCannon" parent="." instance=ExtResource("10_w07hb")]
-unique_name_in_owner = true
-position = Vector2(0, 30)
+[connection signal="health_updated" from="HealthComponent" to="." method="_on_health_component_health_updated"]
