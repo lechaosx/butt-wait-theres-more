@@ -42,12 +42,6 @@ unique_name_in_owner = true
 script = ExtResource("4_go85f")
 character = NodePath("..")
 steering_angle = 30.0
-power = 100.0
-friction = 30.0
-drag = 0.1
-traction = 0.8
-brakes = 100.0
-ship_length = 50.0
 metadata/_custom_type_script = "uid://dgkclkobpug1q"
 
 [node name="ViewArea" type="Area2D" parent="."]

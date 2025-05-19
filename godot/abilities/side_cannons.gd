@@ -34,8 +34,8 @@ func add_pair() -> void:
 	left_cannon.piercing = _piercing
 	right_cannon.piercing = _piercing
 	
-	left_cannon.sea = sea
-	right_cannon.sea = sea
+	left_cannon.world = sea
+	right_cannon.world = sea
 	
 	left_cannon.body = body
 	right_cannon.body = body

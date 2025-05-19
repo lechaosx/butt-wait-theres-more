@@ -1,26 +1,36 @@
-class_name CannonBall
-extends RigidBody2D
+@tool extends RigidBody2D
 
-@export var damage : int = 1
-@export var piercing : int = 0
-@export var fly_time : float = 1
+@export var damage: int = 1
+@export var piercing: int = 0
 
-func _ready() -> void:
-	$Timer.wait_time = fly_time
+@export var friendly_groups: Array[String] = []
 
-const speed_limit = 300
-const size_vec_scalor = 0.002
-const size_time_scalor = 3
-const time_speed_scalor = 2
+@export var fly_time : float = 1:
+	set(value):
+		if not is_node_ready(): await ready
+		$Timer.wait_time = value
+	get: return $Timer.wait_time
+	
+func _friendly(node: Node) -> bool:
+	for group in friendly_groups:
+		if node.is_in_group(group):
+			return true
+	return false
 
-func arc(x: float) -> float:
+func _arc(x: float) -> float:
 	return 4 * x * (1 - x)
 
-func _physics_process(_delta: float) -> void:
-	var new_scale := arc(lerp(0, 1, (fly_time - $Timer.time_left) / fly_time)) * 2
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+			return
+		
+	var new_scale := _arc(lerp(0, 1, (fly_time - $Timer.time_left) / fly_time)) * 2
 	$Sprite2D.scale = Vector2(new_scale, new_scale)
 
 func _on_body_entered(body: Node) -> void:
+	if _friendly(body):
+		return
+		
 	for child in body.get_children():
 		if child is HealthComponent:
 			child.hitpoints -= damage
@@ -32,15 +42,15 @@ func _on_body_entered(body: Node) -> void:
 		piercing -= 1
 		var impact := preload("res://effects/impact2/impact2.tscn").instantiate()
 		impact.transform = transform
-		get_tree().root.add_child(impact);
+		add_sibling(impact);
 	else:
 		var impact := preload("res://effects/impact/impact.tscn").instantiate()
-		impact.transform = transform
-		get_parent().add_child(impact);
+		impact.global_position = global_position
+		add_sibling(impact);
 		queue_free()
 
 func _on_timer_timeout() -> void:
-	var instance := preload("res://effects/splash/splash.tscn").instantiate()
-	instance.position = position
-	get_parent().add_child(instance);
+	var splash := preload("res://effects/splash/splash.tscn").instantiate()
+	splash.global_position = global_position
+	add_sibling(splash);
 	queue_free()

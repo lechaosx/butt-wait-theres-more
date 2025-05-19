@@ -1,9 +1,9 @@
 @tool extends Node2D
 
-@export var sea: Sea
-@export var body: CharacterBody2D
+@export var world: Node
+@export var parent: CharacterBody2D
 
-@export var ball_speed: int = 40000
+@export var ball_speed: int = 600
 @export var projectile_damage: int = 1
 
 @export var piercing: int = 0
@@ -27,8 +27,10 @@ func _on_timer_timeout() -> void:
 	instance.piercing = piercing
 	instance.position = global_position + global_transform.x * $Sprite2D.texture.get_width()
 	instance.scale = Vector2(0.5, 0.5)
-	instance.add_collision_exception_with(body)
-	instance.apply_force(ball_speed * global_transform.x + body.velocity)
-	sea.add_child(instance)
+	
+	instance.add_collision_exception_with(parent)
+	
+	instance.linear_velocity = ball_speed * global_transform.x.normalized() + parent.velocity
+	world.add_child(instance)
 	
 	$AudioStreamPlayer2D.play()

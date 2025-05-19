@@ -1,48 +1,75 @@
-extends Node2D
+@tool extends Node2D
 
-@export var world: Node = self
-@export var owning_body: CharacterBody2D
+@export var world: Node
+@export var parent: CharacterBody2D
 
-@export var view_range: int = 500
-@export var target_group: String = "enemies"
+@export var target_groups: Array[String] = []
+@export var friendly_groups: Array[String] = []
 
-@export var ball_speed: int = 40000
-@export var projectile_damage: int = 1
-@export var piercing: int = 1
+@export var speed: int = 600
+@export var damage: int = 1
+@export var piercing: int = 0
+
+@export var view_range: int = 500:
+	set(value):
+		if not is_node_ready(): await ready
+		$DetectionArea/CollisionShape2D.shape.radius = value
+	get: return $DetectionArea/CollisionShape2D.shape.radius
+
+func _targetable(node: Node) -> bool:
+	for group in target_groups:
+		if node.is_in_group(group):
+			return true
+	return false
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: Array[String] = []
+	if not world: warnings.append("World is not set!")
+	if not parent: warnings.append("Parent is not set!")
+	return warnings
 
 func _get_nearest_target() -> Node2D:
 	var target: Node2D
 	
 	var min_distance: float = view_range
-	for body: Node2D in $Area2D.get_overlapping_bodies():
-		if body.is_in_group(target_group):
-			var distance: float = (body.global_position - global_position).length()
+	for body: Node2D in $DetectionArea.get_overlapping_bodies():
+		if _targetable(body):
+			var distance := global_position.distance_to(body.global_position)
 			if distance <= min_distance:
 				min_distance = distance
 				target = body
 				
 	return target
-
-func _process(_delta: float) -> void:
-	var target := _get_nearest_target()
-
-	if not target:
-		rotation = 0
-		return
 	
-	global_rotation = global_position.direction_to(target.global_position + target.velocity * global_position.distance_to(target.global_position) / 10).angle()
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+		
+	var target := _get_nearest_target()
+	if target:
+		# TODO Predictive aiming
+		global_rotation = (target.global_position - global_position).angle()
+	else:
+		rotation = 0
 
 func _on_timer_timeout() -> void:
 	var instance := preload("res://projectiles/cannon_ball/cannon_ball.tscn").instantiate()
-	instance.damage = projectile_damage
+	instance.global_position = $Barrel.global_position
+	
+	instance.damage = damage
 	instance.piercing = piercing
-	instance.position = global_position + global_transform.y * $Sprite2D.texture.get_width()
-	instance.scale = Vector2(0.5, 0.5)
 	
-	instance.apply_force(ball_speed * global_transform.y)
+	instance.friendly_groups = friendly_groups
+
+	instance.linear_velocity = speed * Vector2.RIGHT.rotated(global_rotation)
 	
-	if owning_body:
-		instance.add_collision_exception_with(owning_body)
-		instance.apply_force(owning_body.velocity)
-	
-	world.add_child(instance)
+	if parent:
+		instance.linear_velocity += parent.velocity
+		instance.add_collision_exception_with(parent)
+		
+	if world:
+		world.add_child(instance)
+	else:
+		get_tree().root.add_child(instance)
+		
+	$AudioStreamPlayer2D.play()

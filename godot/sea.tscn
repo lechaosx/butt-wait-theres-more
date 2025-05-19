@@ -41,11 +41,11 @@ controller = NodePath("UserController")
 [node name="PlayerCamera" type="Camera2D" parent="PlayerShip"]
 script = ExtResource("4_a0flf")
 
-[node name="AutoCannon" parent="PlayerShip" node_paths=PackedStringArray("sea", "body") instance=ExtResource("3_ari0p")]
+[node name="AutoCannon" parent="PlayerShip" node_paths=PackedStringArray("world", "parent") instance=ExtResource("3_ari0p")]
 unique_name_in_owner = true
 position = Vector2(36, 0.000130355)
-sea = NodePath("../..")
-body = NodePath("..")
+world = NodePath("../..")
+parent = NodePath("..")
 interval = 2.0
 
 [node name="AutoAimCannonController" type="Node" parent="PlayerShip/AutoCannon"]
@@ -96,8 +96,8 @@ min_change_duration = 5.0
 wait_time = 15.0
 one_shot = true
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("sea") instance=ExtResource("13_ifsnf")]
-sea = NodePath("..")
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("world") instance=ExtResource("13_ifsnf")]
+world = NodePath("..")
 
 [node name="BarrelSpawnTimer" type="Timer" parent="."]
 autostart = true
@@ -162,8 +162,8 @@ metadata/_custom_type_script = "uid://sl7mlnyefejt"
 [connection signal="hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_hitpoints_updated"]
 [connection signal="max_hitpoints_updated" from="PlayerShip/HealthComponent" to="." method="_on_health_component_max_hitpoints_updated"]
 [connection signal="cargo_updated" from="PlayerShip/CargoHold" to="." method="_on_cargo_hold_cargo_updated"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="finished" from="HUD/KillScreen" to="." method="_on_kill_screen_finished"]

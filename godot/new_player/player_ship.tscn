@@ -74,7 +74,6 @@ position = Vector2(0, 41)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_lxoi7")
 
-[node name="AutoAimCannon" parent="." node_paths=PackedStringArray("owning_body") instance=ExtResource("10_w07hb")]
+[node name="AutoAimCannon" parent="." instance=ExtResource("10_w07hb")]
 unique_name_in_owner = true
 position = Vector2(0, 30)
-owning_body = NodePath("..")

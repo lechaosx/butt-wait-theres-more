@@ -15,8 +15,8 @@ func spawn() -> void:
 	cannon.position.x = 40
 	cannon.add_child(AutoAimCannonController.new())
 	ship.add_child(cannon)
-	cannon.sea = sea
-	cannon.body = ship
+	cannon.world = sea
+	cannon.parent = ship
 	
 	ship.add_to_group("friendly")
 	ship.get_node("AnimatedSprite2D").animation = "green"

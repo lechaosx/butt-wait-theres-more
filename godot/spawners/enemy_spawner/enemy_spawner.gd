@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var sea: Sea
+@export var world: Node
 @export var difficulty_score : float = 10.0 
 @export var base_hp: int = 5
 
@@ -50,8 +50,8 @@ func spawn_gun_enemy(hitpoints: int) -> void:
 	cannon.interval = 2
 	cannon.position.x = 42
 	cannon.set_z_index(2)
-	cannon.sea = sea
-	cannon.body = ship
+	cannon.world = world
+	cannon.parent = ship
 	ship.add_child(cannon)
 	
 	if randf() < 0.001 * difficulty_score:
@@ -67,10 +67,10 @@ func spawn_gun_enemy(hitpoints: int) -> void:
 		right_cannon.rotation = deg_to_rad(-45)
 		left_cannon.set_z_index(2)
 		right_cannon.set_z_index(2)
-		left_cannon.sea = sea
-		right_cannon.sea = sea
-		left_cannon.body = ship
-		right_cannon.body = ship
+		left_cannon.world = world
+		right_cannon.world = world
+		left_cannon.parent = ship
+		right_cannon.parent = ship
 		ship.add_child(left_cannon)
 		ship.add_child(right_cannon)
 	
@@ -102,8 +102,8 @@ func spawn_boss_enemy(hitpoints: int) -> void:
 		cannon.position.x = 42
 		cannon.position.y = (4 - n) * 12.5
 		cannon.set_z_index(2)
-		cannon.sea = sea
-		cannon.body = ship
+		cannon.world = world
+		cannon.parent = ship
 		ship.add_child(cannon)
 		
 	add_child(ship)
@@ -122,8 +122,8 @@ func spawn_boss_enemy_2(hitpoints: int) -> void:
 		cannon.default_cannon_cooldown_time = 1
 		cannon.ball_speed = cannon.ball_speed * 2
 		cannon.set_z_index(2)
-		cannon.sea = sea
-		cannon.body = ship
+		cannon.world = world
+		cannon.parent = ship
 		ship.add_child(cannon)
 		
 	add_child(ship)
