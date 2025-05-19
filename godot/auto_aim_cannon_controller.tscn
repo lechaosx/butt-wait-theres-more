@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfivlbe17p27t"]
+
+[ext_resource type="Script" uid="uid://bkqfcptttkcv6" path="res://auto_aim_cannon_controller.gd" id="1_6vo7p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7wg3m"]
+radius = 500.0
+
+[node name="AutoAimCannonController" type="Area2D"]
+script = ExtResource("1_6vo7p")
+view_range = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7wg3m")

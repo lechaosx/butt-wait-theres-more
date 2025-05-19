@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdcbv68l7mevp"]
+[gd_scene load_steps=8 format=3 uid="uid://cdcbv68l7mevp"]
 
 [ext_resource type="Script" uid="uid://cdg0y5y5rjgjk" path="res://new_player/friendly_ship.gd" id="1_roj7t"]
-[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_x3hw2"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://new_player/ship_movement_component.gd" id="4_go85f"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://new_player/ram_area.tscn" id="5_acmpf"]
 
@@ -22,11 +21,6 @@ b = Vector2(0, 1)
 motion_mode = 1
 script = ExtResource("1_roj7t")
 view_range = 600
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-sprite_frames = ExtResource("2_x3hw2")
-animation = &"green"
 
 [node name="BodyShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)

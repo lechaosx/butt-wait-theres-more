@@ -6,8 +6,8 @@ signal health_updated
 @export var world: Node:
 	set(value):
 		if not is_node_ready(): await ready
-		%AutoAimCannon.world = value
-	get: return %AutoAimCannon.world
+		%Cannon.world = value
+	get: return %Cannon.world
 		
 @export var max_health: int:
 	set(value):
@@ -48,8 +48,8 @@ signal health_updated
 @export var projectile_damage: int:
 	set(value):
 		if not is_node_ready(): await ready
-		$AutoAimCannon.damage = value
-	get: return $AutoAimCannon.damage
+		$Cannon.projectile_damage = value
+	get: return $Cannon.projectile_damage
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: Array[String] = []
@@ -74,3 +74,6 @@ func _on_health_component_max_health_updated() -> void:
 	
 func _on_health_component_health_updated() -> void:
 	health_updated.emit()
+	
+	if %HealthComponent.health <= 0:
+		%Cannon/Timer.stop()

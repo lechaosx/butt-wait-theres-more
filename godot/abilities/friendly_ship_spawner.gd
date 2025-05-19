@@ -10,13 +10,22 @@ func spawn() -> void:
 	ship.traction = 50
 	ship.add_child(ship.controller)
 	
-	var cannon := preload("auto_cannon.tscn").instantiate()
-	cannon.interval = 2
+	var cannon := preload("res://cannon.tscn").instantiate()
 	cannon.position.x = 40
-	cannon.add_child(AutoAimCannonController.new())
-	ship.add_child(cannon)
 	cannon.world = sea
 	cannon.parent = ship
+	
+	var controller := preload("res://auto_aim_cannon_controller.tscn").instantiate()
+	controller.cannon = cannon
+	cannon.add_child(controller)
+	
+	var timer := Timer.new()
+	timer.wait_time = 2
+	timer.autostart = true
+	timer.timeout.connect(cannon.fire)
+	cannon.add_child(timer)
+	
+	ship.add_child(cannon)
 	
 	ship.add_to_group("friendly")
 	ship.get_node("AnimatedSprite2D").animation = "green"

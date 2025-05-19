@@ -4,7 +4,7 @@ extends Node2D
 @export var difficulty_score : float = 10.0 
 @export var base_hp: int = 5
 
-const cannon_scene := preload("res://abilities/auto_cannon.tscn")
+const cannon_scene := preload("res://cannon.tscn")
 
 func _process(delta: float) -> void:
 	difficulty_score += delta
@@ -50,18 +50,22 @@ func spawn_gun_enemy(health: int) -> void:
 	var ship := spawn_enemy_ship()
 	add_hp(ship, health)
 	var cannon := cannon_scene.instantiate()
-	cannon.interval = 2
 	cannon.position.x = 42
 	cannon.set_z_index(2)
 	cannon.world = world
 	cannon.parent = ship
+	
+	var timer := Timer.new()
+	timer.wait_time = 2
+	timer.autostart = true
+	timer.timeout.connect(cannon.fire)
+	ship.add_child(timer)
+	
 	ship.add_child(cannon)
 	
 	if randf() < 0.001 * difficulty_score:
 		var left_cannon := cannon_scene.instantiate()
 		var right_cannon := cannon_scene.instantiate()
-		left_cannon.interval = 2
-		right_cannon.interval = 2
 		left_cannon.position.x = 30
 		left_cannon.position.y = 15
 		right_cannon.position.x = 30
@@ -74,6 +78,10 @@ func spawn_gun_enemy(health: int) -> void:
 		right_cannon.world = world
 		left_cannon.parent = ship
 		right_cannon.parent = ship
+		
+		timer.timeout.connect(left_cannon.fire)
+		timer.timeout.connect(right_cannon.fire)
+		
 		ship.add_child(left_cannon)
 		ship.add_child(right_cannon)
 	
@@ -101,12 +109,18 @@ func spawn_boss_enemy(health: int) -> void:
 	
 	for n in 8:
 		var cannon := cannon_scene.instantiate()
-		cannon.interval = 2
 		cannon.position.x = 42
 		cannon.position.y = (4 - n) * 12.5
 		cannon.set_z_index(2)
 		cannon.world = world
 		cannon.parent = ship
+		
+		var timer := Timer.new()
+		timer.wait_time = 2
+		timer.autostart = true
+		timer.timeout.connect(cannon.fire)
+		cannon.add_child(timer)
+		
 		ship.add_child(cannon)
 		
 	add_child(ship)
@@ -119,7 +133,6 @@ func spawn_boss_enemy_2(health: int) -> void:
 	
 	for n in 10:
 		var cannon := cannon_scene.instantiate()
-		cannon.interval = 2
 		cannon.position.x = 42
 		cannon.position.y = (5 - n) * 12.5
 		cannon.default_cannon_cooldown_time = 1
@@ -127,6 +140,13 @@ func spawn_boss_enemy_2(health: int) -> void:
 		cannon.set_z_index(2)
 		cannon.world = world
 		cannon.parent = ship
+		
+		var timer := Timer.new()
+		timer.wait_time = 2
+		timer.autostart = true
+		timer.timeout.connect(cannon.fire)
+		cannon.add_child(timer)
+		
 		ship.add_child(cannon)
 		
 	add_child(ship)

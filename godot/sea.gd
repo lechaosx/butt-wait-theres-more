@@ -32,7 +32,7 @@ signal game_ended(score: int)
 	set(value):
 		cannon_damage = value
 		if not is_node_ready(): await ready
-		%AutoCannon.projectile_damage = cannon_damage
+		%Cannon.projectile_damage = cannon_damage
 		%SideCannons.projectile_damage = cannon_damage
 
 func _ready() -> void:
@@ -91,11 +91,11 @@ func _on_cargo_hold_cargo_updated() -> void:
 		_upgrade_abilities()
 
 func _on_cooling_leveled_up() -> void:
-	%AutoCannon.interval = 2.0 - (2.0 * $Abilities/Cooling.level() / 6.0)
+	%Cannon/Timer.wait_time = 2.0 - (2.0 * $Abilities/Cooling.level() / 6.0)
 
 func _on_piercing_leveled_up() -> void:
 	%SideCannons.level_up_piercing()
-	%AutoCannon.piercing += 1
+	%Cannon.projectile_piercing += 1
 
 func _on_side_cannons_leveled_up() -> void:
 	%SideCannons.add_pair()

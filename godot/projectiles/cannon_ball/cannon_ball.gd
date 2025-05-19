@@ -3,20 +3,12 @@
 @export var damage: int = 1
 @export var piercing: int = 0
 
-@export var friendly_groups: Array[String] = []
-
 @export var fly_time : float = 1:
 	set(value):
 		if not is_node_ready(): await ready
 		$Timer.wait_time = value
 	get: return $Timer.wait_time
 	
-func _friendly(node: Node) -> bool:
-	for group in friendly_groups:
-		if node.is_in_group(group):
-			return true
-	return false
-
 func _arc(x: float) -> float:
 	return 4 * x * (1 - x)
 	
@@ -29,9 +21,6 @@ func _process(_delta: float) -> void:
 
 # Legacy method for when the hits are detected by the root body
 func _on_body_entered(body: Node) -> void:
-	if _friendly(body):
-		return
-		
 	for child in body.get_children():
 		if child is HealthComponent:
 			child.health -= damage
@@ -51,9 +40,6 @@ func _on_body_entered(body: Node) -> void:
 		queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if _friendly(area):
-		return
-		
 	if area is HurtboxComponent:
 		area.apply_damage(damage)
 		

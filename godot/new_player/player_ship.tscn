@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://new_player/health_based_sprite_component.gd" id="4_lv0p8"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://new_player/ship_movement_component.gd" id="6_vc7ef"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://new_player/ram_area.tscn" id="7_1duo4"]
+[ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="7_jx5pu"]
 [ext_resource type="Script" uid="uid://cagylv8tw55it" path="res://new_player/hurtbox_component.gd" id="8_1duo4"]
 [ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="8_jx5pu"]
-[ext_resource type="PackedScene" uid="uid://sqdcgd478kj0" path="res://new_player/auto_aim_cannon.tscn" id="10_w07hb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w07hb"]
 radius = 16.0
@@ -73,12 +73,14 @@ position = Vector2(41, 0)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_lxoi7")
 
-[node name="AutoAimCannon" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("10_w07hb")]
+[node name="Cannon" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_jx5pu")]
 unique_name_in_owner = true
 position = Vector2(40, 0)
 parent = NodePath("..")
-target_groups = Array[String](["enemies"])
-friendly_groups = Array[String](["players"])
+
+[node name="Timer" type="Timer" parent="Cannon"]
+wait_time = 2.0
+autostart = true
 
 [node name="ShipMovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
 unique_name_in_owner = true
@@ -91,5 +93,6 @@ unique_name_in_owner = true
 script = ExtResource("8_jx5pu")
 metadata/_custom_type_script = "uid://diciamkrxbr8n"
 
+[connection signal="timeout" from="Cannon/Timer" to="Cannon" method="fire"]
 [connection signal="health_updated" from="HealthComponent" to="." method="_on_health_component_health_updated"]
 [connection signal="max_health_updated" from="HealthComponent" to="." method="_on_health_component_max_health_updated"]
