@@ -6,9 +6,7 @@
 @export var interval: float:
 	set(value):
 		interval = value
-		
 		if not is_node_ready(): await ready
-		
 		$Timer.stop()
 		if interval > 0:
 			$Timer.wait_time = interval

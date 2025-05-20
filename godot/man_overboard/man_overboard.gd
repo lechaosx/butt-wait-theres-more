@@ -8,8 +8,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	for body in get_overlapping_bodies():
-		for child in body.get_children():
-			if child is HealthComponent:
-				child.health += 1
-				queue_free()
-				return
+		if "health" in body:
+			body.health += 1
+			queue_free()
+			return

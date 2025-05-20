@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://cdcbv68l7mevp"]
+
+[ext_resource type="Script" uid="uid://cdg0y5y5rjgjk" path="res://friendly_ship.gd" id="1_roj7t"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_400tc"]
+[ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="4_go85f"]
+[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://ram_area.tscn" id="5_acmpf"]
+[ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="5_soahv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_go85f"]
+radius = 8.0
+height = 48.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acmpf"]
+size = Vector2(7.5, 7.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_go85f"]
+radius = 800.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_8lgvm"]
+b = Vector2(1, 0)
+
+[node name="FriendlyShip" type="CharacterBody2D" groups=["friendly"]]
+motion_mode = 1
+script = ExtResource("1_roj7t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("2_400tc")
+animation = &"green"
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 0)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_go85f")
+
+[node name="FrontShape" type="CollisionShape2D" parent="."]
+position = Vector2(20.5, 0)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_acmpf")
+
+[node name="ShipMovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+script = ExtResource("4_go85f")
+character = NodePath("..")
+steering_angle = 30.0
+power = 250.0
+ship_length = 25.0
+metadata/_custom_type_script = "uid://dgkclkobpug1q"
+
+[node name="ViewArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewArea"]
+shape = SubResource("CircleShape2D_go85f")
+
+[node name="RamArea" parent="." instance=ExtResource("5_acmpf")]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RamArea"]
+position = Vector2(26, 0)
+shape = SubResource("SegmentShape2D_8lgvm")
+
+[node name="Cannon" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_soahv")]
+position = Vector2(23, 0)
+scale = Vector2(0.25, 0.25)
+parent = NodePath("..")
+
+[node name="Timer" type="Timer" parent="Cannon"]
+wait_time = 2.0
+autostart = true
+
+[node name="RamTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="rammed" from="RamArea" to="." method="_on_ram_area_rammed"]
+[connection signal="timeout" from="Cannon/Timer" to="Cannon" method="fire"]

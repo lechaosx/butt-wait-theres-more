@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://kn70kmto5cby"]
 
-[ext_resource type="Script" uid="uid://06a4emw6yo0y" path="res://abilities/barel_dropping.gd" id="1_3qdww"]
+[ext_resource type="Script" uid="uid://06a4emw6yo0y" path="res://abilities/barrel_dropping.gd" id="1_3qdww"]
 
-[node name="BarelDropping" type="Node"]
+[node name="BarrelDropping" type="Node"]
 script = ExtResource("1_3qdww")
 
 [node name="Timer" type="Timer" parent="."]

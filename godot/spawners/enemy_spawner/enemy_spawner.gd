@@ -32,14 +32,12 @@ func spawn_enemy_ship() -> Ship:
 	return ship
 
 func add_hp(ship: Ship, health: int) -> void:
-	var HP := HealthComponent.new()
-	HP.health_updated.connect(func() -> void: 
-		if HP.health <= 0: 
+	ship.health_updated.connect(func() -> void: 
+		if ship.health <= 0: 
 			_on_enemy_death(ship)
 	)
-	HP.max_health = health
-	HP.health = health
-	ship.add_child(HP)
+	ship.max_health = health
+	ship.health = health
 
 func spawn_ramming_enemy(health: int) -> void:
 	var ship := spawn_enemy_ship()

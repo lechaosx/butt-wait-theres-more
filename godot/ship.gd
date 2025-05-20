@@ -1,5 +1,8 @@
 class_name Ship extends CharacterBody2D
 
+signal health_updated
+signal max_health_updated
+
 @export var steering_angle: float = 25
 @export var power: float  = 100
 @export var friction: float  = 30
@@ -12,18 +15,28 @@ class_name Ship extends CharacterBody2D
 
 @export var controller: Node
 
+@export var max_health: int:
+	set(value):
+		if not is_node_ready(): await ready
+		$HealthComponent.max_health = value
+	get: return $HealthComponent.max_health
+
+@export var health: int:
+	set(value):
+		if not is_node_ready(): await ready
+		$HealthComponent.health = value
+	get: return $HealthComponent.health
+
 func _process(_delta: float) -> void:
-	for child in get_children():
-		if child is HealthComponent:
-			var health: float = 1.0 * child.health / child.max_health
-			if health > 0.75:
-				$AnimatedSprite2D.frame = 0
-			elif health > 0.5:
-				$AnimatedSprite2D.frame = 1
-			elif health > 0.25:
-				$AnimatedSprite2D.frame = 2
-			else:
-				$AnimatedSprite2D.frame = 3
+		var ratio: float = 1.0 * health / max_health
+		if ratio > 0.75:
+			$AnimatedSprite2D.frame = 0
+		elif ratio > 0.5:
+			$AnimatedSprite2D.frame = 1
+		elif ratio > 0.25:
+			$AnimatedSprite2D.frame = 2
+		else:
+			$AnimatedSprite2D.frame = 3
 
 func _physics_process(delta: float) -> void:
 	var acceleration_intent: float = controller.get_acceleration_strength() if controller else 0.0
@@ -64,3 +77,11 @@ func _on_ram_area_body_entered(body: Node2D) -> void:
 
 	if controller.has_method("on_ramming"):
 		controller.on_ramming()
+
+
+func _on_health_component_health_updated() -> void:
+	health_updated.emit()
+
+
+func _on_health_component_max_health_updated() -> void:
+	max_health_updated.emit()
