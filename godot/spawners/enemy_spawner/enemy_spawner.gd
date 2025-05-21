@@ -100,7 +100,7 @@ func _spawn_boss_enemy_2(health: int) -> void:
 	ship.cargo = 5
 	
 	var timer := Timer.new()
-	timer.wait_time = 2
+	timer.wait_time = 1
 	timer.autostart = true
 	ship.add_child(timer)
 	
@@ -109,8 +109,7 @@ func _spawn_boss_enemy_2(health: int) -> void:
 		cannon.scale = Vector2(0.3, 0.3)
 		cannon.position.x = 13
 		cannon.position.y = (5 - n) * 4
-		cannon.default_cannon_cooldown_time = 1
-		cannon.ball_speed = cannon.ball_speed * 2
+		cannon.projectile_speed = cannon.projectile_speed * 2
 		cannon.set_z_index(2)
 		cannon.world = world
 		cannon.parent = ship
