@@ -6,8 +6,6 @@ extends Node2D
 @export var effect_area := Vector2(1280, 720) * 2
 @export var base_speed: float = 50
 
-@export var rotating_particles : bool
-
 var _speedCoef: float = 1.0
 var _direction := Vector2(1, 0)
 var _pool: Array[Sprite2D] = []
@@ -51,8 +49,8 @@ func _process(delta: float) -> void:
 	
 	_spawn_position = %PlayerShip.position - 0.4 * sign(_direction) * effect_area
 	for particle: WindParticle in _active:
-		if rotating_particles:
-			particle.change_direction(_speedCoef * base_speed, _direction)
+		particle.change_direction(_speedCoef * base_speed, _direction)
+		
 		if !particle.is_visible_on_screen():
 			# calculate if particle direction is away from player
 			var l1: float = (particle.position - %PlayerShip.position).length()
@@ -73,7 +71,4 @@ func _process(delta: float) -> void:
 		var particle: WindParticle = _pool.pop_back()
 		_active.append(particle)
 		var pos := _spawn_position + _direction.orthogonal() * randf_range(-effect_area.x, effect_area.x)
-		if rotating_particles:
-			particle.reset(pos, _speedCoef * base_speed, _direction)
-		elif target_direction and target_speed:
-			particle.reset(pos, target_speed * base_speed, target_direction)
+		particle.reset(pos, _speedCoef * base_speed, _direction)
