@@ -82,8 +82,9 @@ signal cargo_updated
 
 var cargo: int:
 	set(value):
-		cargo = value
-		cargo_updated.emit()
+		if cargo != value:
+			cargo = value
+			cargo_updated.emit()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: Array[String] = []

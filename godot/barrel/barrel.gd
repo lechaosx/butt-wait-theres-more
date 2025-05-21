@@ -11,6 +11,9 @@
 		if not is_node_ready(): await ready
 		$HealthComponent.health = value
 	get: return $HealthComponent.health
+	
+func _ready() -> void:
+	$Sprite2D.scale = Vector2(0, 0)
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():

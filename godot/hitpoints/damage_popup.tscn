@@ -107,6 +107,7 @@ _data = {
 }
 
 [node name="DamagePopup" type="Marker2D"]
+z_index = 10
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_sc42t")
 

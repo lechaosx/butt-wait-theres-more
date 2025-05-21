@@ -94,7 +94,7 @@ func _on_player_ship_max_health_updated() -> void:
 func _on_player_ship_cargo_updated() -> void:
 	%CargoCounter.count = %PlayerShip.cargo
 	
-	if %PlayerShip.cargo >= %CargoCounter.cargo_cap:
+	if not get_tree().paused and %PlayerShip.cargo >= %CargoCounter.cargo_cap:
 		var upgradable_abilities: Array[Ability] = []
 
 		for ability in %Abilities.get_children():
@@ -110,8 +110,6 @@ func _on_player_ship_cargo_updated() -> void:
 			get_tree().paused = false
 			
 			ability.level_up()
-			
-			%PlayerShip.cargo -= %CargoCounter.cargo_cap
-			
+		
 			%CargoCounter.cargo_cap += 1
-			%CargoCounter.count = %PlayerShip.cargo
+			%PlayerShip.cargo -= %CargoCounter.cargo_cap - 1

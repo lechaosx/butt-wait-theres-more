@@ -28,7 +28,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 6.0
+"speed": 10.0
 }]
 
 [node name="Explosion" type="Area2D"]
@@ -43,7 +43,5 @@ shape = SubResource("CircleShape2D_1m3au")
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_18xnr")
 autoplay = "default"
-frame = 4
-frame_progress = 1.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
