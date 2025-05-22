@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbrtvx1fx65q6"]
+[gd_scene load_steps=11 format=3 uid="uid://owe87w7hmhqf"]
 
 [ext_resource type="Script" uid="uid://bhwc0xck2c1r0" path="res://enemy_ship.gd" id="1_4cq66"]
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://health_based_sprite_component.gd" id="1_4s8is"]
 [ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_v4325"]
 [ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="3_v4325"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="4_qnc0x"]
+[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://ram_area.tscn" id="6_5iamw"]
+[ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="7_q88n7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3vuw"]
 radius = 16.0
@@ -23,6 +25,14 @@ script = ExtResource("1_4cq66")
 max_health = 5
 health = 5
 
+[node name="HealthBasedSpriteComponent" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("health_component")]
+rotation = -1.5708
+sprite_frames = ExtResource("2_v4325")
+animation = &"gray"
+script = ExtResource("1_4s8is")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://dicrof58losyh"
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 0)
 rotation = 1.5708
@@ -33,24 +43,9 @@ position = Vector2(41, -9.53674e-07)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_v4325")
 
-[node name="RamArea" type="Area2D" parent="."]
-position = Vector2(52, 0)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
-shape = SubResource("SegmentShape2D_v4325")
-
 [node name="HealthComponent" type="Node" parent="."]
-unique_name_in_owner = true
 script = ExtResource("3_v4325")
 metadata/_custom_type_script = "uid://diciamkrxbr8n"
-
-[node name="HealthBasedSpriteComponent" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("health_component")]
-rotation = -1.5708
-sprite_frames = ExtResource("2_v4325")
-animation = &"gray"
-script = ExtResource("1_4s8is")
-health_component = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://dicrof58losyh"
 
 [node name="ShipMovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
 unique_name_in_owner = true
@@ -62,6 +57,40 @@ metadata/_custom_type_script = "uid://dgkclkobpug1q"
 [node name="SinkDownTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="RamArea" to="." method="_on_ram_area_body_entered"]
+[node name="RamArea" parent="." instance=ExtResource("6_5iamw")]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
+position = Vector2(52, 0)
+shape = SubResource("SegmentShape2D_v4325")
+
+[node name="CannonTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Cannon" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_q88n7")]
+visible = false
+position = Vector2(42, 0)
+parent = NodePath("..")
+enabled = false
+
+[node name="RightCannon" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_q88n7")]
+visible = false
+position = Vector2(30, 15)
+rotation = 0.785398
+parent = NodePath("..")
+enabled = false
+
+[node name="LeftCannon" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_q88n7")]
+visible = false
+position = Vector2(30, -15)
+rotation = -0.785398
+parent = NodePath("..")
+enabled = false
+
 [connection signal="health_updated" from="HealthComponent" to="." method="_on_health_component_health_updated"]
 [connection signal="max_health_updated" from="HealthComponent" to="." method="_on_health_component_max_health_updated"]
+[connection signal="timeout" from="CannonTimer" to="Cannon" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="RightCannon" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="LeftCannon" method="fire"]

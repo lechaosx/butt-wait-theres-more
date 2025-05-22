@@ -14,52 +14,31 @@ func _random_point_on_circle(radius: float) -> Vector2:
 	var angle := randf() * TAU
 	return Vector2(cos(angle), sin(angle)) * radius
 
-func _spawn_ramming_enemy(health: int) -> void:
+func _ramming_enemy(health: int) -> EnemyShip:
 	var ship := ship_scene.instantiate();
 	ship.target = %PlayerShip
 	ship.position = %PlayerShip.position + _random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 	ship.max_health = health
 	ship.health = health
 	ship.cargo = 1
-	world.add_child(ship)
+	return ship
 	
-func _spawn_gun_enemy(health: int) -> void:
+func _gun_enemy(health: int) -> EnemyShip:
 	var ship := ship_scene.instantiate();
+	ship.world = world
 	ship.target = %PlayerShip
 	ship.position = %PlayerShip.position + _random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
 	ship.max_health = health
 	ship.health = health
+	ship.central_cannon = true
+	
 	ship.cargo = 2
 	
-	var timer := Timer.new()
-	timer.wait_time = 2
-	timer.autostart = true
-	ship.add_child(timer)
-	
-	var cannon := cannon_scene.instantiate()
-	cannon.position.x = 42
-	cannon.set_z_index(2)
-	cannon.world = world
-	cannon.parent = ship
-	ship.add_child(cannon)
-	
-	timer.timeout.connect(cannon.fire)
-	
 	if randf() < 0.001 * difficulty_score:
+		ship.side_cannons = true
 		ship.cargo = 3
 		
-		for side: int in [-1, 1]:
-			var side_cannon := cannon_scene.instantiate()
-			side_cannon.position.x = 30
-			side_cannon.position.y = 15 * side
-			side_cannon.rotation = deg_to_rad(45 * side)
-			side_cannon.set_z_index(2)
-			side_cannon.world = world
-			side_cannon.parent = ship
-			timer.timeout.connect(side_cannon.fire)
-			ship.add_child(side_cannon)
-	
-	world.add_child(ship)
+	return ship
 
 func _spawn_boss_enemy(health: int) -> void:
 	var ship := ship_scene.instantiate();
@@ -126,10 +105,10 @@ func _on_timer_timeout() -> void:
 	
 	if randf() < 0.01 * difficulty_score:
 		var health: int = base_hp * 2 + clamp(round(difficulty_score / 50), 0, 10)
-		_spawn_gun_enemy(health)
+		world.add_child(_gun_enemy(health))
 	else:
 		var health: int = base_hp + clamp(round(difficulty_score / 50), 0, 10)
-		_spawn_ramming_enemy(health)
+		world.add_child(_ramming_enemy(health))
 
 
 func _on_boss_timer_timeout() -> void:
