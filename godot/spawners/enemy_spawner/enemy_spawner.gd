@@ -41,35 +41,6 @@ func _gun_enemy(health: int) -> EnemyShip:
 		
 	return ship
 
-func _spawn_boss_enemy(health: int) -> void:
-	var ship := ship_scene.instantiate();
-	ship.target = %PlayerShip
-	ship.position = %PlayerShip.position + _random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
-	ship.max_health = health
-	ship.health = health
-	ship.global_scale = Vector2(2, 2)
-	ship.cargo = 4
-	
-	var timer := Timer.new()
-	timer.wait_time = 2
-	timer.autostart = true
-	ship.add_child(timer)
-	
-	for n in 8:
-		var cannon := cannon_scene.instantiate()
-		cannon.scale = Vector2(0.5, 0.5)
-		cannon.position.x = 21
-		cannon.position.y = (4 - n) * 6
-		cannon.set_z_index(2)
-		cannon.world = world
-		cannon.parent = ship
-		
-		timer.timeout.connect(cannon.fire)
-		
-		ship.add_child(cannon)
-		
-	add_child(ship)
-
 func _spawn_boss_enemy_2(health: int) -> void:
 	var ship := ship_scene.instantiate();
 	ship.target = %PlayerShip
@@ -118,4 +89,7 @@ func _on_boss_timer_timeout() -> void:
 			_spawn_boss_enemy_2(100)
 	else:
 		for n in range(round(difficulty_score / 60)):
-			_spawn_boss_enemy(60)
+			var ship := preload("res://small_boss_ship.tscn").instantiate();
+			ship.target = %PlayerShip
+			ship.position = %PlayerShip.position + _random_point_on_circle(get_viewport().get_visible_rect().size.length() / 2 * 1.5)
+			world.add_child(ship)

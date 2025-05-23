@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://cmjl4wnghbtk2"]
+
+[ext_resource type="Script" uid="uid://bbgif0ccyf6ss" path="res://small_boss_ship.gd" id="1_5c4ga"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_5thip"]
+[ext_resource type="Script" uid="uid://dicrof58losyh" path="res://health_based_sprite_component.gd" id="3_ksunq"]
+[ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="4_i1h75"]
+[ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="5_qt7qa"]
+[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://damage_area.tscn" id="6_amy2b"]
+[ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="7_3umn6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3vuw"]
+radius = 32.0
+height = 192.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4325"]
+size = Vector2(30, 30)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_v4325"]
+b = Vector2(1, 0)
+
+[node name="SmallBossShip" type="CharacterBody2D" groups=["enemies"]]
+z_index = 1
+motion_mode = 1
+script = ExtResource("1_5c4ga")
+max_health = 60
+health = 60
+
+[node name="Cannon1" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_3umn6")]
+position = Vector2(115, 0)
+parent = NodePath("..")
+
+[node name="Cannon2" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_3umn6")]
+position = Vector2(100, -15)
+parent = NodePath("..")
+
+[node name="Cannon3" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_3umn6")]
+position = Vector2(100, 15)
+parent = NodePath("..")
+
+[node name="Cannon4" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_3umn6")]
+position = Vector2(75, -30)
+parent = NodePath("..")
+
+[node name="Cannon5" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_3umn6")]
+position = Vector2(75, 30)
+parent = NodePath("..")
+
+[node name="HealthBasedSpriteComponent" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("health_component")]
+rotation = -1.5708
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_5thip")
+animation = &"yellow"
+script = ExtResource("3_ksunq")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://dicrof58losyh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_c3vuw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(82, 0)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_v4325")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_i1h75")
+max_health = 60
+health = 60
+metadata/_custom_type_script = "uid://diciamkrxbr8n"
+
+[node name="ShipMovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+script = ExtResource("5_qt7qa")
+character = NodePath("..")
+ship_length = 100.0
+metadata/_custom_type_script = "uid://dgkclkobpug1q"
+
+[node name="SinkDownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RamArea" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_amy2b")]
+parent = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
+position = Vector2(52, 0)
+shape = SubResource("SegmentShape2D_v4325")
+
+[node name="CannonTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="health_updated" from="HealthComponent" to="." method="_on_health_component_health_updated"]
+[connection signal="max_health_updated" from="HealthComponent" to="." method="_on_health_component_max_health_updated"]
+[connection signal="timeout" from="CannonTimer" to="Cannon1" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon2" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon4" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon3" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon5" method="fire"]

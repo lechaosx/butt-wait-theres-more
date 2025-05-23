@@ -34,6 +34,7 @@ func fire() -> void:
 	if world:
 		world.add_child(instance)
 	else:
+		push_warning("World is not set. Spawning cannon ball to the scene root")
 		get_tree().root.add_child(instance)
 	
 	$AudioStreamPlayer2D.play()

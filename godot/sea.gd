@@ -73,6 +73,7 @@ func _on_friendly_ships_leveled_up() -> void:
 	var ship := preload("res://friendly_ship.tscn").instantiate()
 	
 	ship.parent = %PlayerShip
+	ship.world = self
 	ship.global_position = %PlayerShip.global_position + _random_point_on_circle(100)
 	
 	add_child(ship)
