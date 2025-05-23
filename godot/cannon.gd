@@ -7,14 +7,7 @@
 @export var projectile_damage: int = 1
 @export var projectile_piercing: int = 0
 
-@export var enabled: bool = true:
-	set(value):
-		enabled = value
-		visible = value
-		set_physics_process(value)
-		set_process(value)
-		set_process_input(value)
-		set_process_unhandled_input(value)
+@export var enabled: bool = true
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: Array[String] = []

@@ -58,5 +58,5 @@ func _physics_process(_delta: float) -> void:
 		%ShipMovementComponent.brake_intent = 0
 		%ShipMovementComponent.steer_intent = sign(Vector2.RIGHT.rotated(global_rotation).cross(global_position.direction_to(target.global_position)))
 
-func _on_ram_area_rammed(_body: Node2D) -> void:
+func _on_ram_area_damaged(_body: Node2D) -> void:
 	$RamTimer.start()

@@ -31,6 +31,7 @@ func _gun_enemy(health: int) -> EnemyShip:
 	ship.max_health = health
 	ship.health = health
 	ship.central_cannon = true
+	ship.central_cannon = true
 	
 	ship.cargo = 2
 	

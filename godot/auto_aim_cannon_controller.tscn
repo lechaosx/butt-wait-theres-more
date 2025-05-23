@@ -6,6 +6,8 @@
 radius = 500.0
 
 [node name="AutoAimCannonController" type="Area2D"]
+collision_layer = 0
+monitorable = false
 script = ExtResource("1_6vo7p")
 view_range = 500
 

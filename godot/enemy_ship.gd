@@ -25,13 +25,16 @@
 		central_cannon = value
 		if not is_node_ready(): await ready
 		$Cannon.enabled = central_cannon
+		$Cannon.visible = central_cannon
 
 @export var side_cannons: bool:
 	set(value):
 		side_cannons = value
 		if not is_node_ready(): await ready
 		$LeftCannon.enabled = side_cannons
+		$LeftCannon.visible = side_cannons
 		$RightCannon.enabled = side_cannons
+		$RightCannon.visible = side_cannons
 		
 @export var target: Node2D
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cdg0y5y5rjgjk" path="res://friendly_ship.gd" id="1_roj7t"]
 [ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_400tc"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="4_go85f"]
-[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://ram_area.tscn" id="5_acmpf"]
+[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://damage_area.tscn" id="5_acmpf"]
 [ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="5_soahv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_go85f"]
@@ -56,9 +56,8 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ViewArea"]
 shape = SubResource("CircleShape2D_go85f")
 
-[node name="RamArea" parent="." instance=ExtResource("5_acmpf")]
-collision_layer = 0
-monitorable = false
+[node name="RamArea" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_acmpf")]
+parent = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RamArea"]
 position = Vector2(26, 0)
@@ -77,5 +76,5 @@ autostart = true
 wait_time = 0.5
 one_shot = true
 
-[connection signal="rammed" from="RamArea" to="." method="_on_ram_area_rammed"]
+[connection signal="damaged" from="RamArea" to="." method="_on_ram_area_damaged"]
 [connection signal="timeout" from="Cannon/Timer" to="Cannon" method="fire"]

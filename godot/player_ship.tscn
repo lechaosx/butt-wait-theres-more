@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cfivlbe17p27t" path="res://auto_aim_cannon_controller.tscn" id="4_lqyru"]
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://health_based_sprite_component.gd" id="4_lv0p8"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="6_vc7ef"]
-[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://ram_area.tscn" id="7_1duo4"]
+[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://damage_area.tscn" id="7_1duo4"]
 [ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="7_jx5pu"]
 [ext_resource type="PackedScene" uid="uid://kn70kmto5cby" path="res://abilities/barrel_dropping.tscn" id="8_5mroa"]
 [ext_resource type="PackedScene" uid="uid://bqqm1hsravcgy" path="res://sound/sailing_sound.tscn" id="8_65ch3"]
@@ -52,9 +52,9 @@ position = Vector2(41, 0)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_lxoi7")
 
-[node name="RamArea" parent="." instance=ExtResource("7_1duo4")]
+[node name="RamArea" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_1duo4")]
 position = Vector2(52, 0)
-collision_layer = 0
+parent = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RamArea"]
 shape = SubResource("SegmentShape2D_jx5pu")

@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_v4325"]
 [ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="3_v4325"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="4_qnc0x"]
-[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://ram_area.tscn" id="6_5iamw"]
+[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://damage_area.tscn" id="6_5iamw"]
 [ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="7_q88n7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3vuw"]
@@ -57,9 +57,8 @@ metadata/_custom_type_script = "uid://dgkclkobpug1q"
 [node name="SinkDownTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="RamArea" parent="." instance=ExtResource("6_5iamw")]
-collision_layer = 0
-monitorable = false
+[node name="RamArea" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_5iamw")]
+parent = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
 position = Vector2(52, 0)
