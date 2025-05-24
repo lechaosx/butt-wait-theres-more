@@ -1,0 +1,151 @@
+[gd_scene load_steps=11 format=3 uid="uid://b71omghlya6v3"]
+
+[ext_resource type="Script" uid="uid://chfl3350ok15w" path="res://ships/large_boss_ship.gd" id="1_d8fiq"]
+[ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="2_um0nf"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://ships/assets/ship_frames.tres" id="3_dqntl"]
+[ext_resource type="Script" uid="uid://dicrof58losyh" path="res://health_based_sprite_component.gd" id="4_h3rj3"]
+[ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="5_ibwqh"]
+[ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="6_wk1da"]
+[ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://damage_area.tscn" id="7_fp43l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3vuw"]
+radius = 48.0
+height = 288.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4325"]
+size = Vector2(45, 45)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_v4325"]
+b = Vector2(1, 0)
+
+[node name="LargeBossShip" type="CharacterBody2D" groups=["enemies"]]
+z_index = 1
+motion_mode = 1
+script = ExtResource("1_d8fiq")
+max_health = 100
+health = 100
+
+[node name="Cannon1" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(170, 0)
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon2" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(160, -13)
+rotation = -0.174533
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon3" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(160, 13)
+rotation = 0.174533
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon4" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(150, -25)
+rotation = -0.349066
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon5" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(150, 25)
+rotation = 0.349066
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon6" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(135, -35)
+rotation = -0.523599
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon7" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(135, 35)
+rotation = 0.523599
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon8" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(120, -43)
+rotation = -0.698132
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon9" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(120, 43)
+rotation = 0.698132
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon10" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(105, -50)
+rotation = -0.872665
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="Cannon11" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_um0nf")]
+position = Vector2(105, 50)
+rotation = 0.872665
+parent = NodePath("..")
+projectile_speed = 1200
+
+[node name="HealthBasedSpriteComponent" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("health_component")]
+rotation = -1.5708
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("3_dqntl")
+animation = &"blue"
+script = ExtResource("4_h3rj3")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://dicrof58losyh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-9, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_c3vuw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(123, 0)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_v4325")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_ibwqh")
+max_health = 100
+health = 100
+metadata/_custom_type_script = "uid://diciamkrxbr8n"
+
+[node name="ShipMovementComponent" type="Node" parent="." node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+script = ExtResource("6_wk1da")
+character = NodePath("..")
+ship_length = 100.0
+metadata/_custom_type_script = "uid://dgkclkobpug1q"
+
+[node name="SinkDownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RamArea" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_fp43l")]
+parent = NodePath("..")
+damage = 3
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
+position = Vector2(52, 0)
+shape = SubResource("SegmentShape2D_v4325")
+
+[node name="CannonTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="health_updated" from="HealthComponent" to="." method="_on_health_component_health_updated"]
+[connection signal="max_health_updated" from="HealthComponent" to="." method="_on_health_component_max_health_updated"]
+[connection signal="timeout" from="CannonTimer" to="Cannon1" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon2" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon3" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon4" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon5" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon6" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon7" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon8" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon9" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon10" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon11" method="fire"]

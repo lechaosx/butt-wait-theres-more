@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cdcbv68l7mevp"]
 
-[ext_resource type="Script" uid="uid://cdg0y5y5rjgjk" path="res://friendly_ship.gd" id="1_roj7t"]
-[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_400tc"]
+[ext_resource type="Script" uid="uid://cdg0y5y5rjgjk" path="res://ships/friendly_ship.gd" id="1_roj7t"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://ships/assets/ship_frames.tres" id="2_400tc"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="4_go85f"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://damage_area.tscn" id="5_acmpf"]
 [ext_resource type="PackedScene" uid="uid://cqlgeb648geqt" path="res://cannon.tscn" id="5_soahv"]

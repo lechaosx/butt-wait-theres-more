@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cmjl4wnghbtk2"]
 
-[ext_resource type="Script" uid="uid://bbgif0ccyf6ss" path="res://small_boss_ship.gd" id="1_5c4ga"]
-[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_5thip"]
+[ext_resource type="Script" uid="uid://bbgif0ccyf6ss" path="res://ships/small_boss_ship.gd" id="1_5c4ga"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://ships/assets/ship_frames.tres" id="2_5thip"]
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://health_based_sprite_component.gd" id="3_ksunq"]
 [ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="4_i1h75"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="5_qt7qa"]
@@ -82,6 +82,7 @@ one_shot = true
 
 [node name="RamArea" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_amy2b")]
 parent = NodePath("..")
+damage = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RamArea"]
 position = Vector2(52, 0)
@@ -95,6 +96,6 @@ autostart = true
 [connection signal="max_health_updated" from="HealthComponent" to="." method="_on_health_component_max_health_updated"]
 [connection signal="timeout" from="CannonTimer" to="Cannon1" method="fire"]
 [connection signal="timeout" from="CannonTimer" to="Cannon2" method="fire"]
-[connection signal="timeout" from="CannonTimer" to="Cannon4" method="fire"]
 [connection signal="timeout" from="CannonTimer" to="Cannon3" method="fire"]
+[connection signal="timeout" from="CannonTimer" to="Cannon4" method="fire"]
 [connection signal="timeout" from="CannonTimer" to="Cannon5" method="fire"]

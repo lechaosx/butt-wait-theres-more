@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://xyb6o5gqthi2"]
 
-[ext_resource type="Script" uid="uid://brrk43wy7e488" path="res://player_ship.gd" id="1_vat7b"]
-[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_lxoi7"]
+[ext_resource type="Script" uid="uid://brrk43wy7e488" path="res://ships/player_ship.gd" id="1_vat7b"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://ships/assets/ship_frames.tres" id="2_lxoi7"]
 [ext_resource type="PackedScene" uid="uid://cfivlbe17p27t" path="res://auto_aim_cannon_controller.tscn" id="4_lqyru"]
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://health_based_sprite_component.gd" id="4_lv0p8"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="6_vc7ef"]

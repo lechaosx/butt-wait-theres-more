@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://owe87w7hmhqf"]
 
-[ext_resource type="Script" uid="uid://bhwc0xck2c1r0" path="res://enemy_ship.gd" id="1_4cq66"]
+[ext_resource type="Script" uid="uid://bhwc0xck2c1r0" path="res://ships/enemy_ship.gd" id="1_4cq66"]
 [ext_resource type="Script" uid="uid://dicrof58losyh" path="res://health_based_sprite_component.gd" id="1_4s8is"]
-[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://assets/Ships/ship_frames.tres" id="2_v4325"]
+[ext_resource type="SpriteFrames" uid="uid://ch4im1rilc4hk" path="res://ships/assets/ship_frames.tres" id="2_v4325"]
 [ext_resource type="Script" uid="uid://diciamkrxbr8n" path="res://hitpoints/health_component.gd" id="3_v4325"]
 [ext_resource type="Script" uid="uid://dgkclkobpug1q" path="res://ship_movement_component.gd" id="4_qnc0x"]
 [ext_resource type="PackedScene" uid="uid://llttm3t64occ" path="res://damage_area.tscn" id="6_5iamw"]

@@ -70,7 +70,7 @@ func _on_side_cannons_leveled_up() -> void:
 	%PlayerShip.side_cannon_pairs += 1
 
 func _on_friendly_ships_leveled_up() -> void:
-	var ship := preload("res://friendly_ship.tscn").instantiate()
+	var ship := preload("res://ships/friendly_ship.tscn").instantiate()
 	
 	ship.parent = %PlayerShip
 	ship.world = self
