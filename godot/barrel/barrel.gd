@@ -13,6 +13,9 @@
 	get: return $HealthComponent.health
 	
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+		
 	$Sprite2D.scale = Vector2(0, 0)
 
 func _process(_delta: float) -> void:

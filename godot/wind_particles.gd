@@ -20,8 +20,6 @@ var speed_delta: float = 0.1
 var rotation_delta: float = 0.05
 
 func _ready() -> void:
-	%Wind.wind_changed.connect(set_wind)
-	
 	for i in range(total_count):
 		var particle := preload("res://wind_particle.tscn").instantiate()
 		add_child(particle)

@@ -90,15 +90,28 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: Array[String] = []
 	if not world: warnings.append("World is not set!")
 	return warnings
+	
+# I made this formula up. It should soften turns when the analog stick is less than PI / 8 radians from the current sthip direction
+static func _soft_turn_direction(ship_direction: Vector2, desired_direction: Vector2) -> float:
+	return sin(clamp(ship_direction.angle_to(desired_direction), -PI / 8, PI / 8) * 4)
 
 func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 		
 	if %HealthComponent.health > 0:
-		%ShipMovementComponent.acceleration_intent = Input.get_action_strength("ui_up")
-		%ShipMovementComponent.brake_intent = Input.get_action_strength("ui_down")
-		%ShipMovementComponent.steer_intent = Input.get_axis("ui_left", "ui_right")
+		var keyboard_acceleration := Input.get_action_strength("accelerate")
+		var keyboard_steer := Input.get_axis("steer_left", "steer_right")
+		
+		var sail_intent := Input.get_vector("sail_left", "sail_right", "sail_up", "sail_down")
+		
+		var analog_acceleration := sail_intent.length()
+		var	analog_steer = _soft_turn_direction(global_transform.x, sail_intent) if sail_intent != Vector2.ZERO else 0.0
+		
+		%ShipMovementComponent.acceleration_intent = clamp(analog_acceleration + keyboard_acceleration, 0.0, 1.0)
+		%ShipMovementComponent.brake_intent = 0.0
+		%ShipMovementComponent.steer_intent = clamp(analog_steer + keyboard_steer, -1.0, 1.0)
+		
 	else:
 		%ShipMovementComponent.acceleration_intent = 0.0
 		%ShipMovementComponent.brake_intent = 0.0
