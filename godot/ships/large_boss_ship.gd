@@ -52,7 +52,7 @@ func _physics_process(_delta: float) -> void:
 func _on_health_component_health_updated() -> void:
 	if $HealthComponent.health <= 0:
 		$CannonTimer.stop()
-		remove_child($RamArea)
+		$RamArea.queue_free()
 		
 		remove_from_group("enemies")
 		

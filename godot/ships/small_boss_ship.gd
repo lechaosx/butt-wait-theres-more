@@ -47,6 +47,8 @@ func _on_health_component_health_updated() -> void:
 	if $HealthComponent.health <= 0:
 		remove_from_group("enemies")
 		
+		$RamArea.queue_free()
+
 		$SinkDownTimer.start()
 		
 		await $SinkDownTimer.timeout
