@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://v7qt6jjjmhhh" path="res://upgrades/steering.tres" id="7_mlv6i"]
 
 [node name="Main" type="Node"]
+process_mode = 3
 script = ExtResource("1_5q4o7")
 hitpoints = ExtResource("5_srxbw")
 acceleration = ExtResource("3_uewes")
@@ -62,6 +63,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 
 [node name="PlayButton" type="Button" parent="MainMenu/MarginContainer/Shop"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8

@@ -106,7 +106,7 @@ func _physics_process(_delta: float) -> void:
 		var sail_intent := Input.get_vector("sail_left", "sail_right", "sail_up", "sail_down")
 		
 		var analog_acceleration := sail_intent.length()
-		var	analog_steer = _soft_turn_direction(global_transform.x, sail_intent) if sail_intent != Vector2.ZERO else 0.0
+		var	analog_steer := _soft_turn_direction(global_transform.x, sail_intent) if sail_intent != Vector2.ZERO else 0.0
 		
 		%ShipMovementComponent.acceleration_intent = clamp(analog_acceleration + keyboard_acceleration, 0.0, 1.0)
 		%ShipMovementComponent.brake_intent = 0.0

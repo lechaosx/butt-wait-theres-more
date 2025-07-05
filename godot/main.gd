@@ -34,7 +34,37 @@ func try_load_game() -> void:
 	steering.level = data["steering"]
 	ram_damage.level = data["ram_damage"]
 	cannon_damage.level = data["cannon_damage"]
+
+func _get_first_focusable_control(node: Node) -> Control:
+	if node is CanvasItem and not node.visible:
+		return null
+		
+	if node is Control and node.focus_mode != Control.FOCUS_NONE:
+		return node as Control
+		
+	for child in node.get_children():
+		var result := _get_first_focusable_control(child)
+		if result:
+			return result
+			
+	return null
 	
+func _is_ui_navigation_action(event: InputEvent) -> bool:
+	return event.is_action_pressed("ui_up") \
+		or event.is_action_pressed("ui_down") \
+		or event.is_action_pressed("ui_left") \
+		or event.is_action_pressed("ui_right") \
+		or event.is_action_pressed("ui_focus_next") \
+		or event.is_action_pressed("ui_focus_prev")
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if get_viewport().gui_get_focus_owner() == null and _is_ui_navigation_action(event):
+		# This is ugly af, feel free to refactor it
+		if $MainMenu.visible or get_tree().paused:
+			var first_control := _get_first_focusable_control(self)
+			if first_control:
+				first_control.grab_focus()
+			
 func _ready() -> void:
 	%Shop.upgrades = [hitpoints, acceleration, steering, ram_damage, cannon_damage]
 	

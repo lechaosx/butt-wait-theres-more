@@ -20,6 +20,7 @@
 [ext_resource type="Resource" uid="uid://bpm1fplv02c6f" path="res://abilities/info/barrels.tres" id="28_3yrw7"]
 
 [node name="Sea" type="Node"]
+process_mode = 1
 script = ExtResource("1_j5hem")
 
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("world") instance=ExtResource("2_f1b51")]
@@ -69,7 +70,7 @@ visible = false
 
 [node name="AbilityCards" parent="HUD" instance=ExtResource("19_7gfbx")]
 unique_name_in_owner = true
-process_mode = 3
+process_mode = 2
 visible = false
 
 [node name="CargoCounter" parent="HUD" instance=ExtResource("20_hsywv")]
@@ -113,8 +114,8 @@ metadata/_custom_type_script = "uid://sl7mlnyefejt"
 [connection signal="health_updated" from="PlayerShip" to="." method="_on_player_ship_health_updated"]
 [connection signal="max_health_updated" from="PlayerShip" to="." method="_on_player_ship_max_health_updated"]
 [connection signal="wind_changed" from="Wind" to="WindParticles" method="set_wind"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="leveled_up" from="Abilities/Cooling" to="." method="_on_cooling_leveled_up"]
