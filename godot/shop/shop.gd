@@ -11,12 +11,11 @@ var upgrades: Array:
 		
 		for upgrade: Upgrade in upgrades:
 			var button := preload("res://properties/upgrade_button.tscn").instantiate()
-			button.balance = balance
+			button.disabled = balance < upgrade.price()
 			button.upgrade = upgrade
 			button.button_pressed.connect(func() -> void:
-				if balance >= upgrade.price():
-					balance -= upgrade.price()
-					upgrade.level += 1
+				balance -= upgrade.price()
+				upgrade.level += 1
 			)
 			%UpgradeButtons.add_child(button)
 
@@ -28,5 +27,5 @@ var balance: int = 0:
 
 		%CurrentBalanceLabel.text = str(balance)
 		for button in %UpgradeButtons.get_children():
-			button.balance = balance
+			button.disabled = balance < button.upgrade.price()
 			
