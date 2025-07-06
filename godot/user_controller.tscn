@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhtme56c8375r"]
+
+[ext_resource type="Script" uid="uid://b3obdtvtfc2hg" path="res://user_controller.gd" id="1_r76cy"]
+
+[node name="UserController" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_r76cy")

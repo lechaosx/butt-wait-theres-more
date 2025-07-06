@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cmqfu6lt4wicv"]
+[gd_scene load_steps=20 format=3 uid="uid://cmqfu6lt4wicv"]
 
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_j5hem"]
 [ext_resource type="PackedScene" uid="uid://xyb6o5gqthi2" path="res://ships/player_ship.tscn" id="2_f1b51"]
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="3_6v482"]
+[ext_resource type="PackedScene" uid="uid://bhtme56c8375r" path="res://user_controller.tscn" id="13_vmxnl"]
 [ext_resource type="Script" uid="uid://colodbh4ytdb1" path="res://wind_particles.gd" id="14_kb7iw"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="15_clrxa"]
 [ext_resource type="PackedScene" uid="uid://uws8en35sklf" path="res://spawners/enemy_spawner/enemy_spawner.tscn" id="16_t5xib"]
@@ -81,6 +82,8 @@ unique_name_in_owner = true
 
 [node name="PlayerHitpoints" parent="HUD" instance=ExtResource("22_fi52g")]
 unique_name_in_owner = true
+
+[node name="UserController" parent="HUD" instance=ExtResource("13_vmxnl")]
 
 [node name="Abilities" type="Node" parent="."]
 unique_name_in_owner = true
