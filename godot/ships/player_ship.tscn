@@ -28,7 +28,6 @@ script = ExtResource("1_vat7b")
 max_health = 5
 health = 5
 power = 100
-brakes = 100
 steering = 25
 ramming_damage = 1
 projectile_damage = 1

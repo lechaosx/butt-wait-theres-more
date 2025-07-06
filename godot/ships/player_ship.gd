@@ -30,12 +30,6 @@ signal cargo_updated
 		%ShipMovementComponent.power = value
 	get: return %ShipMovementComponent.power
 
-@export var brakes: int:
-	set(value):
-		if not is_node_ready(): await ready
-		%ShipMovementComponent.brakes = value
-	get: return %ShipMovementComponent.brakes
-
 @export var steering: int:
 	set(value):
 		if not is_node_ready(): await ready
@@ -109,12 +103,10 @@ func _physics_process(_delta: float) -> void:
 		var	analog_steer := _soft_turn_direction(global_transform.x, sail_intent) if sail_intent != Vector2.ZERO else 0.0
 		
 		%ShipMovementComponent.acceleration_intent = clamp(analog_acceleration + keyboard_acceleration, 0.0, 1.0)
-		%ShipMovementComponent.brake_intent = 0.0
 		%ShipMovementComponent.steer_intent = clamp(analog_steer + keyboard_steer, -1.0, 1.0)
 		
 	else:
 		%ShipMovementComponent.acceleration_intent = 0.0
-		%ShipMovementComponent.brake_intent = 0.0
 		%ShipMovementComponent.steer_intent = 0.0
 
 func _on_health_component_max_health_updated() -> void:

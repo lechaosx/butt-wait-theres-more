@@ -7,11 +7,9 @@ class_name ShipMovementComponent extends Node
 @export var friction: float = 30
 @export var drag: float = 0.1
 @export var traction: float = 0.8
-@export var brakes: float = 100
 @export var ship_length: float = 50
 
 var acceleration_intent: float = 0.0
-var brake_intent: float = 0.0
 var steer_intent: float = 0.0
 
 func _physics_process(delta: float) -> void:
@@ -19,7 +17,6 @@ func _physics_process(delta: float) -> void:
 
 	var acceleration := direction * power * acceleration_intent
 
-	acceleration -= character.velocity * brakes * brake_intent * delta
 	acceleration -= character.velocity * friction * delta
 	acceleration -= character.velocity * character.velocity.length() * drag * delta
 

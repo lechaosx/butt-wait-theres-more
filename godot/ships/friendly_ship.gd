@@ -51,11 +51,9 @@ func _physics_process(_delta: float) -> void:
 	
 	if just_rammed or parent_close:
 		%ShipMovementComponent.acceleration_intent = 0
-		%ShipMovementComponent.brake_intent = 0
 		%ShipMovementComponent.steer_intent = 0
 	else:
 		%ShipMovementComponent.acceleration_intent = 1
-		%ShipMovementComponent.brake_intent = 0
 		%ShipMovementComponent.steer_intent = sign(Vector2.RIGHT.rotated(global_rotation).cross(global_position.direction_to(target.global_position)))
 
 func _on_ram_area_damaged(_body: Node2D) -> void:

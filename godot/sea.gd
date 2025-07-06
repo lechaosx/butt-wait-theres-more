@@ -13,7 +13,6 @@ signal game_ended(score: int)
 	set(value):
 		acceleration = value
 		if not is_node_ready(): await ready
-		$PlayerShip.brakes = acceleration
 		$PlayerShip.power = acceleration
 
 @export var steering: int:
