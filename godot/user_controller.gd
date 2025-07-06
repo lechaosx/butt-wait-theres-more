@@ -10,7 +10,7 @@ signal direction_changed(direction: Vector2)
 var direction := Vector2.ZERO
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch or event is InputEventMouseButton:
+	if event is InputEventMouseButton:
 		visible = event.pressed
 		
 		if event.pressed:
@@ -21,7 +21,7 @@ func _input(event: InputEvent) -> void:
 			
 		direction_changed.emit(direction)
 
-	if event is InputEventScreenDrag or event is InputEventMouseMotion: 
+	if event is InputEventMouseMotion: 
 		if visible:
 			direction = (event.global_position - global_position) / joystick_radius
 			if direction.length() > 1.0:
