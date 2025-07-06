@@ -113,3 +113,19 @@ func _on_player_ship_cargo_updated() -> void:
 		
 			%CargoCounter.cargo_cap += 1
 			%PlayerShip.cargo -= %CargoCounter.cargo_cap - 1
+			
+# I made this formula up. It should soften turns when the analog stick is less than PI / 8 radians from the current sthip direction
+static func _soft_turn_direction(ship_direction: Vector2, desired_direction: Vector2) -> float:
+	return sin(clamp(ship_direction.angle_to(desired_direction), -PI / 8, PI / 8) * 4)
+
+func _physics_process(_delta: float) -> void:
+	var keyboard_acceleration := Input.get_action_strength("accelerate")
+	var keyboard_steer := Input.get_axis("steer_left", "steer_right")
+	
+	var sail_intent: Vector2 = Input.get_vector("sail_left", "sail_right", "sail_up", "sail_down") + %VirtualJoystick.direction
+	
+	var	analog_steer := _soft_turn_direction(%PlayerShip.global_transform.x, sail_intent) if sail_intent != Vector2.ZERO else 0.0
+	
+	%PlayerShip.acceleration_intent = clamp(sail_intent.length() + keyboard_acceleration, 0.0, 1.0)
+	%PlayerShip.steer_intent = clamp(analog_steer + keyboard_steer, -1.0, 1.0)
+	

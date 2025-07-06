@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://jc77jnbbkuvs" path="res://sea.gd" id="1_j5hem"]
 [ext_resource type="PackedScene" uid="uid://xyb6o5gqthi2" path="res://ships/player_ship.tscn" id="2_f1b51"]
 [ext_resource type="Script" uid="uid://d0pemlxry8a1c" path="res://player_camera.gd" id="3_6v482"]
-[ext_resource type="PackedScene" uid="uid://bhtme56c8375r" path="res://user_controller.tscn" id="13_vmxnl"]
+[ext_resource type="PackedScene" uid="uid://bhtme56c8375r" path="res://virtual_joystick.tscn" id="13_vmxnl"]
 [ext_resource type="Script" uid="uid://colodbh4ytdb1" path="res://wind_particles.gd" id="14_kb7iw"]
 [ext_resource type="Script" uid="uid://c5taoms3yt1wi" path="res://wind.gd" id="15_clrxa"]
 [ext_resource type="PackedScene" uid="uid://uws8en35sklf" path="res://spawners/enemy_spawner/enemy_spawner.tscn" id="16_t5xib"]
@@ -83,7 +83,8 @@ unique_name_in_owner = true
 [node name="PlayerHitpoints" parent="HUD" instance=ExtResource("22_fi52g")]
 unique_name_in_owner = true
 
-[node name="UserController" parent="HUD" instance=ExtResource("13_vmxnl")]
+[node name="VirtualJoystick" parent="HUD" instance=ExtResource("13_vmxnl")]
+unique_name_in_owner = true
 
 [node name="Abilities" type="Node" parent="."]
 unique_name_in_owner = true
@@ -117,8 +118,8 @@ metadata/_custom_type_script = "uid://sl7mlnyefejt"
 [connection signal="health_updated" from="PlayerShip" to="." method="_on_player_ship_health_updated"]
 [connection signal="max_health_updated" from="PlayerShip" to="." method="_on_player_ship_max_health_updated"]
 [connection signal="wind_changed" from="Wind" to="WindParticles" method="set_wind"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="leveled_up" from="Abilities/Cooling" to="." method="_on_cooling_leveled_up"]

@@ -5,8 +5,6 @@ extends Control
 @export var base_color := Color(1, 1, 1, 0.2)
 @export var knob_color := Color(1, 1, 1, 0.6)
 
-signal direction_changed(direction: Vector2)
-
 var direction := Vector2.ZERO
 
 func _input(event: InputEvent) -> void:
@@ -19,16 +17,18 @@ func _input(event: InputEvent) -> void:
 		elif not event.pressed:
 			direction = Vector2.ZERO
 			
-		direction_changed.emit(direction)
-
-	if event is InputEventMouseMotion: 
-		if visible:
-			direction = (event.global_position - global_position) / joystick_radius
-			if direction.length() > 1.0:
-				direction = direction.normalized()
-				
-			queue_redraw()
+	if event is InputEventMouseMotion and visible: 
+		direction = (event.global_position - global_position) / joystick_radius
+		if direction.length() > 1.0:
+			direction = direction.normalized()
+			
+		queue_redraw()
 			
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, joystick_radius, base_color)
 	draw_circle(direction * joystick_radius, knob_radius, knob_color)
+	
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PAUSED:
+		direction = Vector2.ZERO
+		visible = false
