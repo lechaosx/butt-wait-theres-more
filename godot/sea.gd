@@ -132,3 +132,6 @@ func _physics_process(_delta: float) -> void:
 	%PlayerShip.acceleration_intent = clamp(sail_intent.length() + keyboard_acceleration, 0.0, 1.0)
 	%PlayerShip.steer_intent = clamp(analog_steer + keyboard_steer, -1.0, 1.0)
 	
+func _ready() -> void:
+	%PlayerHitpoints.set_hitpoints(%PlayerShip.health)
+	%PlayerHitpoints.set_max_hitpoints(%PlayerShip.max_health)

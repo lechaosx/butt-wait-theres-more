@@ -5,19 +5,22 @@ signal health_updated
 
 @export var max_health: int = 5:
 	set(value):
-		max_health = value
-		max_health_updated.emit()
-		health = clamp(health, 0, max_health)
+		if value != max_health:
+			max_health = value
+			max_health_updated.emit()
+			health = clamp(health, 0, max_health)
 
 @export var health: int = 5:
 	set(value):
 		value = clamp(value, 0, max_health)
-		var damage := health - value
-		if damage > 0:
-			_spawn_popup(damage)
+		if value != health:
 			
-		health = value
-		health_updated.emit()
+			var damage := health - value
+			if damage > 0:
+				_spawn_popup(damage)
+				
+			health = value
+			health_updated.emit()
 
 func _spawn_popup(value: int) -> void:
 	var popup := preload("res://hitpoints/damage_popup.tscn").instantiate()
