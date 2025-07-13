@@ -1,4 +1,4 @@
-extends ProgressBar
+@tool extends ProgressBar
 
 func set_hitpoints(hitpoints: int) -> void:
 	value = hitpoints

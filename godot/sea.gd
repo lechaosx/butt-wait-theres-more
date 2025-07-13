@@ -1,4 +1,4 @@
-class_name Sea extends Node
+@tool class_name Sea extends Node
 
 signal game_ended(score: int)
 
@@ -119,6 +119,9 @@ static func _soft_turn_direction(ship_direction: Vector2, desired_direction: Vec
 	return sin(clamp(ship_direction.angle_to(desired_direction), -PI / 8, PI / 8) * 4)
 
 func _physics_process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return;
+		
 	var keyboard_acceleration := Input.get_action_strength("accelerate")
 	var keyboard_steer := Input.get_axis("steer_left", "steer_right")
 	
