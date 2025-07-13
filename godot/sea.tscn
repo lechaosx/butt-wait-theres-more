@@ -82,6 +82,8 @@ unique_name_in_owner = true
 
 [node name="PlayerHitpoints" parent="HUD" instance=ExtResource("22_fi52g")]
 unique_name_in_owner = true
+max_value = 5.0
+value = 5.0
 
 [node name="VirtualJoystick" parent="HUD" instance=ExtResource("13_vmxnl")]
 unique_name_in_owner = true
@@ -118,8 +120,8 @@ metadata/_custom_type_script = "uid://sl7mlnyefejt"
 [connection signal="health_updated" from="PlayerShip" to="." method="_on_player_ship_health_updated"]
 [connection signal="max_health_updated" from="PlayerShip" to="." method="_on_player_ship_max_health_updated"]
 [connection signal="wind_changed" from="Wind" to="WindParticles" method="set_wind"]
-[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="schedule_next_time_change"]
+[connection signal="timeout" from="Wind/WindChangeTimer" to="Wind" method="randomize_wind"]
 [connection signal="timeout" from="BarrelSpawnTimer" to="." method="_on_barrel_spawn_timer_timeout"]
 [connection signal="timeout" from="ManOverboardSpawnTimer" to="." method="_on_man_overboard_spawn_timer_timeout"]
 [connection signal="leveled_up" from="Abilities/Cooling" to="." method="_on_cooling_leveled_up"]
